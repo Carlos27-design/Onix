@@ -1,5 +1,5 @@
 <?php
-class TipoVehiculo
+class Vehiculo
 {
     public $id;
     public $patente;

@@ -3,7 +3,7 @@ class Ruta
 {
     public $id;
     public $direccionInicio;
-    public $direcionFinal;
+    public $direccionFinal;
     public $distancia;
     public $fechaInicio;
     public $fechaFin;

@@ -1,16 +1,24 @@
 <?php
 session_start();
 
-include_once "DB/Modelo.php";
-include_once "DB/ModeloDB.php";
+include_once "DB/Ruta.php";
+include_once "DB/RutaDB.php";
 
-$modelo = new Modelo();
-$modeloDB = new ModeloDB();
+$ruta = new Ruta();
+$rutaDB = new RutaDB();
 
-$modelo->id = 1;
-$modelo->nombre = "captiva";
-$modelo->marca_id = 1;
-print_r($modeloDB->listar());
+$ruta->id = 0;
+$ruta->direccionInicio = "-40.915741, -73.155399";
+$ruta->direccionFinal = "-40.915830, -73.156926";
+$ruta->distancia = "500.7";
+$ruta->fechaInicio = "2020-5-5 10:00";
+$ruta->fechaFin = "2020-5-6 20:00";
+
+$rutaDB->crear($ruta);
+
+
+
+
 
 ?>
 <!DOCTYPE html>
