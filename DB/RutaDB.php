@@ -1,0 +1,103 @@
+<?php
+
+include_once 'Conexion.php';
+include_once 'Ruta.php';
+
+class RutaDB extends Conexion
+{
+    function crear($ruta)
+    {
+        $this->conectar();
+
+        $sql = "INSERT INTO ruta (id, direccionInicio, direccionFinal, distancia, fechaInicio, fechaFin) 
+                VALUES(?,?,?,?,?,?)";
+        
+        $stmt = $this->miConexion->prepare($sql);
+        $stmt->bind_param("issddss", $ruta->id, $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFinal);
+        $ok=$stmt->execute();
+        $this->desconectar();
+
+        return $ok;
+    }
+
+    function listar()
+    {
+        $arreglo = array();
+        $this->conectar();
+
+        $sql="SELECT * from ruta";
+        $resultados = $this->miConexion->query($sql);
+        while($fila = $resultado->fetch_assoc())
+        {
+            $ruta = new Ruta();
+            $ruta->id = $fila['id'];
+            $ruta->direccionInicio = $fila['direccionInicio'];
+            $ruta->direcionFinal = $fila['direccionFinal'];
+            $ruta->distancia = $fila['distancia'];
+            $ruta->fechaInicio = $fila['fechaInicio'];
+            $ruta->fechaFin = $fila['fechaFin'];
+
+            $arreglo[] = $ruta;
+        } 
+
+        $this->desconectar();
+
+        return $arreglo;
+    }
+
+    function Buscar($id)
+    {
+        $devolver = null;
+        $this->conectar();
+
+        $sql = "SELECT * FROM ruta where id = ?";
+        $stmt = $this->miConexion->prepare(sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $resultados = $stmt->get_result();
+        while($fila=$resultados->fetch_assoc())
+        {
+            $ruta = new Ruta();
+            $ruta->id = $fila['id'];
+            $ruta->direccionInicio = $fila['direccionInicio'];
+            $ruta->direcionFinal = $fila['direccionFinal'];
+            $ruta->distancia = $fila['distancia'];
+            $ruta->fechaInicio = $fila['fechaInicio'];
+            $ruta->fechaFin = $fila['fechaFin'];
+            $devolver = $ruta;
+
+        }
+        $this->desconectar();
+
+        return $devolver;
+    }
+
+    function Editar($ruta)
+    {
+        $this->conectar();
+        $sql="UPDATE ruta set 
+        direccionInicio=?, direccionFinal=?, fechaInicio=?, fechaFin=?";
+        $stmt = $this->miConexion->prepare($sql);
+        $stmt->bind_param("ssss", $ruta->direccionInicio, $ruta->direccionFinal, $ruta->fechaInicio, $ruta->fechaFin);
+        $ok=$stmt->execute();
+        $this->desconectar();
+        
+
+        return $ok;
+    }
+
+    function Eliminar($id)
+    {
+        $this->conectar();
+        $sql = "DELETE from ruta where id = ?";
+        $stmt = $this->miConexion->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $ok = $stmt->execute();
+        $this->desconectar();
+
+        return $ok;
+    }
+
+    
+
+}
