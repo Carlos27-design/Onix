@@ -39,7 +39,7 @@
         <![endif]-->
 </head>
 
-<body class="single-page">
+<body class="home-two">
 
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -54,7 +54,7 @@
     <a href="#home" class="scrolltotop"><i class="fa fa-long-arrow-up"></i></a>
 
     <!--START TOP AREA-->
-    <header class="top-area single-page" id="home">
+    <header class="top-area" id="home">
         <div class="top-area-bg" data-stellar-background-ratio="0.6"></div>
         <div class="header-top-area">
             <!--MAINMENU AREA-->
@@ -138,17 +138,13 @@
             <!--END MAINMENU AREA END-->
         </div>
         <div class="welcome-area">
-            <div class="area-bg"></div>
+            <div class="welcome-area-bg"></div>
             <div class="container">
                 <div class="row flex-v-center">
-                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <div class="col-md-10 col-md-offset-1">
                         <div class="welcome-text text-center">
-                            <h2>Service</h2>
-                            <ul class="page-location">
-                                <li><a href="#">Home</a></li>
-                                <li>/</li>
-                                <li><a href="#">Service</a></li>
-                            </ul>
+                            <h1>WE MAKE STRONGEST SERVICE ABOVE THE WORLD</h1>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                         </div>
                     </div>
                 </div>
@@ -157,8 +153,113 @@
     </header>
     <!--END TOP AREA-->
 
+    <!--BLOG AREA-->
+    <section class="blog-area gray-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                    <div class="single-blog wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="blog-image">
+                            <img src="img/blog/blog_1.jpg" alt="">
+                        </div>
+                        <div class="blog-details text-center">
+                            <div class="blog-meta"><a href="#"><i class="fa fa-ship"></i></a></div>
+                            <h3><a href="single-blog.html">Ocean Freight</a></h3>
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout..</p>
+                            <a href="single-blog.html" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                    <div class="single-blog wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="blog-image">
+                            <img src="img/blog/blog_2.jpg" alt="">
+                        </div>
+                        <div class="blog-details text-center">
+                            <div class="blog-meta"><a href="#"><i class="fa fa-plane"></i></a></div>
+                            <h3><a href="single-blog.html">Air Freight</a></h3>
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout..</p>
+                            <a href="single-blog.html" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                    <div class="single-blog wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="blog-image">
+                            <img src="img/blog/blog_3.jpg" alt="">
+                        </div>
+                        <div class="blog-details text-center">
+                            <div class="blog-meta"><a href="#"><i class="fa fa-truck"></i></a></div>
+                            <h3><a href="single-blog.html">Street Freight</a></h3>
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout..</p>
+                            <a href="single-blog.html" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--BLOG AREA END-->
+
+    <!--ABOUT AREA-->
+    <section class="about-area gray-bg section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                    <div class="quote-form-area wow fadeIn">
+                        <h3>Get A Quote</h3>
+                        <form class="quote-form" action="#">
+                            <p class="width-full">
+                                <input type="text" name="name" id="name" placeholder="Your Name">
+                            </p>
+                            <p class="width-half">
+                                <input type="email" name="email" id="email" placeholder="Email">
+                                <input class="pull-right" type="phone" name="phone" id="phone" placeholder="Phone">
+                            </p>
+                            <p class="width-half">
+                                <input type="text" name="type" id="type" placeholder="Type">
+                                <input class="pull-right" type="text" name="quantity" id="quantity" placeholder="Quantity">
+                            </p>
+                            <p class="width-full">
+                                <input type="text" name="destination" id="destination" placeholder="Destination">
+                            </p>
+                            <p>
+                                <textarea name="quote-message" id="quote-message" cols="30" rows="4" placeholder="Your Message..."></textarea>
+                            </p>
+                            <button type="submit">Send</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-7 col-lg-7 col-md-offset-1 col-lg-offset-1 col-sm-12 col-xs-12">
+                    <div class="about-content-area wow fadeIn">
+                        <div class="about-content">
+                            <h2>We have 25 years experience in this passion</h2>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,</p>
+                            <a href="#">read more <i class="fa fa-angle-right"></i></a>
+                        </div>
+                        <div class="about-count">
+                            <div class="single-about-count">
+                                <h4><i class="fa fa-suitcase"></i> 120</h4>
+                                <p>Project Done</p>
+                            </div>
+                            <div class="single-about-count">
+                                <h4><i class="fa fa-thumbs-o-up"></i> 100</h4>
+                                <p>Project Done</p>
+                            </div>
+                            <div class="single-about-count">
+                                <h4><i class="fa fa-users"></i> 30</h4>
+                                <p>Project Done</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--ABOUT AREA END-->
+
     <!--SERVICE AREA-->
-    <section class="service-area-two section-padding gray-bg">
+    <section class="service-area-two section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
@@ -229,31 +330,13 @@
     </section>
     <!--SERVICE AREA END-->
 
-    <!--PROMO AREA-->
-    <section class="promo-area">
-        <div class="promo-bottom-area section-padding">
-            <div class="promo-botton-area-bg" data-stellar-background-ratio="0.6"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 col-sm-12 col-xs-12 text-center">
-                        <div class="promo-bottom-content wow fadeIn">
-                            <h2>we provide international freight &amp; logistics service worldwidw</h2>
-                            <a href="#" class="read-more">Get a quote</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--PROMO AREA END-->
-
     <!--BLOG AREA-->
-    <section class="blog-area gray-bg section-padding">
+    <section class="blog-area blog-bottom gray-bg section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
                     <div class="area-title text-center wow fadeIn">
-                        <h2>Latest Blog</h2>
+                        <h2>Our Service</h2>
                         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, </p>
                     </div>
                 </div>
@@ -378,6 +461,49 @@
         </div>
     </section>
     <!--TESTMONIAL AREA END -->
+
+    <!--CLIENTS AREA-->
+    <section class="clients-area section-padding gray-bg wow fadeIn">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <div class="client-list">
+                        <div class="single-client">
+                            <img src="img/client/1.jpg" alt="">
+                        </div>
+                        <div class="single-client">
+                            <img src="img/client/2.jpg" alt="">
+                        </div>
+                        <div class="single-client">
+                            <img src="img/client/3.jpg" alt="">
+                        </div>
+                        <div class="single-client">
+                            <img src="img/client/4.jpg" alt="">
+                        </div>
+                        <div class="single-client">
+                            <img src="img/client/5.jpg" alt="">
+                        </div>
+                        <div class="single-client">
+                            <img src="img/client/1.jpg" alt="">
+                        </div>
+                        <div class="single-client">
+                            <img src="img/client/2.jpg" alt="">
+                        </div>
+                        <div class="single-client">
+                            <img src="img/client/3.jpg" alt="">
+                        </div>
+                        <div class="single-client">
+                            <img src="img/client/4.jpg" alt="">
+                        </div>
+                        <div class="single-client">
+                            <img src="img/client/5.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--CLIENTS AREA END-->
 
     <!--FOOER AREA-->
     <div class="footer-area dark-bg">
