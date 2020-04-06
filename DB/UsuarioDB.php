@@ -103,4 +103,27 @@ class UsuarioDB extends Conexion
         $this->desconectar();
         return $ok;
     }
+    function login($rut, $password)
+    {
+
+        $devolver = null;
+        $this->conectar();
+
+        $sql = "SELECT * from usuario where rut = ? AND contrasena = ?";
+        $stmt = $this->miConexion->prepare($sql);
+        $stmt->bind_param("ss", $rut, $password);
+        $stmt->execute();
+        $resultados = $stmt->get_result();
+        while ($fila = $resultados->fetch_assoc()) {
+            $usuario = new Usuario();
+            $usuario->rut = $fila['rut'];
+            $usuario->contrasena = $fila['contrasena'];
+
+            $devolver = $usuario;
+        }
+
+        $this->desconectar();
+
+        return $devolver;
+    }
 }
