@@ -1,28 +1,16 @@
 <?php
 session_start();
+include_once 'BD/Usuario.php';
+include_once 'BD/UsuarioDB.php';
 
-include_once 'DB/Usuario.php';
-include_once 'DB/UsuarioDB.php';
 
-
-$ok = true;
-$message = null;
-
-$usuario = new Usuario();
-$usuarioDB = new UsuarioDB();
-
-$txtRut = null;
-$txtNombre = null;
-$txtApellido = null;
-$txtContrasena = null;
-$txtCorreo = null;
-$txtNroTelefonico = null;
-
+$message = "";
 
 if (
-    isset($_POST['txtRut']) && isset($_POST['txtNombre']) && isset($_POST['txtApellido'])
-    && isset($_POST['txtContrasena']) && isset($_POST['txtCorreo'])
-    && isset($_POST['txtNroTelefonico'])
+    isset($_POST['txtRut']) && isset($_POST['txtNombre'])
+    && isset($_POST['txtApellido']) && isset($_POST['txtContrasena'])
+    && isset($_POST['txtCorreo']) && isset($_POST['txtNroTelefonico'])
+    && isset($_GET['id'])
 ) {
     $txtRut =  $_POST['txtRut'];
     $txtNombre = $_POST['txtNombre'];
@@ -35,7 +23,7 @@ if (
 
     if (($txtRut && $txtNombre && $txtApellido && $txtContrasena &&
         $txtCorreo && $txtNroTelefonico) != "") {
-        $usuario->id = 0;
+        $usuario->id = $_GET['id'];
         $usuario->rut = $txtRut;
         $usuario->nombre = $txtNombre;
         $usuario->apellido = $txtApellido;
@@ -44,7 +32,7 @@ if (
         $usuario->nroTelefonico = $txtNroTelefonico;
         $usuario->tipoUsuario_id = 1;
 
-        $ok = $usuarioDB->crear($usuario);
+        $ok = $usuarioDB->editar($usuario);
     } else {
         $message = "Debe ingresar todos los datos";
         $ok = false;
@@ -54,14 +42,10 @@ if (
 
 if ($ok) {
     $_SESSION['message'] = '<div class="alert alert-success">
-  Usuario Registrado Correctamente
-  <a href="#">Bienvenido</a> 
-  </div>';
+  Usuariio Editado Correctamente <a href="#"></a> </div>';
 } else {
     $_SESSION['message'] = '<div class="alert alert-danger">
   ' . $message . '</div>';
 }
-echo $message;
-echo "<br>hola registro";
 
-// header("Location: index.php");
+// header("Location: EventoEditar.php?id=" . $id);
