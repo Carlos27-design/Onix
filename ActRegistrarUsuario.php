@@ -29,7 +29,7 @@ if (
     $txtApellido =  $_POST['txtApellido'];
     $txtContrasena =  $_POST['txtContrasena'];;
     $txtCorreo =  $_POST['txtCorreo'];;
-    $txtNroTelefonico =  $_POST['txtNroTelefonico'];;
+    $txtNroTelefonico =  $_POST['txtNroTelefonico'];
     $tipoUsuarioId = $_POST['tipoUsuarioId'];
 
 
