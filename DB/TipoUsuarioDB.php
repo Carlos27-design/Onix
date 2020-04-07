@@ -11,7 +11,7 @@ class TipoUsuarioDB extends Conexion
 
         $this->conectar();
 
-        $sql = "INSERT INTO tipousuario (id, nombre)
+        $sql = "INSERT INTO tipoUsuario (id, nombre)
                 VALUES (?,?)";
 
         $stmt = $this->miConexion->prepare($sql);
@@ -28,7 +28,7 @@ class TipoUsuarioDB extends Conexion
         $arreglo = array();
         $this->conectar();
 
-        $sql = "SELECT * from tipousuario";
+        $sql = "SELECT * from tipoUsuario";
         $resultados = $this->miConexion->query($sql);
         while ($fila = $resultados->fetch_assoc()) {
             $tipoUsuario = new TipoUsuario();
@@ -50,7 +50,7 @@ class TipoUsuarioDB extends Conexion
         $devolver = null;
         $this->conectar();
 
-        $sql = "SELECT * from tipousuario where id = ?";
+        $sql = "SELECT * from tipoUsuario where id = ?";
         $stmt = $this->miConexion->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -71,7 +71,7 @@ class TipoUsuarioDB extends Conexion
     function editar($tipoUsuario)
     {
         $this->conectar();
-        $sql = "UPDATE tipousuario set
+        $sql = "UPDATE tipoUsuario set
                 nombre = ? where id = ?";
         $stmt = $this->miConexion->prepare($sql);
         $stmt->bind_param("si", $tipoUsuario->nombre, $tipoUsuario->id);
@@ -85,7 +85,7 @@ class TipoUsuarioDB extends Conexion
     function eliminar($id)
     {
         $this->conectar();
-        $sql = "DELETE from tipousuario where id = ?";
+        $sql = "DELETE from tipoUsuario where id = ?";
         $stmt = $this->miConexion->prepare($sql);
         $stmt->bind_param("i", $id);
         $ok = $stmt->execute();
