@@ -1,3 +1,19 @@
+<?php
+
+include_once 'DB/Usuario.php';
+include_once 'DB/UsuarioDB.php';
+
+$usuarioDB = new UsuarioDB();
+$usuario = new Usuario();
+
+$idUsuario = 0;
+if (isset($_GET["id"])) {
+    $idUsuario = $_GET["id"];
+    $usuario = $usuarioDB->buscar($idUsuario);
+}
+
+?>
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -151,26 +167,42 @@
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
-                        <h3>Crear una cuenta nueva</h3>
-                        <form class="quote-form" action="ActRegistrarUsuario.php" method="post">
+                        <h3>Mis Datos</h3>
+                        <form class="quote-form" action="ActEditarUsuario.php?id=<?php echo $usuario->id; ?>" method="post">
                             <p class="width-full">
-                                <input type="text" name="txtRut" id="txtRut" placeholder="RUT" maxlength="20">
+                                <input type="text" name="txtRut" id="txtRut" placeholder="RUT" maxlength="20" value="<?php echo $usuario->rut; ?>" readonly>
                             </p>
-                            <p class="width-half">
-                                <input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45">
-                                <input class="pull-right" type="text" name="txtApellido" id="txtApellido" placeholder="Apellido" maxlength="45">
+                            <p class=" width-half">
+                                <input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $usuario->nombre; ?>">
+                                <input class=" pull-right" type="text" name="txtApellido" id="txtApellido" placeholder="Apellido" maxlength="45" value="<?php echo $usuario->apellido; ?>">
                             </p>
-                            <p class="width-full">
-                                <input type="email" name="txtCorreo" id="txtCorreo" placeholder="Email" maxlength="45">
+                            <p class=" width-full">
+                                <input type="email" name="txtCorreo" id="txtCorreo" placeholder="Email" maxlength="45" value="<?php echo $usuario->correo; ?>">
                             </p>
 
-                            <p class="width-half">
-                                <input type="number" name="txtNroTelefonico" id="txtNroTelefonico" placeholder="N° Telefono" maxlength="10">
-                                <input class="pull-right" type="password" name="txtContrasena" id="txtContrasena" placeholder="Contraseña" maxlength="20">
+                            <p class=" width-full">
+                                <input type="number" name="txtNroTelefonico" id="txtNroTelefonico" placeholder="N° Telefono" maxlength="15" value="<?php echo $usuario->nroTelefonico; ?>">
                             </p>
-
-                            <button type="submit">Registrarse</button>
+                            <button type="submit">Actualizar Datos</button>
                         </form>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                    <div class="quote-form-area wow fadeIn">
+                        <h3>Actualizar Contraseña</h3>
+                        <form class="quote-form" action="ActActualizarContrasena.php?id=<?php echo $usuario->id; ?>" method="post">
+
+                            <p class=" width-half">
+                                <input type="password" name="txtContrasena" id="txtContrasena" placeholder="Contraseña Actual" maxlength="20">
+                                <input class=" pull-right" type="password" name="txtContrasenaNueva" id="txtContrasenaNueva" placeholder="Contraseña Nueva" maxlength="20">
+                                <button type="submit">Actualizar Contraseña</button>
+                            </p>
+                        </form>
+
                     </div>
                 </div>
 

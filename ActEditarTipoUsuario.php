@@ -11,31 +11,31 @@ $nombre = null;
 
 
 if (isset($_POST['txtNombre']) && isset($_GET["id"])) {
-    $id = $_GET['id'];
-    $nombre = $_POST['txtNombre'];
+  $id = $_GET['id'];
+  $nombre = $_POST['txtNombre'];
 
-    if (($id && $nombre) != "") {
+  if (($id && $nombre) != "") {
 
 
-        $usuario = new Usuario();
-        $usuarioDB = new UsuarioDB();
+    $tipoUsuario = new TipoUsuario();
+    $tipoUsuarioDB = new TipoUsuarioDB();
 
-        $usuario->idEvento = $id;
-        $usuario->nombre = $nombre;
+    $tipoUsuario->idEvento = $id;
+    $tipoUsuario->nombre = $nombre;
 
-        $ok = $nombreDB->editar($usuario);
-    } else {
-        $message = "Debe ingresar todos los datos";
-        $ok = false;
-    }
+    $ok = $tipoUsuarioDB->editar($tipoUsuario);
+  } else {
+    $message = "Debe ingresar todos los datos";
+    $ok = false;
+  }
 }
 
 
 if ($ok) {
-    $_SESSION['message'] = '<div class="alert alert-success">
+  $_SESSION['message'] = '<div class="alert alert-success">
   Evento Editado Correctamente <a href="eventos.php">Haga clíck aquí para ver la lista de eventos</a> </div>';
 } else {
-    $_SESSION['message'] = '<div class="alert alert-danger">
+  $_SESSION['message'] = '<div class="alert alert-danger">
   ' . $message . '</div>';
 }
 
