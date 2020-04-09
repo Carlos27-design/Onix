@@ -11,6 +11,7 @@ $vehiculoDB = new VehiculoDB();
 
 ?>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Lista de Asistentes</title>
@@ -40,57 +41,57 @@ $vehiculoDB = new VehiculoDB();
 </head>
 
 <div class="row">
-            <h3>Informacion de Usuario</h3>
-        </div>
-        <br>
-        <div class="">
+    <h3>Informacion de Usuario</h3>
+</div>
+<br>
+<div class="">
 
-            <table id="grid" class="table table-light" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Patente</th>
-                        <th>Largo</th>
-                        <th>Ancho</th>
-                        <th>Peso</th>
-                        <th>Precio</th>
-                        <th>Tipo Usuario</th>
-                        <th>Modelo</th>
-                        <th>Usuario</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $lista = $vehiculoDB->listar();
-                    foreach ($lista as $l) {
-                    ?>    
-                        <tr class=" text-center">
-                            <!-- datos de la tabla sacada de la base de datos -->
-                            
-                            <td><?php echo $l->patente ?></td>
-                            <td><?php echo $l->largo ?></td>
-                            <td><?php echo $l->ancho ?></td>
-                            <td><?php echo $l->peso ?></td>
-                            <td><?php echo $l->precio ?></td>
-                            <td><?php echo $l->tipoVehiculo_id ?></td>
-                            <td><?php echo $l->modelo_id ?></td>
-                            <td><?php echo $l->usuario_id ?></td>
+    <table id="grid" class="table table-light" style="width:100%">
+        <thead>
+            <tr>
+                <th>Patente</th>
+                <th>Largo</th>
+                <th>Ancho</th>
+                <th>Peso</th>
+                <th>Precio</th>
+                <th>Tipo Usuario</th>
+                <th>Modelo</th>
+                <th>Usuario</th>
 
-                        </tr>
-                        
-                    <?php
-                    }
-                    ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $lista = $vehiculoDB->listar();
+            foreach ($lista as $l) {
+            ?>
+                <tr class=" text-center">
+                    <!-- datos de la tabla sacada de la base de datos -->
 
-                </tbody>
+                    <td><?php echo $l->patente ?></td>
+                    <td><?php echo $l->largo ?></td>
+                    <td><?php echo $l->ancho ?></td>
+                    <td><?php echo $l->peso ?></td>
+                    <td><?php echo $l->precio ?></td>
+                    <td><?php echo $l->tipoVehiculo_id ?></td>
+                    <td><?php echo $l->modelo_id ?></td>
+                    <td><?php echo $l->usuario_id ?></td>
 
-            </table>
+                </tr>
 
-        </div>
-    </div>
+            <?php
+            }
+            ?>
+
+        </tbody>
+
+    </table>
+
+</div>
+</div>
+
 </html>
 
-<script>
 
 <script src="js/main.js"></script>
 <!--====== Javascripts & Jquery ======-->
