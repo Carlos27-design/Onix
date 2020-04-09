@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once 'BD/TipoUsuario.php';
-include_once 'BD/TipoUsuarioDB.php';
+include_once 'DB/TipoUsuario.php';
+include_once 'DB/TipoUsuarioDB.php';
 
 
 $message = "";
@@ -20,7 +20,7 @@ if (isset($_POST['txtNombre']) && isset($_GET["id"])) {
     $tipoUsuario = new TipoUsuario();
     $tipoUsuarioDB = new TipoUsuarioDB();
 
-    $tipoUsuario->idEvento = $id;
+    $tipoUsuario->id = $id;
     $tipoUsuario->nombre = $nombre;
 
     $ok = $tipoUsuarioDB->editar($tipoUsuario);
