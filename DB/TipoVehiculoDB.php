@@ -11,7 +11,7 @@ class TipoVehiculoDB extends Conexion
 
         $this->conectar();
 
-        $sql = "INSERT INTO tipovehiculo (id, nombre)
+        $sql = "INSERT INTO tipoVehiculo (id, nombre)
                 VALUES (?,?)";
 
         $stmt = $this->miConexion->prepare($sql);
@@ -28,7 +28,7 @@ class TipoVehiculoDB extends Conexion
         $arreglo = array();
         $this->conectar();
 
-        $sql = "SELECT * from tipovehiculo";
+        $sql = "SELECT * from tipoVehiculo";
         $resultados = $this->miConexion->query($sql);
         while ($fila = $resultados->fetch_assoc()) {
             $tipoVehiculo = new TipoVehiculo();
@@ -50,7 +50,7 @@ class TipoVehiculoDB extends Conexion
         $devolver = null;
         $this->conectar();
 
-        $sql = "SELECT * from tipovehiculo where id = ?";
+        $sql = "SELECT * from tipoVehiculo where id = ?";
         $stmt = $this->miConexion->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -71,7 +71,7 @@ class TipoVehiculoDB extends Conexion
     function editar($tipoVehiculo)
     {
         $this->conectar();
-        $sql = "UPDATE tipovehiculo set
+        $sql = "UPDATE tipoVehiculo set
                 nombre = ? where id = ?";
         $stmt = $this->miConexion->prepare($sql);
         $stmt->bind_param("si", $tipoVehiculo->nombre, $tipoVehiculo->id);
@@ -85,7 +85,7 @@ class TipoVehiculoDB extends Conexion
     function eliminar($id)
     {
         $this->conectar();
-        $sql = "DELETE from tipovehiculo where id = ?";
+        $sql = "DELETE from tipoVehiculo where id = ?";
         $stmt = $this->miConexion->prepare($sql);
         $stmt->bind_param("i", $id);
         $ok = $stmt->execute();
