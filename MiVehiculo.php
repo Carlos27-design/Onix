@@ -1,15 +1,37 @@
 <?php
 
-include_once 'DB/Usuario.php';
-include_once 'DB/UsuarioDB.php';
+include_once 'DB/Vehiculo.php';
+include_once 'DB/VehiculoDB.php';
 
-$usuarioDB = new UsuarioDB();
-$usuario = new Usuario();
+$vehiculoDB = new VehiculoDB();
+$vehiculo = new Vehiculo();
 
-$idUsuario = 0;
+include_once 'DB/TipoVehiculo.php';
+include_once 'DB/TipoVehiculoDB.php';
+
+$tipoVehiculoDB = new TipoVehiculoDB();
+$tipoVehiculo = new TipoVehiculo();
+
+$tipoVehiculoLista = $tipoVehiculoDB->listar();
+
+include_once 'DB/Modelo.php';
+include_once 'DB/ModeloDB.php';
+
+$modeloDB = new ModeloDB();
+$modelo = new Modelo();
+
+$modeloLista = $modeloDB->listar();
+
+include_once 'DB/Marca.php';
+include_once 'DB/MarcaDB.php';
+
+$marcaDB = new MarcaDB();
+$marca = new Marca();
+
+$idVehiculo = 0;
 if (isset($_GET["id"])) {
-    $idUsuario = $_GET["id"];
-    $usuario = $usuarioDB->buscar($idUsuario);
+    $idVehiculo = $_GET["id"];
+    $vehiculo = $vehiculoDB->buscar($idVehiculo);
 }
 
 ?>
@@ -31,7 +53,7 @@ if (isset($_GET["id"])) {
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Mi Perfil</title>
+    <title>Mi Vehiculo</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" type="image/ico" href="img/favicon.png" />
@@ -167,22 +189,52 @@ if (isset($_GET["id"])) {
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
-                        <h3>Mis Datos</h3>
-                        <form class="quote-form" action="ActEditarUsuario.php?id=<?php echo $usuario->id; ?>" method="post">
-                            <p class="width-full">
-                                <input type="text" name="txtRut" id="txtRut" placeholder="RUT" maxlength="20" value="<?php echo $usuario->rut; ?>" readonly>
-                            </p>
-                            <p class=" width-half">
-                                <input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $usuario->nombre; ?>">
-                                <input class=" pull-right" type="text" name="txtApellido" id="txtApellido" placeholder="Apellido" maxlength="45" value="<?php echo $usuario->apellido; ?>">
+                        <h3>Mi Vehiculo <?php echo $vehiculo->patente; ?></h3>
+                        <form class="quote-form" action="ActEditarVehiculo.php?id=<?php echo $vehiculo->id; ?>" method="post">
+
+                            <p class=" width-full">
+                                <label for="txtPrecio">Precio</label>
+                                <input class=" pull-right" type="number" name="txtPrecio" id="txtPrecio" placeholder="Precio por kilometro" maxlength="45" value="<?php echo $vehiculo->precio; ?>">
                             </p>
                             <p class=" width-full">
-                                <input type="email" name="txtCorreo" id="txtCorreo" placeholder="Email" maxlength="45" value="<?php echo $usuario->correo; ?>">
+                                <label for="txtLargo">Largo</label>
+                                <input type="text" name="txtLargo" id="txtLargo" placeholder="Largo" maxlength="10" value="<?php echo $vehiculo->largo; ?>">
+                            </p>
+                            <p class=" width-full">
+                                <label for="txtAncho">Ancho</label>
+                                <input class=" pull-right" type="text" name="txtAncho" id="txtAncho" placeholder="Ancho" maxlength="10" value="<?php echo $vehiculo->ancho; ?>">
                             </p>
 
                             <p class=" width-full">
-                                <input type="number" name="txtNroTelefonico" id="txtNroTelefonico" placeholder="N° Telefono" maxlength="15" value="<?php echo $usuario->nroTelefonico; ?>">
+                                <label for="txtPeso">Peso</label>
+                                <input type="text" name="txtPeso" id="txtPeso" placeholder="Peso" maxlength="10" value="<?php echo $vehiculo->peso; ?>">
                             </p>
+                            <p class=" width-full">
+                                <label for="slcModelo">Modelo</label>
+                                <select name="slcModelo" id="sclModelo">
+                                    <?php foreach ($modeloLista as $m) { ?>
+                                        <option value="<?php echo $m->id; ?>" <?php if ($vehiculo->modelo_id == $m->id) {
+                                                                                    echo ' selected="selected"';
+                                                                                } ?>>
+                                            <?php echo $m->nombre; ?></option>
+                                    <?php } ?>
+                                </select>
+
+                            </p>
+                            <p class=" width-full">
+
+                                <label for="slcTipoVehiculo">Tipo Vehiculo</label>
+                                <br>
+                                <select name="slcTipoVehiculo" id="slcTipoVehiculo">
+                                    <?php foreach ($tipoVehiculoLista as $t) { ?>
+                                        <option value="<?php echo $t->id; ?>" <?php if ($vehiculo->tipoVehiculo_id == $t->id) {
+                                                                                    echo ' selected="selected"';
+                                                                                } ?>>
+                                            <?php echo $t->nombre; ?></option>
+                                    <?php } ?>
+                                </select>
+                            </p>
+
                             <button type="submit">Actualizar Datos</button>
                         </form>
 
@@ -190,23 +242,7 @@ if (isset($_GET["id"])) {
                 </div>
 
             </div>
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                    <div class="quote-form-area wow fadeIn">
-                        <h3>Actualizar Contraseña</h3>
-                        <form class="quote-form" action="ActActualizarContrasena.php?id=<?php echo $usuario->id; ?>" method="post">
 
-                            <p class=" width-half">
-                                <input type="password" name="txtContrasena" id="txtContrasena" placeholder="Contraseña Actual" maxlength="20">
-                                <input class=" pull-right" type="password" name="txtContrasenaNueva" id="txtContrasenaNueva" placeholder="Contraseña Nueva" maxlength="20">
-                                <button type="submit">Actualizar Contraseña</button>
-                            </p>
-                        </form>
-
-                    </div>
-                </div>
-
-            </div>
         </div>
     </section>
     <!--ABOUT AREA END-->

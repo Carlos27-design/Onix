@@ -15,7 +15,7 @@
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Carries HTML5 Business Template</title>
+    <title>Registrar Cuenta</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" type="image/ico" href="img/favicon.png" />
