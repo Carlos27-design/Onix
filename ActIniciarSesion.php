@@ -1,8 +1,12 @@
 <?php
+
+session_start();
+
 include_once 'DB/Usuario.php';
 include_once 'DB/UsuarioDB.php';
 
-session_start();
+$rut = null;
+$contrasena = null;
 
 if(isset($_POST['txtRut']) && isset($_POST['txtContrasena']))
 {
