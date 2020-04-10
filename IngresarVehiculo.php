@@ -213,7 +213,7 @@
                             
                                 
                             </p>
-                            <button type="submit" class="btn btn-submit">Guardar</button>
+                            <button type="submit" class="btn btn-submit">Registrar Vehiculo</button>
                         </form>
                     </div>
                 </div>

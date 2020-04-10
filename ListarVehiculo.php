@@ -64,7 +64,7 @@ $usuarioDB = new UsuarioDB();
             <h3>Informacion de Vehiculo</h3>
         </div>
         <br>
-        <div class="">
+        <div >
 
             <table id="grid" class="table table-light" style="width:100%">
                 <thead>

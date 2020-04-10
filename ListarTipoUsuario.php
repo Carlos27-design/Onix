@@ -41,7 +41,7 @@ $tipoUsuarioDB = new TipoUsuarioDB();
             <h3>Informacion de Tipo Usuario</h3>
         </div>
         <br>
-        <div class="">
+        <div >
 
             <table id="grid" class="table table-light" style="width:100%">
                 <thead>

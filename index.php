@@ -57,7 +57,7 @@
     <header class="top-area" id="home">
         <div class="top-area-bg" data-stellar-background-ratio="0.6"></div>
         <div class="header-top-area">
-            <!--MAINMENU AREA-->
+            
             <div class="mainmenu-area" id="mainmenu-area">
                 <div class="mainmenu-area-bg"></div>
                 <nav class="navbar">

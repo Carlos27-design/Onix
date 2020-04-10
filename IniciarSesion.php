@@ -136,7 +136,7 @@
                 </nav>
             </div>
             <!--END MAINMENU AREA END-->
-    <!--ABOUT AREA-->
+    
     <section class="about-area gray-bg section-padding">
         <div class="container">
             <div class="row">
