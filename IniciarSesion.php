@@ -148,7 +148,9 @@
                                 <input type="text" name="txtRut" id="txtRut" placeholder="Ingrese su rut">
                                 <input type="text" name="txtContrasena" id="txtContrasena" placeholder="Ingrese su contrasena">
                             </p>
-                            <button type="submit" class="btn btn-success">Iniciar Sesion</button>
+                            <button type="submit" class="btn btn-success">Iniciar Sesion
+                                
+                            </button>
                         </form>
                     </div>
                 </div>
