@@ -2,8 +2,8 @@
 
 session_start();
 
-include_once 'DB/Vehiculo';
-include_once 'DB/VehiculoDB';
+include_once 'DB/Vehiculo.php';
+include_once 'DB/VehiculoDB.php';
 
 $txtPatente = null;
 $txtLargo = null;
@@ -37,8 +37,7 @@ if (
     $txtUsuario = $_POST['txtusuario'];
 
     if (
-        $txtPatente && $txtLargo && $txtAncho && $txtPeso && $txtPrecio && $txtTipoVehiculo && $txtModelo &&
-        $txtUsuario != ""
+        $txtPatente && $txtLargo && $txtAncho && $txtPeso && $txtPrecio != "" && $txtTipoVehiculo && $txtModelo && $txtUsuario !=0
         )
         {
             $vehiculo->id = 0;
@@ -52,11 +51,13 @@ if (
             $vehiculo->usuario_id = $txtUsuario;
 
             $ok = $VehiculoDB->crear($vehiculo);
+            header("Location: ListarVehiculo.php");
         }
         else
         {
             $message = "Tiene que ingresar todos los datos";
             $ok = false;
+            header("Location: index.php");
         }
 
 

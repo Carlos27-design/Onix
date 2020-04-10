@@ -3,7 +3,7 @@
 session_start();
 
 include_once 'DB/Marca.php';
-include_once 'Db/MarcaDB.php';
+include_once 'DB/MarcaDB.php';
 
 $txtNombreMarca = null;
 
@@ -24,10 +24,12 @@ if (isset($_POST['txtnombremarca']))
         $marca->nombre = $txtNombreMarca;
 
         $ok = $marcaDB->crear($marca);
+        header("Location:ListarMarca.php");
     }
     else
     {
         $message = "Ingrese algun dato";
         $ok = false;
+        header("Location: index.php");
     }
 }
