@@ -1,18 +1,5 @@
 <?php
-
 session_start();
-
-include_once 'DB/Vehiculo.php';
-include_once 'DB/VehiculoDB.php';
-
-$vehiculo = new Vehiculo();
-$vehiculoDB = new VehiculoDB();
-
-include_once 'DB/TipoVehiculo.php';
-include_once 'DB/TipoVehiculoDB.php';
-
-$tipoVehiculo = new TipoVehiculo();
-$tipovehiculoDB = new TipoVehiculoDB();
 
 include_once 'DB/Modelo.php';
 include_once 'DB/ModeloDB.php';
@@ -20,21 +7,17 @@ include_once 'DB/ModeloDB.php';
 $modelo = new Modelo();
 $modeloDB = new ModeloDB();
 
-include_once 'DB/Usuario.php';
-include_once 'DB/UsuarioDB.php';
+include_once 'DB/Marca.php';
+include_once 'DB/MarcaDB.php';
 
-$usuario = new Usuario();
-$usuarioDB = new UsuarioDB();
-
-
-
-
+$marca = new Marca();
+$marcaDB = new MarcaDB();
 
 ?>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Lista de Asistentes</title>
+    <title>Lista de Tipo Tipo Usuario</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -61,7 +44,7 @@ $usuarioDB = new UsuarioDB();
 </head>
 
 <div class="row">
-            <h3>Informacion de Vehiculo</h3>
+            <h3>Informacion de Tipo Usuario</h3>
         </div>
         <br>
         <div >
@@ -69,80 +52,39 @@ $usuarioDB = new UsuarioDB();
             <table id="grid" class="table table-light" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Patente</th>
-                        <th>Largo</th>
-                        <th>Ancho</th>
-                        <th>Peso</th>
-                        <th>Precio</th>
-                        <th>Tipo Vehiculo</th>
-                        <th>Modelo</th>
-                        <th>Usuario</th>
-                        
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Marca</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $lista = $vehiculoDB->listar();
-                    $lista1 = $tipovehiculoDB->listar();
-                    $lista2 = $modeloDB->listar();
-                    $lista3 = $usuarioDB->listar();
+                    $lista = $modeloDB->listar();
+                    $lista1 = $marcaDB->listar();
                     foreach ($lista as $l) {
-                        
-
                     ?>    
                         <tr class=" text-center">
                             <!-- datos de la tabla sacada de la base de datos -->
                             
-                            <td><?php echo $l->patente ?></td>
-                            <td><?php echo $l->largo ?></td>
-                            <td><?php echo $l->ancho ?></td>
-                            <td><?php echo $l->peso ?></td>
-                            <td><?php echo $l->precio ?></td>
+                            <td><?php echo $l->id ?></td>
+                            <td><?php echo $l->nombre ?></td>
                             <?php
-                            foreach ($lista1 as $l1)
+                            foreach($lista1 as $l1)
                             {
-                            if ($l->tipoVehiculo_id == $l1->id)
-                            {
-                            ?>
-                                <td><?php echo $l1->nombre ?></td>
-                            <?php    
-                            }
-                            }
-                            ?>
-                            <?php
-                                foreach($lista2 as $l2)
+                                if($l->marca_id == $l1->id)
                                 {
-                                    if($l->modelo_id == $l2->id)
-                                    {
                             ?>
-                                    <td><?php echo $l2->nombre ?></td>
+                            <td><?php echo $l1->nombre?></td>
                             <?php
                             }
-                            }
+                        }
                             ?>
-                             <?php
-                                foreach($lista3 as $l3)
-                                {
-                                    if($l->usuario_id == $l3->id)
-                                    {
-                            ?>
-                                    <td><?php echo $l3->nombre ?></td>
-                            <?php
-                            }
-                            }
-                            ?>
-
-                            
-                            
-                            
-                            
+                           
 
                         </tr>
                         
                     <?php
-                        }
-                    
-                    
+                    }
                     ?>
 
                 </tbody>
