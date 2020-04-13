@@ -171,7 +171,7 @@ if (isset($_GET["id"])) {
                         <form class="quote-form" action="ActEditarTipoUsuario.php?id=<?php echo $tipoUsuario->id; ?>" method="post">
                             <p class=" width-full">
                                 <label for="txtNombre">Nombre</label>
-                                <input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $tipoUsuario->nombre; ?>">
+                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $tipoUsuario->nombre; ?>">
                             </p>
 
                             <button type="submit">Actualizar Datos</button>

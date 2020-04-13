@@ -170,18 +170,18 @@ if (isset($_GET["id"])) {
                         <h3>Mis Datos</h3>
                         <form class="quote-form" action="ActEditarUsuario.php?id=<?php echo $usuario->id; ?>" method="post">
                             <p class="width-full">
-                                <input type="text" name="txtRut" id="txtRut" placeholder="RUT" maxlength="20" value="<?php echo $usuario->rut; ?>" readonly>
+                                <input required type="text" name="txtRut" id="txtRut" placeholder="RUT" maxlength="20" value="<?php echo $usuario->rut; ?>" readonly>
                             </p>
                             <p class=" width-half">
-                                <input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $usuario->nombre; ?>">
-                                <input class=" pull-right" type="text" name="txtApellido" id="txtApellido" placeholder="Apellido" maxlength="45" value="<?php echo $usuario->apellido; ?>">
+                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $usuario->nombre; ?>">
+                                <input required class=" pull-right" type="text" name="txtApellido" id="txtApellido" placeholder="Apellido" maxlength="45" value="<?php echo $usuario->apellido; ?>">
                             </p>
                             <p class=" width-full">
-                                <input type="email" name="txtCorreo" id="txtCorreo" placeholder="Email" maxlength="45" value="<?php echo $usuario->correo; ?>">
+                                <input required type="email" name="txtCorreo" id="txtCorreo" placeholder="Email" maxlength="45" value="<?php echo $usuario->correo; ?>">
                             </p>
 
                             <p class=" width-full">
-                                <input type="number" name="txtNroTelefonico" id="txtNroTelefonico" placeholder="N° Telefono" maxlength="15" value="<?php echo $usuario->nroTelefonico; ?>">
+                                <input required type="number" name="txtNroTelefonico" id="txtNroTelefonico" placeholder="N° Telefono" maxlength="15" value="<?php echo $usuario->nroTelefonico; ?>">
                             </p>
                             <button type="submit">Actualizar Datos</button>
                         </form>

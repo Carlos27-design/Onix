@@ -172,7 +172,7 @@ if (isset($_GET["id"])) {
 
                             <p class=" width-full">
                                 <label for="txtNombre">Nombre</label>
-                                <input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $marca->nombre; ?>">
+                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $marca->nombre; ?>">
                             </p>
 
                             <button type="submit">Actualizar Datos</button>

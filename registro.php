@@ -154,19 +154,19 @@
                         <h3>Crear una cuenta nueva</h3>
                         <form class="quote-form" action="ActRegistrarUsuario.php" method="post">
                             <p class="width-full">
-                                <input type="text" name="txtRut" id="txtRut" placeholder="RUT" maxlength="20">
+                                <input required type="text" name="txtRut" id="txtRut" placeholder="RUT" maxlength="20">
                             </p>
                             <p class="width-half">
-                                <input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45">
-                                <input class="pull-right" type="text" name="txtApellido" id="txtApellido" placeholder="Apellido" maxlength="45">
+                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45">
+                                <input required class="pull-right" type="text" name="txtApellido" id="txtApellido" placeholder="Apellido" maxlength="45">
                             </p>
                             <p class="width-full">
-                                <input type="email" name="txtCorreo" id="txtCorreo" placeholder="Email" maxlength="45">
+                                <input required type="email" name="txtCorreo" id="txtCorreo" placeholder="Email" maxlength="45">
                             </p>
 
                             <p class="width-half">
-                                <input type="number" name="txtNroTelefonico" id="txtNroTelefonico" placeholder="N° Telefono" maxlength="10">
-                                <input class="pull-right" type="password" name="txtContrasena" id="txtContrasena" placeholder="Contraseña" maxlength="20">
+                                <input required type="number" name="txtNroTelefonico" id="txtNroTelefonico" placeholder="N° Telefono" min="1" maxlength="10">
+                                <input required class="pull-right" type="password" name="txtContrasena" id="txtContrasena" placeholder="Contraseña" minlength="5" maxlength="20">
                             </p>
 
                             <button type="submit">Registrarse</button>

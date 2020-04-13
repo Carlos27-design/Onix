@@ -1,18 +1,12 @@
 <?php
 
-include_once 'DB/Vehiculo.php';
-include_once 'DB/VehiculoDB.php';
+include_once 'DB/Marca.php';
+include_once 'DB/MarcaDB.php';
 
-$vehiculoDB = new VehiculoDB();
-$vehiculo = new Vehiculo();
+$marcaDB = new MarcaDB();
+$marca = new Marca();
 
-include_once 'DB/TipoVehiculo.php';
-include_once 'DB/TipoVehiculoDB.php';
-
-$tipoVehiculoDB = new TipoVehiculoDB();
-$tipoVehiculo = new TipoVehiculo();
-
-$tipoVehiculoLista = $tipoVehiculoDB->listar();
+$marcaLista = $marcaDB->listar();
 
 include_once 'DB/Modelo.php';
 include_once 'DB/ModeloDB.php';
@@ -20,18 +14,10 @@ include_once 'DB/ModeloDB.php';
 $modeloDB = new ModeloDB();
 $modelo = new Modelo();
 
-$modeloLista = $modeloDB->listar();
-
-include_once 'DB/Marca.php';
-include_once 'DB/MarcaDB.php';
-
-$marcaDB = new MarcaDB();
-$marca = new Marca();
-
-$idVehiculo = 0;
+$idModelo = 0;
 if (isset($_GET["id"])) {
-    $idVehiculo = $_GET["id"];
-    $vehiculo = $vehiculoDB->buscar($idVehiculo);
+    $idModelo = $_GET["id"];
+    $modelo = $modeloDB->buscar($idModelo);
 }
 
 ?>
@@ -53,7 +39,7 @@ if (isset($_GET["id"])) {
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Mi Vehiculo</title>
+    <title>Modelo</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" type="image/ico" href="img/favicon.png" />
@@ -189,48 +175,22 @@ if (isset($_GET["id"])) {
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
-                        <h3>Mi Vehiculo <?php echo $vehiculo->patente; ?></h3>
-                        <form class="quote-form" action="ActEditarVehiculo.php?id=<?php echo $vehiculo->id; ?>" method="post">
+                        <h3>Marca</h3>
+                        <form class="quote-form" action="ActEditarModelo.php?id=<?php echo $modelo->id; ?>" method="post">
 
                             <p class=" width-full">
-                                <label for="txtPrecio">Precio</label>
-                                <input required class=" pull-right" type="number" name="txtPrecio" id="txtPrecio" placeholder="Precio por kilometro" maxlength="45" value="<?php echo $vehiculo->precio; ?>">
+                                <label for="txtNombre">Nombre</label>
+                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $modelo->nombre; ?>">
                             </p>
                             <p class=" width-full">
-                                <label for="txtLargo">Largo</label>
-                                <input required type="text" name="txtLargo" id="txtLargo" placeholder="Largo" maxlength="10" value="<?php echo $vehiculo->largo; ?>">
-                            </p>
-                            <p class=" width-full">
-                                <label for="txtAncho">Ancho</label>
-                                <input required class=" pull-right" type="text" name="txtAncho" id="txtAncho" placeholder="Ancho" maxlength="10" value="<?php echo $vehiculo->ancho; ?>">
-                            </p>
-
-                            <p class=" width-full">
-                                <label for="txtPeso">Peso</label>
-                                <input required type="text" name="txtPeso" id="txtPeso" placeholder="Peso" maxlength="10" value="<?php echo $vehiculo->peso; ?>">
-                            </p>
-                            <p class=" width-full">
-                                <label for="slcModelo">Modelo</label>
-                                <select name="slcModelo" id="sclModelo">
-                                    <?php foreach ($modeloLista as $m) { ?>
-                                        <option value="<?php echo $m->id; ?>" <?php if ($vehiculo->modelo_id == $m->id) {
+                                <label for="slcMarca">Marca</label>
+                                <br>
+                                <select name="slcMarca" id="slcMarca">
+                                    <?php foreach ($marcaLista as $m) { ?>
+                                        <option value="<?php echo $m->id; ?>" <?php if ($modelo->marca_id == $m->id) {
                                                                                     echo ' selected="selected"';
                                                                                 } ?>>
                                             <?php echo $m->nombre; ?></option>
-                                    <?php } ?>
-                                </select>
-
-                            </p>
-                            <p class=" width-full">
-
-                                <label for="slcTipoVehiculo">Tipo Vehiculo</label>
-                                <br>
-                                <select name="slcTipoVehiculo" id="slcTipoVehiculo">
-                                    <?php foreach ($tipoVehiculoLista as $t) { ?>
-                                        <option value="<?php echo $t->id; ?>" <?php if ($vehiculo->tipoVehiculo_id == $t->id) {
-                                                                                    echo ' selected="selected"';
-                                                                                } ?>>
-                                            <?php echo $t->nombre; ?></option>
                                     <?php } ?>
                                 </select>
                             </p>
