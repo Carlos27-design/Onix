@@ -17,24 +17,24 @@ $txtApellido = null;
 $txtContrasena = null;
 $txtCorreo = null;
 $txtNroTelefonico = null;
-
+$tipoUsuarioId = null;
 
 if (
     isset($_POST['txtRut']) && isset($_POST['txtNombre']) && isset($_POST['txtApellido'])
     && isset($_POST['txtContrasena']) && isset($_POST['txtCorreo'])
-    && isset($_POST['txtNroTelefonico'])
+    && isset($_POST['txtNroTelefonico']) && isset($_POST['tipoUsuarioId'])
 ) {
     $txtRut =  $_POST['txtRut'];
     $txtNombre = $_POST['txtNombre'];
     $txtApellido =  $_POST['txtApellido'];
-    $txtContrasena =  $_POST['txtContrasena'];
-    $txtCorreo =  $_POST['txtCorreo'];
+    $txtContrasena =  $_POST['txtContrasena'];;
+    $txtCorreo =  $_POST['txtCorreo'];;
     $txtNroTelefonico =  $_POST['txtNroTelefonico'];
-
+    $tipoUsuarioId = $_POST['tipoUsuarioId'];
 
 
     if (($txtRut && $txtNombre && $txtApellido && $txtContrasena &&
-        $txtCorreo && $txtNroTelefonico) != "") {
+        $txtCorreo && $txtNroTelefonico && $tipoUsuarioId) != "") {
         $usuario->id = 0;
         $usuario->rut = $txtRut;
         $usuario->nombre = $txtNombre;
@@ -42,7 +42,7 @@ if (
         $usuario->contrasena = $txtContrasena;
         $usuario->correo = $txtCorreo;
         $usuario->nroTelefonico = $txtNroTelefonico;
-        $usuario->tipoUsuario_id = 1;
+        $usuario->tipoUsuario_id = $tipoUsuarioId;
 
         $ok = $usuarioDB->crear($usuario);
     } else {
@@ -61,7 +61,5 @@ if ($ok) {
     $_SESSION['message'] = '<div class="alert alert-danger">
   ' . $message . '</div>';
 }
-echo $message;
-echo "<br>hola registro";
 
-// header("Location: index.php");
+header("Location: index.php");

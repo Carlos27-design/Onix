@@ -1,15 +1,20 @@
 <?php
 session_start();
 
-include_once "DB/Usuario.php";
-include_once "DB/UsuarioDB.php";
+include_once "DB/Ruta.php";
+include_once "DB/RutaDB.php";
 
-$usuario = new Usuario();
-$usuarioDB = new UsuarioDB();
+$ruta = new Ruta();
+$rutaDB = new RutaDB();
 
+$ruta->id = 0;
+$ruta->direccionInicio = "-40.915741, -73.155399";
+$ruta->direccionFinal = "-40.915830, -73.156926";
+$ruta->distancia = "500.7";
+$ruta->fechaInicio = "2020-5-5 10:00";
+$ruta->fechaFin = "2020-5-6 20:00";
 
-
-$usuarioDB->eliminar(1);
+$rutaDB->crear($ruta);
 
 
 

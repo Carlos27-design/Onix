@@ -1,19 +1,23 @@
 <?php
-
 session_start();
 
-include_once 'DB/Usuario.php';
-include_once 'DB/UsuarioDB.php';
+include_once 'DB/Modelo.php';
+include_once 'DB/ModeloDB.php';
 
-$usuario = new Usuario();
-$usuarioDB = new UsuarioDB();
+$modelo = new Modelo();
+$modeloDB = new ModeloDB();
 
+include_once 'DB/Marca.php';
+include_once 'DB/MarcaDB.php';
+
+$marca = new Marca();
+$marcaDB = new MarcaDB();
 
 ?>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Lista de Asistentes</title>
+    <title>Lista de Tipo Tipo Usuario</title>
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -40,38 +44,41 @@ $usuarioDB = new UsuarioDB();
 </head>
 
 <div class="row">
-            <h3>Informacion de Usuario</h3>
+            <h3>Informacion de Tipo Usuario</h3>
         </div>
         <br>
-        <div class="">
+        <div >
 
             <table id="grid" class="table table-light" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Rut</th>
+                        <th>ID</th>
                         <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Correo</th>
-                        <th>Telefono</th>
-                        <th>Tipo Usuario</th>
-                        
-                        
+                        <th>Marca</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $lista = $usuarioDB->listar();
+                    $lista = $modeloDB->listar();
+                    $lista1 = $marcaDB->listar();
                     foreach ($lista as $l) {
                     ?>    
                         <tr class=" text-center">
                             <!-- datos de la tabla sacada de la base de datos -->
                             
-                            <td><?php echo $l->rut ?></td>
+                            <td><?php echo $l->id ?></td>
                             <td><?php echo $l->nombre ?></td>
-                            <td><?php echo $l->apellido ?></td>
-                            <td><?php echo $l->correo ?></td>
-                            <td><?php echo $l->nroTelefonico ?></td>
-                            <td><?php echo $l->tipoUsuario_id ?></td>
+                            <?php
+                            foreach($lista1 as $l1)
+                            {
+                                if($l->marca_id == $l1->id)
+                                {
+                            ?>
+                            <td><?php echo $l1->nombre?></td>
+                            <?php
+                            }
+                        }
+                            ?>
                            
 
                         </tr>

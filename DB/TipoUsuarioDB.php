@@ -14,7 +14,7 @@ class TipoUsuarioDB extends Conexion
         $sql = "INSERT INTO tipoUsuario (id, nombre)
                 VALUES (?,?)";
 
-        $stmt = $this->miConexion->prepare($sql) or trigger_error($this->miConexion->error . "[$sql]");
+        $stmt = $this->miConexion->prepare($sql);
         $stmt->bind_param("is", $tipoUsuario->id, $tipoUsuario->nombre);
         $ok = $stmt->execute();
         $this->desconectar();
@@ -71,7 +71,7 @@ class TipoUsuarioDB extends Conexion
     function editar($tipoUsuario)
     {
         $this->conectar();
-        $sql = "UPDATE tipousuario set
+        $sql = "UPDATE tipoUsuario set
                 nombre = ? where id = ?";
         $stmt = $this->miConexion->prepare($sql);
         $stmt->bind_param("si", $tipoUsuario->nombre, $tipoUsuario->id);
