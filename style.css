@@ -40,6 +40,7 @@ Version: 1.0
 ----------------------*/
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,500i,700');
+
 .alignleft {
     float: left;
     margin-right: 15px;
@@ -87,8 +88,9 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-    color: #3c4a62;
+h6,
+label {
+    color: black;
     margin: 0 0 15px;
     font-weight: 700;
     line-height: 1.4em;
@@ -312,6 +314,10 @@ input:-webkit-autofill:focus {
     background: #f7f9fc;
 }
 
+.colorful-bg {
+    background: rgba(0, 0, 0, 0) url("img/slider/slide_3.jpg") no-repeat scroll center center / cover;
+}
+
 .deep-gray-bg {
     background: #eff1ff;
 }
@@ -351,7 +357,7 @@ input:-webkit-autofill:focus {
 }
 
 .top-area-bg {
-    background: rgba(0, 0, 0, 0) url("img/slider/slide_1.jpg") no-repeat scroll center center / cover;
+    background: rgba(0, 0, 0, 0) url("img/slider/slide_2.jpg") no-repeat scroll center center / cover;
     height: 100%;
     left: 0;
     position: absolute;
@@ -360,7 +366,7 @@ input:-webkit-autofill:focus {
 }
 
 .top-area-bg::after {
-    background: #3c4147;
+    background: #3c4147db;
     content: "";
     height: 100%;
     left: 0;
@@ -493,12 +499,12 @@ input:-webkit-autofill:focus {
     margin-bottom: 0;
 }
 
-.navbar-brand > img {
+.navbar-brand>img {
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
 }
 
-.is-sticky .navbar-brand > img {
+.is-sticky .navbar-brand>img {
     max-width: 80%;
 }
 
@@ -631,7 +637,7 @@ ul#nav li ul a,
     color: #ffffff;
 }
 
-.home-mockup > img {
+.home-mockup>img {
     max-width: 50%;
 }
 
@@ -725,7 +731,7 @@ ul#nav li ul a,
     background: url(img/slider/slide_3.jpg) no-repeat scroll center center / cover;
 }
 
-.welcome-slider-area.owl-carousel .owl-nav > div {
+.welcome-slider-area.owl-carousel .owl-nav>div {
     background: #fff none repeat scroll 0 0;
     display: inline-block;
     font-size: 30px;
@@ -744,7 +750,7 @@ ul#nav li ul a,
     right: 8.4%;
 }
 
-.welcome-slider-area.owl-carousel .owl-nav > div:hover {
+.welcome-slider-area.owl-carousel .owl-nav>div:hover {
     background: #f39c12 none repeat scroll 0 0;
     color: #fff;
 }
@@ -832,7 +838,8 @@ ul#nav li ul a,
     margin-bottom: 10px;
 }
 
-.quote-form .width-full input {
+.quote-form .width-full input,
+select {
     border: 0 none;
     padding: 10px;
     width: 100%;
@@ -1133,7 +1140,7 @@ ul#nav li ul a,
     position: relative;
 }
 
-.promo-area .row > div.col-lg-4 .single-promo:last-child {
+.promo-area .row>div.col-lg-4 .single-promo:last-child {
     margin-bottom: 0;
 }
 
@@ -1530,11 +1537,11 @@ ul#nav li ul a,
     13. REPORT AREA
 ------------------------------ */
 
-.annual-reports > div {
+.annual-reports>div {
     margin-bottom: 50px;
 }
 
-.annual-reports > div:last-child {
+.annual-reports>div:last-child {
     margin-bottom: 0px;
 }
 
@@ -1565,7 +1572,7 @@ ul#nav li ul a,
     padding: 1px;
 }
 
-.team-list div > .col-lg-4:last-child .single-team {
+.team-list div>.col-lg-4:last-child .single-team {
     margin-bottom: 0;
 }
 
@@ -2183,7 +2190,7 @@ blockquote::before {
     border: 1px solid #ddd;
 }
 
-.service-menu > ul li {
+.service-menu>ul li {
     border-top: 1px dashed #ddd;
     display: block;
     margin-top: -1px;

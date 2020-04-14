@@ -1,23 +1,23 @@
 <?php
-    session_start();
+session_start();
 
-    include_once './DB/TipoVehiculo.php';
-    include_once './DB/TipoVehiculoDB.php';
+include_once './DB/TipoVehiculo.php';
+include_once './DB/TipoVehiculoDB.php';
 
-    $tipovehiculo = new TipoVehiculo();
-    $tipovehiculoDB = new TipoVehiculoDB();
+$tipovehiculo = new TipoVehiculo();
+$tipovehiculoDB = new TipoVehiculoDB();
 
-    include_once './DB/Modelo.php';
-    include_once './DB/ModeloDB.php';
+include_once './DB/Modelo.php';
+include_once './DB/ModeloDB.php';
 
-    $modelo = new Modelo();
-    $modeloDB = new ModeloDB();
+$modelo = new Modelo();
+$modeloDB = new ModeloDB();
 
-    include_once './DB/Usuario.php';
-    include_once './DB/UsuarioDB.php';
+include_once './DB/Usuario.php';
+include_once './DB/UsuarioDB.php';
 
-    $usuario = new Usuario();
-    $usuarioDB = new UsuarioDB();
+$usuario = new Usuario();
+$usuarioDB = new UsuarioDB();
 ?>
 
 
@@ -67,98 +67,7 @@
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <!--- PRELOADER -->
-    <div class="preeloader">
-        <div class="preloader-spinner"></div>
-    </div>
-
-    <!--SCROLL TO TOP-->
-    <a href="#home" class="scrolltotop"><i class="fa fa-long-arrow-up"></i></a>
-
-    <!--START TOP AREA-->
-    <header class="top-area" id="home">
-        <div class="top-area-bg" data-stellar-background-ratio="0.6"></div>
-        <div class="header-top-area">
-            <!--MAINMENU AREA-->
-            <div class="mainmenu-area" id="mainmenu-area">
-                <div class="mainmenu-area-bg"></div>
-                <nav class="navbar">
-                    <div class="container">
-                        <div class="navbar-header">
-                            <a href="#home" class="navbar-brand"><img src="img/logo.png" alt="logo"></a>
-                        </div>
-                        <div class="search-and-language-bar pull-right">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-user"></i></a></li>
-                                <li class="search-box"><i class="fa fa-search"></i></li>
-                                <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
-                                <li class="select-language">
-                                    <select name="#" id="#">
-                                        <option selected value="End">ENG</option>
-                                        <option value="ARA">ARA</option>
-                                        <option value="CHI">CHI</option>
-                                    </select>
-                                </li>
-                            </ul>
-                            <form action="#" class="search-form">
-                                <input type="search" name="search" id="search">
-                                <button type="submit"><i class="fa fa-search"></i></button>
-                            </form>
-                        </div>
-                        <div id="main-nav" class="stellarnav">
-                            <ul id="nav" class="nav navbar-nav">
-                                <li><a href="index.html">home</a>
-                                    <ul>
-                                        <li><a href="index.html">Home Version 1</a></li>
-                                        <li><a href="index-2.html">Home Version 2</a></li>
-                                        <li><a href="index-3.html">Home Version 3</a></li>
-                                        <li><a href="index-4.html">Home Version 4</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="about.html">about</a>
-                                    <ul>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="about-company-profile.html">About Profile</a></li>
-                                        <li><a href="about-company-history.html">About History</a></li>
-                                        <li><a href="about-company-report.html">About Report</a></li>
-                                        <li><a href="about-team.html">About Team</a></li>
-                                        <li><a href="about-support.html">About Support</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="service.html">Service</a>
-                                    <ul>
-                                        <li><a href="service.html">Service Version 1</a></li>
-                                        <li><a href="service-2.html">Service Version 2</a></li>
-                                        <li><a href="service-3.html">Service Version 3</a></li>
-                                        <li><a href="single-service.html">Service Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="">Other Pages</a>
-                                    <ul>
-                                        <li><a href="404.html">404</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="blog.html">Blog</a>
-                                    <ul>
-                                        <li><a href="blog.html">Blog Version 1</a></li>
-                                        <li><a href="blog-2.html">Blog Version 2</a></li>
-                                        <li><a href="single-blog.html">Single Blog</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">Contact</a>
-                                    <ul>
-                                        <li><a href="contact.html">Contact Version 1</a></li>
-                                        <li><a href="contact-2.html">Contact Version 2</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <!--END MAINMENU AREA END-->
+    <?php include 'nav.php' ?>
     <!--ABOUT AREA-->
     <section class="about-area gray-bg section-padding">
         <div class="container">
@@ -177,48 +86,45 @@
                                 <input type="text" name="txtprecio" id="txtprecio" placeholder="Precio">
                             </p>
                             <p class="widht-half">
-                            <?php
+                                <?php
                                 $listaTV = $tipovehiculoDB->listar();
                                 $listaM = $modeloDB->listar();
                                 $listaU = $usuarioDB->listar();
-                            ?>
-                            <select name="txttipovehiculo">
-                                <option value="0">Seleccione el tipo de vehiculo</option>
-                                <?php
-                                    foreach($listaTV as $ltv)
-                                    {
-                                        echo '<option value="'.$ltv->id.'">'.$ltv->nombre.'</option>';
-                                    }
                                 ?>
-                            </select>
-                            <select name="txtmodelo">
-                                <option value="0">Seleccione modelo</option>
-                                <?php
-                                    foreach($listaM as $lm)
-                                    {
-                                        echo '<option value="'.$lm->id.'">'.$lm->nombre.'</option>';
+                                <select name="txttipovehiculo">
+                                    <option value="0">Seleccione el tipo de vehiculo</option>
+                                    <?php
+                                    foreach ($listaTV as $ltv) {
+                                        echo '<option value="' . $ltv->id . '">' . $ltv->nombre . '</option>';
                                     }
-                                ?>
-                            </select>
-                            <select name="txtusuario">
-                                <option value="0">Seleccione usuario</option>
-                                <?php
-                                    foreach($listaU as $lu)
-                                    {
-                                        echo '<option value="'.$lu->id.'">'.$lu->nombre.'</option>';
+                                    ?>
+                                </select>
+                                <select name="txtmodelo">
+                                    <option value="0">Seleccione modelo</option>
+                                    <?php
+                                    foreach ($listaM as $lm) {
+                                        echo '<option value="' . $lm->id . '">' . $lm->nombre . '</option>';
                                     }
-                                ?>
-                            </select>
-                            
-                            
-                                
+                                    ?>
+                                </select>
+                                <select name="txtusuario">
+                                    <option value="0">Seleccione usuario</option>
+                                    <?php
+                                    foreach ($listaU as $lu) {
+                                        echo '<option value="' . $lu->id . '">' . $lu->nombre . '</option>';
+                                    }
+                                    ?>
+                                </select>
+
+
+
                             </p>
                             <button type="submit" class="btn btn-submit">Registrar Vehiculo</button>
                         </form>
                     </div>
                 </div>
     </section>
-    
+
 
     <!--TESTMONIAL AREA -->
     <section class="testmonial-area section-padding">
