@@ -31,7 +31,7 @@ class RutaDB extends Conexion
             $ruta = new Ruta();
             $ruta->id = $fila['id'];
             $ruta->direccionInicio = $fila['direccionInicio'];
-            $ruta->direcionFinal = $fila['direccionFinal'];
+            $ruta->direccionFinal = $fila['direccionFinal'];
             $ruta->distancia = $fila['distancia'];
             $ruta->fechaInicio = $fila['fechaInicio'];
             $ruta->fechaFin = $fila['fechaFin'];
@@ -58,7 +58,7 @@ class RutaDB extends Conexion
             $ruta = new Ruta();
             $ruta->id = $fila['id'];
             $ruta->direccionInicio = $fila['direccionInicio'];
-            $ruta->direcionFinal = $fila['direccionFinal'];
+            $ruta->direccionFinal = $fila['direccionFinal'];
             $ruta->distancia = $fila['distancia'];
             $ruta->fechaInicio = $fila['fechaInicio'];
             $ruta->fechaFin = $fila['fechaFin'];
