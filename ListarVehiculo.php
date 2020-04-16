@@ -32,6 +32,7 @@ $usuarioDB = new UsuarioDB();
 
 ?>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Lista de Asistentes</title>
@@ -61,112 +62,107 @@ $usuarioDB = new UsuarioDB();
 </head>
 
 <div class="row">
-            <h3>Informacion de Vehiculo</h3>
-        </div>
-        <br>
-        <div >
+    <h3>Informacion de Vehiculo</h3>
+</div>
+<br>
+<div>
 
-            <table id="grid" class="table table-light" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Patente</th>
-                        <th>Largo</th>
-                        <th>Ancho</th>
-                        <th>Peso</th>
-                        <th>Precio</th>
-                        <th>Tipo Vehiculo</th>
-                        <th>Modelo</th>
-                        <th>Usuario</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
+    <table id="grid" class="table table-light" style="width:100%">
+        <thead>
+            <tr>
+                <th>Patente</th>
+                <th>Largo</th>
+                <th>Ancho</th>
+                <th>Peso</th>
+                <th>Precio</th>
+                <th>Tipo Vehiculo</th>
+                <th>Modelo</th>
+                <th>Usuario</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $lista = $vehiculoDB->listar();
+            $lista1 = $tipovehiculoDB->listar();
+            $lista2 = $modeloDB->listar();
+            $lista3 = $usuarioDB->listar();
+            foreach ($lista as $l) {
+
+
+            ?>
+                <tr class=" text-center">
+                    <!-- datos de la tabla sacada de la base de datos -->
+
+                    <td><?php echo $l->patente ?></td>
+                    <td><?php echo $l->largo ?></td>
+                    <td><?php echo $l->ancho ?></td>
+                    <td><?php echo $l->peso ?></td>
+                    <td><?php echo $l->precio ?></td>
                     <?php
-                    $lista = $vehiculoDB->listar();
-                    $lista1 = $tipovehiculoDB->listar();
-                    $lista2 = $modeloDB->listar();
-                    $lista3 = $usuarioDB->listar();
-                    foreach ($lista as $l) {
-                        
-
-                    ?>    
-                        <tr class=" text-center">
-                            <!-- datos de la tabla sacada de la base de datos -->
-                            
-                            <td><?php echo $l->patente ?></td>
-                            <td><?php echo $l->largo ?></td>
-                            <td><?php echo $l->ancho ?></td>
-                            <td><?php echo $l->peso ?></td>
-                            <td><?php echo $l->precio ?></td>
-                            <?php
-                            foreach ($lista1 as $l1)
-                            {
-                            if ($l->tipoVehiculo_id == $l1->id)
-                            {
-                            ?>
-                                <td><?php echo $l1->nombre ?></td>
-                            <?php    
-                            }
-                            }
-                            ?>
-                            <?php
-                                foreach($lista2 as $l2)
-                                {
-                                    if($l->modelo_id == $l2->id)
-                                    {
-                            ?>
-                                    <td><?php echo $l2->nombre ?></td>
-                            <?php
-                            }
-                            }
-                            ?>
-                             <?php
-                                foreach($lista3 as $l3)
-                                {
-                                    if($l->usuario_id == $l3->id)
-                                    {
-                            ?>
-                                    <td><?php echo $l3->nombre ?></td>
-                            <?php
-                            }
-                            }
-                            ?>
-
-                            
-                            
-                            
-                            
-
-                        </tr>
-                        
+                    foreach ($lista1 as $l1) {
+                        if ($l->tipoVehiculo_id == $l1->id) {
+                    ?>
+                            <td><?php echo $l1->nombre ?></td>
                     <?php
                         }
-                    
-                    
+                    }
+                    ?>
+                    <?php
+                    foreach ($lista2 as $l2) {
+                        if ($l->modelo_id == $l2->id) {
+                    ?>
+                            <td><?php echo $l2->nombre ?></td>
+                    <?php
+                        }
+                    }
+                    ?>
+                    <?php
+                    foreach ($lista3 as $l3) {
+                        if ($l->usuario_id == $l3->id) {
+                    ?>
+                            <td><?php echo $l3->nombre ?></td>
+                    <?php
+                        }
+                    }
                     ?>
 
-                </tbody>
 
-            </table>
 
-        </div>
-    </div>
+
+
+
+                </tr>
+
+            <?php
+            }
+
+
+            ?>
+
+        </tbody>
+
+    </table>
+
+</div>
+</div>
+
 </html>
 
-<script>
 
-<script src="js/main.js"></script>
-<!--====== Javascripts & Jquery ======-->
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js
+< script src="js/main.js">
+    </script>
+    <!--====== Javascripts & Jquery ======-->
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js
 "></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js
 "></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js
 "></script>

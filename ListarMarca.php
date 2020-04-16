@@ -9,6 +9,7 @@ $marcaDB = new MarcaDB();
 
 ?>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Lista de Tipo Tipo Usuario</title>
@@ -38,46 +39,46 @@ $marcaDB = new MarcaDB();
 </head>
 
 <div class="row">
-            <h3>Informacion de Marca</h3>
-        </div>
-        <br>
-        <div class="">
+    <h3>Informacion de Marca</h3>
+</div>
+<br>
+<div class="">
 
-            <table id="grid" class="table table-light" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $lista = $marcaDB->listar();
-                    foreach ($lista as $l) {
-                    ?>    
-                        <tr class=" text-center">
-                            <!-- datos de la tabla sacada de la base de datos -->
-                            
-                            <td><?php echo $l->id ?></td>
-                            <td><?php echo $l->nombre ?></td>
-                            
-                           
+    <table id="grid" class="table table-light" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $lista = $marcaDB->listar();
+            foreach ($lista as $l) {
+            ?>
+                <tr class=" text-center">
+                    <!-- datos de la tabla sacada de la base de datos -->
 
-                        </tr>
-                        
-                    <?php
-                    }
-                    ?>
+                    <td><?php echo $l->id ?></td>
+                    <td><?php echo $l->nombre ?></td>
 
-                </tbody>
 
-            </table>
 
-        </div>
-    </div>
+                </tr>
+
+            <?php
+            }
+            ?>
+
+        </tbody>
+
+    </table>
+
+</div>
+</div>
+
 </html>
 
-<script>
 
 <script src="js/main.js"></script>
 <!--====== Javascripts & Jquery ======-->

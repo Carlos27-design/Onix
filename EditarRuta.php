@@ -7,6 +7,13 @@ $rutaDB = new RutaDB();
 $ruta = new Ruta();
 
 
+$idRuta = 0;
+if (isset($_GET["id"])) {
+    $idRuta = $_GET["id"];
+    $ruta = $rutaDB->buscar($idRuta);
+}
+
+
 ?>
 
 <!doctype html>
@@ -26,7 +33,7 @@ $ruta = new Ruta();
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Ruta</title>
+    <title>Editar Ruta</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" type="image/ico" href="img/favicon.png" />
@@ -65,30 +72,36 @@ $ruta = new Ruta();
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
-                        <h3>Agregar Ruta</h3>
-                        <form class="quote-form" action="ActIngresarRuta.php" method="post">
+                        <h3>Editar Ruta</h3>
+                        <form class="quote-form" action="ActEditarRuta.php?id=<?php echo $ruta->id; ?>" method="post">
 
                             <p class=" width-full">
                                 <label for="txtDireccionInicio">Dirección Inicio</label>
-                                <input required type="text" name="txtDireccionInicio" id="txtDireccionInicio" placeholder="Direccion Inicio" maxlength="50">
+                                <input required type="text" name="txtDireccionInicio" id="txtDireccionInicio" placeholder="Direccion Inicio" maxlength="50" value="<?php echo $ruta->direccionInicio; ?>">
                             </p>
                             <p class=" width-full">
                                 <label for="txtDireccionFinal">Dirección Final</label>
-                                <input required type="text" name="txtDireccionFinal" id="txtDireccionFinal" placeholder="Direccion Final" maxlength="50">
+                                <input required type="text" name="txtDireccionFinal" id="txtDireccionFinal" placeholder="Direccion Final" maxlength="50" value="<?php echo $ruta->direccionFinal; ?>">
                             </p>
                             <p class=" width-full">
                                 <label for="txtDistancia">Distancia</label>
-                                <input required type="text" name="txtDistancia" id="txtDistancia" placeholder="Distancia a Recorrer">
+                                <input required type="text" name="txtDistancia" id="txtDistancia" placeholder="Distancia a Recorrer" value="<?php echo $ruta->distancia; ?>">
                             </p>
                             <label for="txtFechaInicio">Fecha y Hora Inicio</label>
                             <p class=" width-half">
-                                <input required type="date" name="txtFechaInicio" id="txtFechaInicio">
-                                <input required class="pull-right" type="time" name="txtHoraInicio" id="txtHoraInicio">
+                                <?php
+                                list($fechaInicio, $horaInicio) = explode(" ", $ruta->fechaInicio);
+                                ?>
+                                <input required type="date" name="txtFechaInicio" id="txtFechaInicio" value="<?php echo $fechaInicio; ?>">
+                                <input required class="pull-right" type="time" name="txtHoraInicio" id="txtHoraInicio" value="<?php echo $horaInicio; ?>">
                             </p>
                             <label for="txtFechaFin">Fecha y Hora Fin</label>
                             <p class=" width-half">
-                                <input required type="date" name="txtFechaFin" id="txtFechaFin" placeholder="Fecha Fin">
-                                <input required class="pull-right" type="time" name="txtHoraFin" id="txtHoraFin">
+                                <?php
+                                list($fechaFinal, $horaFinal) = explode(" ", $ruta->fechaFin);
+                                ?>
+                                <input required type="date" name="txtFechaFin" id="txtFechaFin" placeholder="Fecha Fin" value="<?php echo $fechaFinal; ?>">
+                                <input required class="pull-right" type="time" name="txtHoraFin" id="txtHoraFin" value="<?php echo $horaFinal; ?>">
                             </p>
 
 

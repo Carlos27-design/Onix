@@ -15,6 +15,7 @@ $marcaDB = new MarcaDB();
 
 ?>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Lista de Tipo Tipo Usuario</title>
@@ -44,58 +45,56 @@ $marcaDB = new MarcaDB();
 </head>
 
 <div class="row">
-            <h3>Informacion de Tipo Usuario</h3>
-        </div>
-        <br>
-        <div >
+    <h3>Informacion de Tipo Usuario</h3>
+</div>
+<br>
+<div>
 
-            <table id="grid" class="table table-light" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Marca</th>
-                    </tr>
-                </thead>
-                <tbody>
+    <table id="grid" class="table table-light" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Marca</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $lista = $modeloDB->listar();
+            $lista1 = $marcaDB->listar();
+            foreach ($lista as $l) {
+            ?>
+                <tr class=" text-center">
+                    <!-- datos de la tabla sacada de la base de datos -->
+
+                    <td><?php echo $l->id ?></td>
+                    <td><?php echo $l->nombre ?></td>
                     <?php
-                    $lista = $modeloDB->listar();
-                    $lista1 = $marcaDB->listar();
-                    foreach ($lista as $l) {
-                    ?>    
-                        <tr class=" text-center">
-                            <!-- datos de la tabla sacada de la base de datos -->
-                            
-                            <td><?php echo $l->id ?></td>
-                            <td><?php echo $l->nombre ?></td>
-                            <?php
-                            foreach($lista1 as $l1)
-                            {
-                                if($l->marca_id == $l1->id)
-                                {
-                            ?>
-                            <td><?php echo $l1->nombre?></td>
-                            <?php
-                            }
+                    foreach ($lista1 as $l1) {
+                        if ($l->marca_id == $l1->id) {
+                    ?>
+                            <td><?php echo $l1->nombre ?></td>
+                    <?php
                         }
-                            ?>
-                           
-
-                        </tr>
-                        
-                    <?php
                     }
                     ?>
 
-                </tbody>
 
-            </table>
+                </tr>
 
-        </div>
-    </div>
+            <?php
+            }
+            ?>
+
+        </tbody>
+
+    </table>
+
+</div>
+</div>
+
 </html>
 
-<script>
 
 <script src="js/main.js"></script>
 <!--====== Javascripts & Jquery ======-->

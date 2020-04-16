@@ -5,19 +5,15 @@ include_once 'Ruta.php';
 
 class RutaDB extends Conexion
 {
-
     function crear($ruta)
     {
-
         $this->conectar();
 
-        $sql = "INSERT INTO ruta (id, direccionInicio, direccionFinal, distancia, fechaInicio, fechaFin)
-                VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO ruta (id, direccionInicio, direccionFinal, distancia, fechaInicio, fechaFin) 
+                VALUES(?,?,?,?,?,?)";
 
         $stmt = $this->miConexion->prepare($sql);
-
-        $stmt = $this->miConexion->prepare($sql) or trigger_error($this->miConexion->error . "[$sql]");
-        $stmt->bind_param("isssss", $ruta->id, $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFin);
+        $stmt->bind_param("issssss", $ruta->id, $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFinal);
         $ok = $stmt->execute();
         $this->desconectar();
 
@@ -26,19 +22,21 @@ class RutaDB extends Conexion
 
     function listar()
     {
-
         $arreglo = array();
         $this->conectar();
 
-        $sql = "SELECT * from estado";
+        $sql = "SELECT * from ruta";
         $resultados = $this->miConexion->query($sql);
         while ($fila = $resultados->fetch_assoc()) {
-            $estado = new Estado();
-            $estado->id = $fila['id'];
-            $estado->nombre = $fila['nombre'];
+            $ruta = new Ruta();
+            $ruta->id = $fila['id'];
+            $ruta->direccionInicio = $fila['direccionInicio'];
+            $ruta->direcionFinal = $fila['direccionFinal'];
+            $ruta->distancia = $fila['distancia'];
+            $ruta->fechaInicio = $fila['fechaInicio'];
+            $ruta->fechaFin = $fila['fechaFin'];
 
-
-            $arreglo[] = $estado;
+            $arreglo[] = $ruta;
         }
 
         $this->desconectar();
@@ -46,52 +44,54 @@ class RutaDB extends Conexion
         return $arreglo;
     }
 
-    function buscar($id)
+    function Buscar($id)
     {
-
         $devolver = null;
         $this->conectar();
 
-        $sql = "SELECT * from estado where id = ?";
+        $sql = "SELECT * FROM ruta where id = ?";
         $stmt = $this->miConexion->prepare($sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $resultados = $stmt->get_result();
         while ($fila = $resultados->fetch_assoc()) {
-            $estado = new Estado();
-            $estado->id = $fila['id'];
-            $estado->nombre = $fila['nombre'];
-
-            $devolver = $estado;
+            $ruta = new Ruta();
+            $ruta->id = $fila['id'];
+            $ruta->direccionInicio = $fila['direccionInicio'];
+            $ruta->direcionFinal = $fila['direccionFinal'];
+            $ruta->distancia = $fila['distancia'];
+            $ruta->fechaInicio = $fila['fechaInicio'];
+            $ruta->fechaFin = $fila['fechaFin'];
+            $devolver = $ruta;
         }
-
         $this->desconectar();
 
         return $devolver;
     }
 
-    function editar($estado)
+    function Editar($ruta)
     {
         $this->conectar();
-        $sql = "UPDATE estado set
-                nombre = ? where id = ?";
+        $sql = "UPDATE ruta set 
+        direccionInicio=?, direccionFinal=?, distancia=?, fechaInicio=?, fechaFin=? where id=?";
         $stmt = $this->miConexion->prepare($sql);
-        $stmt->bind_param("si", $estado->nombre, $estado->id);
+        $stmt->bind_param("sssssi", $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFin, $ruta->id);
         $ok = $stmt->execute();
         $this->desconectar();
+
 
         return $ok;
     }
 
-
-    function eliminar($id)
+    function Eliminar($id)
     {
         $this->conectar();
-        $sql = "DELETE from estado where id = ?";
+        $sql = "DELETE from ruta where id = ?";
         $stmt = $this->miConexion->prepare($sql);
         $stmt->bind_param("i", $id);
         $ok = $stmt->execute();
         $this->desconectar();
+
         return $ok;
     }
 }

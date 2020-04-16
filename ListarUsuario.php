@@ -11,6 +11,7 @@ $usuarioDB = new UsuarioDB();
 
 ?>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Lista de Asistentes</title>
@@ -40,55 +41,55 @@ $usuarioDB = new UsuarioDB();
 </head>
 
 <div class="row">
-            <h3>Informacion de Usuario</h3>
-        </div>
-        <br>
-        <div class="">
+    <h3>Informacion de Usuario</h3>
+</div>
+<br>
+<div class="">
 
-            <table id="grid" class="table table-light" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Rut</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Correo</th>
-                        <th>Telefono</th>
-                        <th>Tipo Usuario</th>
-                        
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $lista = $usuarioDB->listar();
-                    foreach ($lista as $l) {
-                    ?>    
-                        <tr class=" text-center">
-                            <!-- datos de la tabla sacada de la base de datos -->
-                            
-                            <td><?php echo $l->rut ?></td>
-                            <td><?php echo $l->nombre ?></td>
-                            <td><?php echo $l->apellido ?></td>
-                            <td><?php echo $l->correo ?></td>
-                            <td><?php echo $l->nroTelefonico ?></td>
-                            <td><?php echo $l->tipoUsuario_id ?></td>
-                           
+    <table id="grid" class="table table-light" style="width:100%">
+        <thead>
+            <tr>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Telefono</th>
+                <th>Tipo Usuario</th>
 
-                        </tr>
-                        
-                    <?php
-                    }
-                    ?>
 
-                </tbody>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $lista = $usuarioDB->listar();
+            foreach ($lista as $l) {
+            ?>
+                <tr class=" text-center">
+                    <!-- datos de la tabla sacada de la base de datos -->
 
-            </table>
+                    <td><?php echo $l->rut ?></td>
+                    <td><?php echo $l->nombre ?></td>
+                    <td><?php echo $l->apellido ?></td>
+                    <td><?php echo $l->correo ?></td>
+                    <td><?php echo $l->nroTelefonico ?></td>
+                    <td><?php echo $l->tipoUsuario_id ?></td>
 
-        </div>
-    </div>
+
+                </tr>
+
+            <?php
+            }
+            ?>
+
+        </tbody>
+
+    </table>
+
+</div>
+</div>
+
 </html>
 
-<script>
 
 <script src="js/main.js"></script>
 <!--====== Javascripts & Jquery ======-->
