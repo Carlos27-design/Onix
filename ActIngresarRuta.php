@@ -18,7 +18,7 @@ $ok = null;
 $message = "";
 
 if (isset($_POST['txtDireccionInicio']) && isset($_POST['txtDireccionFinal']) && isset($_POST['txtDistancia']) && 
-isset($_POST['txtFechaInicio']) && isset($_POST['txtFechaFin']) && isset($_POST['txtHoraInicio']) && isset(['txtHoraFin']))
+isset($_POST['txtFechaInicio']) && isset($_POST['txtFechaFin']) && isset($_POST['txtHoraInicio']) && isset($_POST['txtHoraFin']))
 {
     $txtDireccionInicio = $_POST['txtDireccionInicio'];
     $txtDireccionFinal = $_POST['txtDireccionFinal'];
