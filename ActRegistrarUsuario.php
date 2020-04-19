@@ -22,7 +22,7 @@ $tipoUsuarioId = null;
 if (
     isset($_POST['txtRut']) && isset($_POST['txtNombre']) && isset($_POST['txtApellido'])
     && isset($_POST['txtContrasena']) && isset($_POST['txtCorreo'])
-    && isset($_POST['txtNroTelefonico']) && isset($_POST['tipoUsuarioId'])
+    && isset($_POST['txtNroTelefonico'])
 ) {
     $txtRut =  $_POST['txtRut'];
     $txtNombre = $_POST['txtNombre'];
@@ -30,11 +30,11 @@ if (
     $txtContrasena =  $_POST['txtContrasena'];;
     $txtCorreo =  $_POST['txtCorreo'];;
     $txtNroTelefonico =  $_POST['txtNroTelefonico'];
-    $tipoUsuarioId = $_POST['tipoUsuarioId'];
+
 
 
     if (($txtRut && $txtNombre && $txtApellido && $txtContrasena &&
-        $txtCorreo && $txtNroTelefonico && $tipoUsuarioId) != "") {
+        $txtCorreo && $txtNroTelefonico) != "") {
         $usuario->id = 0;
         $usuario->rut = $txtRut;
         $usuario->nombre = $txtNombre;
@@ -42,7 +42,7 @@ if (
         $usuario->contrasena = $txtContrasena;
         $usuario->correo = $txtCorreo;
         $usuario->nroTelefonico = $txtNroTelefonico;
-        $usuario->tipoUsuario_id = $tipoUsuarioId;
+        $usuario->tipoUsuario_id = 1;
 
         $ok = $usuarioDB->crear($usuario);
     } else {
@@ -53,13 +53,15 @@ if (
 
 
 if ($ok) {
+    echo "creado";
     $_SESSION['message'] = '<div class="alert alert-success">
   Usuario Registrado Correctamente
   <a href="#">Bienvenido</a> 
   </div>';
 } else {
+    echo "no creado";
     $_SESSION['message'] = '<div class="alert alert-danger">
   ' . $message . '</div>';
 }
 
-header("Location: index.php");
+// header("Location: index.php");

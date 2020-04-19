@@ -45,7 +45,7 @@ $marcaDB = new MarcaDB();
 </head>
 
 <div class="row">
-    <h3>Informacion de Tipo Usuario</h3>
+    <h3>Informacion de Modelos</h3>
 </div>
 <br>
 <div>

@@ -17,19 +17,19 @@ $txtHoraFin = null;
 $ok = null;
 $message = "";
 
-if (isset($_POST['txtDireccionInicio']) && isset($_POST['txtDireccionFinal']) && isset($_POST['txtDistancia']) && 
-isset($_POST['txtFechaInicio']) && isset($_POST['txtFechaFin']) && isset($_POST['txtHoraInicio']) && isset(['txtHoraFin']))
-{
+if (
+    isset($_POST['txtDireccionInicio']) && isset($_POST['txtDireccionFinal']) && isset($_POST['txtDistancia']) &&
+    isset($_POST['txtFechaInicio']) && isset($_POST['txtFechaFin']) && isset($_POST['txtHoraInicio']) && isset($POST_['txtHoraFin'])
+) {
     $txtDireccionInicio = $_POST['txtDireccionInicio'];
     $txtDireccionFinal = $_POST['txtDireccionFinal'];
     $txtDistancia = $_POST['txtDistancia'];
     $txtFechaInicio = $_POST['txtFechaInicio'];
     $txtHoraInicio = $_POST['txtHoraInicio'];
-    $txtFechaFin = $_POST['txtFechaFin'] ;
+    $txtFechaFin = $_POST['txtFechaFin'];
     $txtHoraFin = $_POST['txtHoraFin'];
 
-    if ($txtDireccionInicio && $txtDireccionFinal && $txtDistancia && $txtFechaInicio && $txtHoraInicio && $txtFechaFin && $txtHoraFin != "")
-    {
+    if ($txtDireccionInicio && $txtDireccionFinal && $txtDistancia && $txtFechaInicio && $txtHoraInicio && $txtFechaFin && $txtHoraFin != "") {
         $ruta->id = 0;
         $ruta->direccionInicio = $txtDireccionInicio;
         $ruta->direccionFinal = $txtDireccionFinal;
@@ -39,10 +39,8 @@ isset($_POST['txtFechaInicio']) && isset($_POST['txtFechaFin']) && isset($_POST[
 
         $ok = $rutaDB->crear($ruta);
         echo 'Se ha ingresado con exito';
-    }else
-    {
+    } else {
         $ok = false;
         echo 'Faltan por ingresar datos';
     }
-    
 }
