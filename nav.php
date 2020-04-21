@@ -32,16 +32,16 @@
                         <ul id="nav" class="nav navbar-nav">
                             <li><a href="#">Administrar</a>
                                 <ul>
-                                    <li><a href="#">Comprobante</a></li>
-                                    <li><a href="#">Entrega</a></li>
-                                    <li><a href="#">ImagenVehiculo</a></li>
-                                    <li><a href="#">Marca</a></li>
-                                    <li><a href="#">Modelo</a></li>
-                                    <li><a href="#">Ruta</a></li>
-                                    <li><a href="#">Tipo Usuario</a></li>
-                                    <li><a href="#">Tipo Vehiculo</a></li>
-                                    <li><a href="#">Usuario</a></li>
-                                    <li><a href="#">Vehiculo</a></li>
+                                    <li><a href="ListarComprobante.php">Comprobante</a></li>
+                                    <li><a href="ListarEntrega.php">Entrega</a></li>
+                                    <li><a href="ListarImagenVehiculo">ImagenVehiculo</a></li>
+                                    <li><a href="ListarMarca.php">Marca</a></li>
+                                    <li><a href="ListarModelo.php">Modelo</a></li>
+                                    <li><a href="ListarRuta.php">Ruta</a></li>
+                                    <li><a href="ListarTipoUsuario.php">Tipo Usuario</a></li>
+                                    <li><a href="ListarTipoVehiculo.php">Tipo Vehiculo</a></li>
+                                    <li><a href="ListarUsuario.php">Usuario</a></li>
+                                    <li><a href="ListarVehiculo.php">Vehiculo</a></li>
                                 </ul>
                             </li>
 
