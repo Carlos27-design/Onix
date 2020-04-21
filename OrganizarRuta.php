@@ -8,7 +8,9 @@ $ruta = new Ruta();
 
 $marcadores = $rutaDB->listar();
 
-
+$API_KEY = "AIzaSyCvOrdsS58FdhHIfxtrRaeWzMrxU-EY_lw";
+ 
+ 
 
 ?>
 
@@ -76,6 +78,14 @@ $marcadores = $rutaDB->listar();
     </style>
 
     <?php include 'nav.php' ?>
+
+    </div>
+    </div>
+            <div id="mapa"></div>
+    </div>
+
+    </div>
+    </section>
     <?php
 
     $marcadores = $rutaDB->listar();
@@ -95,17 +105,70 @@ $marcadores = $rutaDB->listar();
         echo "Latitud:" . $latitud . " Longitud :" . $longitud;
     }
     ?>
-
-    </div>
-    </div>
-
-    </div>
-
-    </div>
-    </section>
     <!--ABOUT AREA END-->
+ <script async defer src="src=https://maps.googleapis.com/maps/api/js?key=<?php echo $API_KEY; ?>&callback=initMap"></script>
+ <script>
+     var map;
+        var pathCoordinates = Array();
+        function initMap() {
+                var countryLength
+                var mapLayer = document.getElementById("mapa");
+                var centerCoordinates = new google.maps.LatLng(<?php echo $latitud?>, <?php echo $longitud?>);
+                var defaultOptions = {
+                        center : centerCoordinates,
+                        zoom : 4
+                }
+                map = new google.maps.Map(mapLayer, defaultOptions);
+                geocoder = new google.maps.Geocoder();
+                <?php
+            if (! empty($marcadores)) {
+            ?>
+                countryLength = <?php echo count($marcadores); ?>
+                <?php
+                foreach ($marcadores as $k => $v) 
+                {
+            ?>
+                geocoder.geocode({
+                        'address' : '<?php echo $marcadores[$k]["Ruta"]; ?>'
+                }, function(LocationResult, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                                var latitude = LocationResult[0].geometry.location.lat();
+                                var longitude = LocationResult[0].geometry.location.lng();
+                                pathCoordinates.push({
+                                        lat : latitude,
+                                        lng : longitude
+                                });
 
-    </style>
+                                new google.maps.Marker({
+                                        position : new google.maps.LatLng(latitude, longitude),
+                                        map : map,
+                                        title : '<?php echo $countryResult[$k]["Ruta"]; ?>'
+                                });
+
+                                if (countryLength == pathCoordinates.length) {
+                                        drawPath();
+                                }
+
+                        }
+                });
+                <?php
+                }
+            }
+            ?>
+        }
+        function drawPath() {
+                new google.maps.Polyline({
+                        path : pathCoordinates,
+                        geodesic : true,
+                        strokeColor : '#FF0000',
+                        strokeOpacity : 1,
+                        strokeWeight : 4,
+                        map : map
+                });
+        }
+         
+     
+ </script>
 </body>
 
 </html>
