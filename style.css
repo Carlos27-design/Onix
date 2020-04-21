@@ -1684,7 +1684,8 @@ select {
     min-height: 40px;
 }
 
-.contact-area button {
+.contact-area button,
+.basicBTN {
     background: #5d6b82 none repeat scroll 0 0;
     border: 0 none;
     border-radius: 3px;
@@ -1697,10 +1698,12 @@ select {
     transition: all 0.3s ease 0s;
 }
 
-.contact-area button:hover {
+.contact-area button:hover,
+.basicBTN {
     background: #f39c12 none repeat scroll 0 0;
     color: #fff;
 }
+
 
 /*------------------------------
     18. FOOTER AREA

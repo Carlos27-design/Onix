@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include_once 'DB/Ruta.php';
 include_once 'DB/RutaDB.php';
@@ -66,6 +67,14 @@ $ruta = new Ruta();
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
                         <h3>Agregar Ruta</h3>
+                        <div class="row">
+                            <?php
+                            if (isset($_SESSION['message']) && $_SESSION['message']) {
+                                echo $_SESSION['message'];
+                                unset($_SESSION['message']);
+                            }
+                            ?>
+                        </div>
                         <form class="quote-form" action="ActIngresarRuta.php" method="post">
 
                             <p class=" width-full">
@@ -92,7 +101,7 @@ $ruta = new Ruta();
                             </p>
 
 
-                            <button type="submit">Actualizar Datos</button>
+                            <button type="submit">Crear Ruta</button>
                         </form>
 
                     </div>

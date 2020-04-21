@@ -12,8 +12,8 @@ class RutaDB extends Conexion
         $sql = "INSERT INTO ruta (id, direccionInicio, direccionFinal, distancia, fechaInicio, fechaFin) 
                 VALUES(?,?,?,?,?,?)";
 
-        $stmt = $this->miConexion->prepare($sql);
-        $stmt->bind_param("issssss", $ruta->id, $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFinal);
+        $stmt = $this->miConexion->prepare($sql) or trigger_error($this->miConexion->error . "[$sql]");
+        $stmt->bind_param("isssss", $ruta->id, $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFin);
         $ok = $stmt->execute();
         $this->desconectar();
 

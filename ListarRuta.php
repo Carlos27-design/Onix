@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include_once 'DB/Ruta.php';
 include_once 'DB/RutaDB.php';
@@ -35,7 +36,6 @@ $rutaLista  = $rutaDB->listar();
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 
-
     <!--====== STYLESHEETS ======-->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -49,10 +49,11 @@ $rutaLista  = $rutaDB->listar();
     <link href="css/responsive.css" rel="stylesheet">
 
     <!--====== STYLESHEETS DATA-TABLE ======-->
-
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet">
 
+    <!--====== STYLESHEETS DATA-TABLE ======-->
+    <script src="https://kit.fontawesome.com/d684b42b31.js" crossorigin="anonymous"></script>
 
 
 
@@ -83,7 +84,28 @@ $rutaLista  = $rutaDB->listar();
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
-                        <h3>Lista de rutas</h3>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h3>Lista de rutas</h3>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="contact-area">
+                                    <form action="IngresarRuta.php">
+                                        <button class="btn" type="submit"><i class=" fas fa-plus-square"></i> Nueva ruta </button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <?php
+                            if (isset($_SESSION['message']) && $_SESSION['message']) {
+                                echo $_SESSION['message'];
+                                unset($_SESSION['message']);
+                            }
+                            ?>
+                        </div>
+
                         <table id="tbl" class="table" style="width:100%">
                             <thead>
                                 <tr>
@@ -93,7 +115,7 @@ $rutaLista  = $rutaDB->listar();
                                     <th>Distancia (KM)</th>
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Final</th>
-
+                                    <th>Administrar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -110,7 +132,11 @@ $rutaLista  = $rutaDB->listar();
                                         <td><?php echo $r->distancia ?></td>
                                         <td><?php echo $r->fechaInicio ?></td>
                                         <td><?php echo $r->fechaFin ?></td>
-
+                                        <td>
+                                            <a title="Ver" href="verRuta.php?id=<?php echo $r->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
+                                            <a title="Editar" href="EditarRuta.php?id=<?php echo $r->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
+                                            <a onclick="deleteRuta(<?php echo $r->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
 
 
                                     </tr>
@@ -130,7 +156,15 @@ $rutaLista  = $rutaDB->listar();
     </section>
     <!--ABOUT AREA END-->
 
+    <script>
+        function deleteRuta(id) {
+            var ask = window.confirm("¿Está seguro que desea eliminar esto?");
+            if (ask) {
+                window.location.href = "ActEliminarRuta.php?id=" + id;
 
+            }
+        }
+    </script>
 
     <!--====== SCRIPTS JS ======-->
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
@@ -155,7 +189,12 @@ $rutaLista  = $rutaDB->listar();
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
+
     <script>
+        $(window).on("ready", function() {
+            alert();
+            $("button").addClass("basicBTN");
+        });
         $(document).ready(function() {
             $('#tbl').DataTable({
                 "language": {
@@ -170,8 +209,10 @@ $rutaLista  = $rutaDB->listar();
                 buttons: ['copy', 'excel', 'pdf']
 
             });
+
         });
     </script>
+
     <!--===== DATA-TABLE=====-->
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>

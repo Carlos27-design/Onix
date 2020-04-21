@@ -1,22 +1,21 @@
 <?php
-
+session_start();
 include_once 'DB/RutaDB.php';
 
 $rutaDB = new RutaDB;
 
 $id = 0;
 
-if (isset($_GET['id']))
-{
+if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
 $ok = $rutaDB->Eliminar($id);
 
-if ($ok)
-{
-    echo "Eliminado";
+if ($ok) {
+    $_SESSION['message'] = '<div class="alert alert-success">Eliminado correctamente</div>';
+} else {
+    $_SESSION['message'] = '<div class="alert alert-danger">Error al eliminar</div>';
 }
-else{
-    echo "No eliminado";
-}
+
+header("Location: listarruta.php");

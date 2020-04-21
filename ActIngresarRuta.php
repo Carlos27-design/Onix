@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include_once 'DB/Ruta.php';
 include_once 'DB/RutaDB.php';
@@ -19,7 +20,7 @@ $message = "";
 
 if (
     isset($_POST['txtDireccionInicio']) && isset($_POST['txtDireccionFinal']) && isset($_POST['txtDistancia']) &&
-    isset($_POST['txtFechaInicio']) && isset($_POST['txtFechaFin']) && isset($_POST['txtHoraInicio']) && isset($POST_['txtHoraFin'])
+    isset($_POST['txtFechaInicio']) && isset($_POST['txtFechaFin']) && isset($_POST['txtHoraInicio']) && isset($_POST['txtHoraFin'])
 ) {
     $txtDireccionInicio = $_POST['txtDireccionInicio'];
     $txtDireccionFinal = $_POST['txtDireccionFinal'];
@@ -34,13 +35,19 @@ if (
         $ruta->direccionInicio = $txtDireccionInicio;
         $ruta->direccionFinal = $txtDireccionFinal;
         $ruta->distancia = $txtDistancia;
-        $ruta->fechaInicio = $txtFechaInicio && $txtHoraInicio;
-        $ruta->fechaFin = $txtFechaFin && $txtHoraFin;
+        $ruta->fechaInicio = $txtFechaInicio . " " . $txtHoraInicio;
+        $ruta->fechaFin = $txtFechaFin . " " . $txtHoraFin;
 
         $ok = $rutaDB->crear($ruta);
-        echo 'Se ha ingresado con exito';
     } else {
         $ok = false;
-        echo 'Faltan por ingresar datos';
     }
+
+    if ($ok) {
+        $_SESSION['message'] = '<div class="alert alert-success">Agregado correctamente</div>';
+    } else {
+        $_SESSION['message'] = '<div class="alert alert-danger">No agregado.</div>';
+    }
+
+    header("Location: listarruta.php");
 }
