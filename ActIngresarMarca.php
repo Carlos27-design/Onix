@@ -33,3 +33,15 @@ if (isset($_POST['txtnombremarca']))
         header("Location: index.php");
     }
 }
+
+if ($ok) {
+    echo "creado";
+    $_SESSION['message'] = '<div class="alert alert-success">
+  Marca Registrado Correctamente
+  <a href="#">Bienvenido</a> 
+  </div>';
+} else {
+    echo "no creado";
+    $_SESSION['message'] = '<div class="alert alert-danger">
+  ' . $message . '</div>';
+}
