@@ -125,9 +125,9 @@ $tipoVehiculoLista  = $TipoVehiculoDB->listar();
                                         <td><?php echo $tv->id ?></td>
                                         <td><?php echo $tv->nombre ?></td>
                                         <td>
-                                            <a title="Ver" href="verRuta.php?id=<?php echo $r->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
-                                            <a title="Editar" href="EditarRuta.php?id=<?php echo $r->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
-                                            <a onclick="deleteRuta(<?php echo $r->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
+                                            <a title="Ver" href="verRuta.php?id=<?php echo $tv->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
+                                            <a title="Editar" href="EditarRuta.php?id=<?php echo $tv->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
+                                            <a onclick="deleteRuta(<?php echo $tv->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
                                         </td>
 
 
