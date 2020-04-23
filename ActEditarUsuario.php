@@ -48,4 +48,4 @@ if ($ok) {
   ' . $message . '</div>';
 }
 
-header("Location: miPerfil.php.php?id=" . $_GET['id']);
+header("Location: EditarmiPerfil.php?id=" . $_GET['id']);

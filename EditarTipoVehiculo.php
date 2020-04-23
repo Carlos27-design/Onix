@@ -1,16 +1,21 @@
 <?php
+session_start();
 
-include_once 'DB/TipoUsuario.php';
-include_once 'DB/TipoUsuarioDB.php';
+include_once 'DB/TipoVehiculo.php';
+include_once 'DB/TipoVehiculoDB.php';
 
-$tipoUsuarioDB = new TipoUsuarioDB();
-$tipoUsuario = new TipoUsuario();
+$tipoVehiculoDB = new TipoVehiculoDB();
+$tipoVehiculo = new TipoVehiculo();
 
-$idTipo = 0;
+
+$idTV = 0;
 if (isset($_GET["id"])) {
-    $idTipo = $_GET["id"];
-    $tipoUsuario = $tipoUsuarioDB->buscar($idTipo);
+    $idTV = $_GET["id"];
+    $tipoVehiculo = $tipoVehiculoDB->buscar($idTV);
+} else {
+    header("Location: listarTipoVehiculo.php");
 }
+
 
 ?>
 
@@ -31,7 +36,7 @@ if (isset($_GET["id"])) {
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Tipo Usuario</title>
+    <title>Editar Tipo de Vehiculo</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" type="image/ico" href="img/favicon.png" />
@@ -63,19 +68,28 @@ if (isset($_GET["id"])) {
 
     <?php include 'nav.php' ?>
 
+
     <!--ABOUT AREA-->
-    <section class="about-area colorful-bg section-padding">
+    <section class="about-area gray-bg section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
-                        <h3>Tipo Usuario</h3>
-                        <form class="quote-form" action="ActEditarTipoUsuario.php?id=<?php echo $tipoUsuario->id; ?>" method="post">
-                            <p class=" width-full">
-                                <label for="txtNombre">Nombre</label>
-                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $tipoUsuario->nombre; ?>">
-                            </p>
+                        <h3>Editar Tipo de Vehiculo</h3>
+                        <div class="row">
+                            <?php
+                            if (isset($_SESSION['message']) && $_SESSION['message']) {
+                                echo $_SESSION['message'];
+                                unset($_SESSION['message']);
+                            }
+                            ?>
+                        </div>
+                        <form class="quote-form" action="ActEditarTipoVehiculo.php?id=<?php echo $tipoVehiculo->id; ?>" method="post">
 
+                            <p class=" width-full">
+                                <label for="txtNombre">Dirección Inicio</label>
+                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="50" value="<?php echo $tipoVehiculo->nombre; ?>">
+                            </p>
                             <button type="submit">Actualizar Datos</button>
                         </form>
 

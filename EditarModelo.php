@@ -1,3 +1,29 @@
+<?php
+session_start();
+include_once 'DB/Marca.php';
+include_once 'DB/MarcaDB.php';
+
+$marcaDB = new MarcaDB();
+$marca = new Marca();
+
+$marcaLista = $marcaDB->listar();
+
+include_once 'DB/Modelo.php';
+include_once 'DB/ModeloDB.php';
+
+$modeloDB = new ModeloDB();
+$modelo = new Modelo();
+
+$idModelo = 0;
+if (isset($_GET["id"])) {
+    $idModelo = $_GET["id"];
+    $modelo = $modeloDB->buscar($idModelo);
+} else {
+    header("Location: listarTipoUsuario.php");
+}
+
+?>
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -15,7 +41,7 @@
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Crear Cuenta</title>
+    <title>Modelo</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" type="image/ico" href="img/favicon.png" />
@@ -48,67 +74,51 @@
     <?php include 'nav.php' ?>
 
     <!--ABOUT AREA-->
-    <section class="about-area colorful-bg section-padding">
+    <section class="about-area gray-bg section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
-                        <h3>Crear una cuenta nueva</h3>
-                        <form class="quote-form" action="ActRegistrarUsuario.php" method="post">
-                            <p class="width-full">
-                                <input required type="text" name="txtRut" id="txtRut" placeholder="RUT" maxlength="20">
+                        <h3>Marca</h3>
+                        <div class="row">
+                            <?php
+                            if (isset($_SESSION['message']) && $_SESSION['message']) {
+                                echo $_SESSION['message'];
+                                unset($_SESSION['message']);
+                            }
+                            ?>
+                        </div>
+                        <form class="quote-form" action="ActEditarModelo.php?id=<?php echo $modelo->id; ?>" method="post">
+
+                            <p class=" width-full">
+                                <label for="txtNombre">Nombre</label>
+                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $modelo->nombre; ?>">
                             </p>
-                            <p class="width-half">
-                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45">
-                                <input required class="pull-right" type="text" name="txtApellido" id="txtApellido" placeholder="Apellido" maxlength="45">
+                            <p class=" width-full">
+                                <label for="slcMarca">Marca</label>
+                                <br>
+                                <select name="slcMarca" id="slcMarca">
+                                    <?php foreach ($marcaLista as $m) { ?>
+                                        <option value="<?php echo $m->id; ?>" <?php if ($modelo->marca_id == $m->id) {
+                                                                                    echo ' selected="selected"';
+                                                                                } ?>>
+                                            <?php echo $m->nombre; ?></option>
+                                    <?php } ?>
+                                </select>
                             </p>
-                            <p class="width-half">
-                                <input required type="email" name="txtCorreo" id="txtCorreo" placeholder="Email" maxlength="45">
-                                <input required class="pull-right" type="number" name="txtNroTelefonico" id="txtNroTelefonico" placeholder="N° Telefono" maxlength="10">
-                            </p>
-                            <p class="width-half">
-                                <input required type="password" name="txtContrasena" id="txtContrasena" placeholder="Contraseña" maxlength="20">
-                                <input required class="pull-right" type="password" name="txtContrasenaConf" id="txtContrasenaConf" placeholder="Confirme Contraseña" maxlength="20">
-                            </p>
-                            <button type="submit" id="agregar">Registrarse</button>
+
+                            <button type="submit">Actualizar Datos</button>
+                        </form>
+
                     </div>
                 </div>
 
             </div>
+
         </div>
     </section>
-
     <!--ABOUT AREA END-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            var passCorrecto = false;
-            $(document).on('click', '#agregar', function(e) {
-                return passCorrecto;
-                alert("Las contraseñas no coinciden");
-            });
 
-            $(document).on('focusout', '#txtContrasenaConf', function(e) {
-                var password = $('#txtContrasena').val();
-                var passwordConfirm = $('#txtContrasenaConf').val();
-                if (password == passwordConfirm) {
-                    passCorrecto = true;
-                    $('#txtContrasenaConf').css("border", "0 none");
-                    $('#txtContrasena').css("border", "0 none");
-
-                } else {
-                    $('#txtContrasenaConf').css("border", "1px solid red");
-                    $('#txtContrasena').css("border", "1px solid red");
-
-                    alert("Las contraseñas no coinciden");
-                }
-
-            });
-
-
-
-        });
-    </script>
 
 
     <!--====== SCRIPTS JS ======-->

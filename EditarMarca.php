@@ -6,18 +6,12 @@ include_once 'DB/MarcaDB.php';
 $marcaDB = new MarcaDB();
 $marca = new Marca();
 
-$marcaLista = $marcaDB->listar();
-
-include_once 'DB/Modelo.php';
-include_once 'DB/ModeloDB.php';
-
-$modeloDB = new ModeloDB();
-$modelo = new Modelo();
-
-$idModelo = 0;
+$idMarca = 0;
 if (isset($_GET["id"])) {
-    $idModelo = $_GET["id"];
-    $modelo = $modeloDB->buscar($idModelo);
+    $idMarca = $_GET["id"];
+    $marca = $marcaDB->buscar($idMarca);
+} else {
+    header("Location: listarMarca.php");
 }
 
 ?>
@@ -39,7 +33,7 @@ if (isset($_GET["id"])) {
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Modelo</title>
+    <title>Marca</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" type="image/ico" href="img/favicon.png" />
@@ -78,23 +72,19 @@ if (isset($_GET["id"])) {
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
                         <h3>Marca</h3>
-                        <form class="quote-form" action="ActEditarModelo.php?id=<?php echo $modelo->id; ?>" method="post">
+                        <div class="row">
+                            <?php
+                            if (isset($_SESSION['message']) && $_SESSION['message']) {
+                                echo $_SESSION['message'];
+                                unset($_SESSION['message']);
+                            }
+                            ?>
+                        </div>
+                        <form class="quote-form" action="ActEditarMarca.php?id=<?php echo $marca->id; ?>" method="post">
 
                             <p class=" width-full">
                                 <label for="txtNombre">Nombre</label>
-                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $modelo->nombre; ?>">
-                            </p>
-                            <p class=" width-full">
-                                <label for="slcMarca">Marca</label>
-                                <br>
-                                <select name="slcMarca" id="slcMarca">
-                                    <?php foreach ($marcaLista as $m) { ?>
-                                        <option value="<?php echo $m->id; ?>" <?php if ($modelo->marca_id == $m->id) {
-                                                                                    echo ' selected="selected"';
-                                                                                } ?>>
-                                            <?php echo $m->nombre; ?></option>
-                                    <?php } ?>
-                                </select>
+                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $marca->nombre; ?>">
                             </p>
 
                             <button type="submit">Actualizar Datos</button>

@@ -11,32 +11,32 @@ $nombre = null;
 
 
 if (isset($_POST['txtNombre']) && isset($_GET["id"])) {
-    $id = $_GET['id'];
-    $nombre = $_POST['txtNombre'];
+  $id = $_GET['id'];
+  $nombre = $_POST['txtNombre'];
 
-    if (($id && $nombre) != "") {
+  if (($id && $nombre) != "") {
 
 
-        $marca = new Marca();
-        $marcaDB = new MarcaDB();
+    $marca = new Marca();
+    $marcaDB = new MarcaDB();
 
-        $marca->id = $id;
-        $marca->nombre = $nombre;
+    $marca->id = $id;
+    $marca->nombre = $nombre;
 
-        $ok = $marcaDB->editar($marca);
-    } else {
-        $message = "Debe ingresar todos los datos";
-        $ok = false;
-    }
+    $ok = $marcaDB->editar($marca);
+  } else {
+    $message = "Debe ingresar todos los datos";
+    $ok = false;
+  }
 }
 
 
 if ($ok) {
-    $_SESSION['message'] = '<div class="alert alert-success">
+  $_SESSION['message'] = '<div class="alert alert-success">
   Evento Editado Correctamente <a href="#">Haga clíck aquí para ver la lista de eventos</a> </div>';
 } else {
-    $_SESSION['message'] = '<div class="alert alert-danger">
+  $_SESSION['message'] = '<div class="alert alert-danger">
   ' . $message . '</div>';
 }
 
-// header("Location: EventoEditar.php?id=" . $id);
+header("Location: EditarMarca.php?id=" . $id);

@@ -53,4 +53,4 @@ if ($ok) {
   ' . $message . '</div>';
 }
 
-// header("Location: miPerfil.php.php?id=" . $_GET['id']);
+header("Location: EditarMiVehiculo.php?id=" . $_GET['id']);

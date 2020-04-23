@@ -12,6 +12,8 @@ $idRuta = 0;
 if (isset($_GET["id"])) {
     $idRuta = $_GET["id"];
     $ruta = $rutaDB->buscar($idRuta);
+} else {
+    header("Location: listarRuta.php");
 }
 
 

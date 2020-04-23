@@ -1,15 +1,18 @@
 <?php
+session_start();
 
-include_once 'DB/Marca.php';
-include_once 'DB/MarcaDB.php';
+include_once 'DB/TipoUsuario.php';
+include_once 'DB/TipoUsuarioDB.php';
 
-$marcaDB = new MarcaDB();
-$marca = new Marca();
+$tipoUsuarioDB = new TipoUsuarioDB();
+$tipoUsuario = new TipoUsuario();
 
-$idMarca = 0;
+$idTipo = 0;
 if (isset($_GET["id"])) {
-    $idMarca = $_GET["id"];
-    $marca = $marcaDB->buscar($idMarca);
+    $idTipo = $_GET["id"];
+    $tipoUsuario = $tipoUsuarioDB->buscar($idTipo);
+} else {
+    header("Location: listarTipoUsuario.php");
 }
 
 ?>
@@ -31,7 +34,7 @@ if (isset($_GET["id"])) {
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Marca</title>
+    <title>Tipo Usuario</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" type="image/ico" href="img/favicon.png" />
@@ -64,17 +67,24 @@ if (isset($_GET["id"])) {
     <?php include 'nav.php' ?>
 
     <!--ABOUT AREA-->
-    <section class="about-area gray-bg section-padding">
+    <section class="about-area colorful-bg section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
-                        <h3>Marca</h3>
-                        <form class="quote-form" action="ActEditarMarca.php?id=<?php echo $marca->id; ?>" method="post">
-
+                        <h3>Tipo Usuario</h3>
+                        <div class="row">
+                            <?php
+                            if (isset($_SESSION['message']) && $_SESSION['message']) {
+                                echo $_SESSION['message'];
+                                unset($_SESSION['message']);
+                            }
+                            ?>
+                        </div>
+                        <form class="quote-form" action="ActEditarTipoUsuario.php?id=<?php echo $tipoUsuario->id; ?>" method="post">
                             <p class=" width-full">
                                 <label for="txtNombre">Nombre</label>
-                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $marca->nombre; ?>">
+                                <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="45" value="<?php echo $tipoUsuario->nombre; ?>">
                             </p>
 
                             <button type="submit">Actualizar Datos</button>

@@ -12,34 +12,34 @@ $marca_id = null;
 
 
 if (isset($_POST['txtNombre']) && isset($_GET["id"]) && isset($_POST['slcMarca'])) {
-    $id = $_GET['id'];
-    $nombre = $_POST['txtNombre'];
-    $marca_id = $_POST['slcMarca'];
+  $id = $_GET['id'];
+  $nombre = $_POST['txtNombre'];
+  $marca_id = $_POST['slcMarca'];
 
-    if (($id && $nombre && $marca_id)  != "") {
+  if (($id && $nombre && $marca_id)  != "") {
 
 
-        $modelo = new Modelo();
-        $modeloDB = new ModeloDB();
+    $modelo = new Modelo();
+    $modeloDB = new ModeloDB();
 
-        $modelo->id = $id;
-        $modelo->nombre = $nombre;
-        $modelo->marca_id = $marca_id;
+    $modelo->id = $id;
+    $modelo->nombre = $nombre;
+    $modelo->marca_id = $marca_id;
 
-        $ok = $modeloDB->editar($modelo);
-    } else {
-        $message = "Debe ingresar todos los datos";
-        $ok = false;
-    }
+    $ok = $modeloDB->editar($modelo);
+  } else {
+    $message = "Debe ingresar todos los datos";
+    $ok = false;
+  }
 }
 
 
 if ($ok) {
-    $_SESSION['message'] = '<div class="alert alert-success">
+  $_SESSION['message'] = '<div class="alert alert-success">
   Evento Editado Correctamente <a href="eventos.php">Haga clíck aquí para ver la lista de eventos</a> </div>';
 } else {
-    $_SESSION['message'] = '<div class="alert alert-danger">
+  $_SESSION['message'] = '<div class="alert alert-danger">
   ' . $message . '</div>';
 }
 
-// header("Location: EventoEditar.php?id=" . $id);
+header("Location: EditarModelo.php?id=" . $id);

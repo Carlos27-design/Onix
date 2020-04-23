@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include_once 'DB/Vehiculo.php';
 include_once 'DB/VehiculoDB.php';
@@ -32,6 +33,8 @@ $idVehiculo = 0;
 if (isset($_GET["id"])) {
     $idVehiculo = $_GET["id"];
     $vehiculo = $vehiculoDB->buscar($idVehiculo);
+} else {
+    header("Location: listarVehiculo.php");
 }
 
 ?>
@@ -96,6 +99,14 @@ if (isset($_GET["id"])) {
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
                         <h3>Mi Vehiculo <?php echo $vehiculo->patente; ?></h3>
+                        <div class="row">
+                            <?php
+                            if (isset($_SESSION['message']) && $_SESSION['message']) {
+                                echo $_SESSION['message'];
+                                unset($_SESSION['message']);
+                            }
+                            ?>
+                        </div>
                         <form class="quote-form" action="ActEditarVehiculo.php?id=<?php echo $vehiculo->id; ?>" method="post">
 
                             <p class=" width-full">

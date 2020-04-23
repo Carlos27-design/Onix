@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include_once 'DB/Usuario.php';
 include_once 'DB/UsuarioDB.php';
 
@@ -70,6 +70,14 @@ if (isset($_GET["id"])) {
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
                         <h3>Mis Datos</h3>
+                        <div class="row">
+                            <?php
+                            if (isset($_SESSION['message']) && $_SESSION['message']) {
+                                echo $_SESSION['message'];
+                                unset($_SESSION['message']);
+                            }
+                            ?>
+                        </div>
                         <form class="quote-form" action="ActEditarUsuario.php?id=<?php echo $usuario->id; ?>" method="post">
                             <p class="width-full">
                                 <input required type="text" name="txtRut" id="txtRut" placeholder="RUT" maxlength="20" value="<?php echo $usuario->rut; ?>" readonly>
@@ -98,10 +106,13 @@ if (isset($_GET["id"])) {
                         <h3>Actualizar Contraseña</h3>
                         <form class="quote-form" action="ActActualizarContrasena.php?id=<?php echo $usuario->id; ?>" method="post">
 
+                            <p class=" width-full">
+                                <input required type="password" name="txtContrasena" id="txtContrasena" placeholder="Contraseña Actual" maxlength="20">
+                            </p>
                             <p class=" width-half">
-                                <input type="password" name="txtContrasena" id="txtContrasena" placeholder="Contraseña Actual" maxlength="20">
-                                <input class=" pull-right" type="password" name="txtContrasenaNueva" id="txtContrasenaNueva" placeholder="Contraseña Nueva" maxlength="20">
-                                <button type="submit">Actualizar Contraseña</button>
+                                <input required type="password" name="txtContrasenaNueva" id="txtContrasenaNueva" placeholder="Contraseña Nueva" maxlength="20">
+                                <input required class=" pull-right" type="password" name="txtContrasenaNuevaConf" id="txtContrasenaNuevaConf" placeholder="Confirmar Contraseña Nueva" maxlength="20">
+                                <button type="submit" id="actualizar">Actualizar Contraseña</button>
                             </p>
                         </form>
 
@@ -113,7 +124,36 @@ if (isset($_GET["id"])) {
     </section>
     <!--ABOUT AREA END-->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var passCorrecto = false;
+            $(document).on('click', '#actualizar', function(e) {
+                return passCorrecto;
+                alert("Las contraseñas no coinciden");
+            });
 
+            $(document).on('focusout', '#txtContrasenaNuevaConf', function(e) {
+                var password = $('#txtContrasenaNueva').val();
+                var passwordConfirm = $('#txtContrasenaNuevaConf').val();
+                if (password == passwordConfirm) {
+                    passCorrecto = true;
+                    $('#txtContrasenaNueva').css("border", "0 none");
+                    $('#txtContrasenaNuevaConf').css("border", "0 none");
+
+                } else {
+                    $('#txtContrasenaNueva').css("border", "1px solid red");
+                    $('#txtContrasenaNuevaConf').css("border", "1px solid red");
+
+                    alert("Las contraseñas no coinciden");
+                }
+
+            });
+
+
+
+        });
+    </script>
 
     <!--====== SCRIPTS JS ======-->
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
