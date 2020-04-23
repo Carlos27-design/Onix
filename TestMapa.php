@@ -63,8 +63,26 @@ $rutaLista  = $rutaDB->listar();
 
 <body>
   <?php include 'nav.php' ?>
-  <h1>My Google Map</h1>
-  <div id="map"></div>
+
+
+  <section class="about-area colorful-bg section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+          <div class="quote-form-area wow fadeIn">
+            <h1 hidden>My Google Map</h1>
+            <h1>Direcciones de inicio</h1>
+            <div id="map"></div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
   <script>
     function initMap() {
       // Map options
