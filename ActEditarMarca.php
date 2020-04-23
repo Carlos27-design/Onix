@@ -31,12 +31,13 @@ if (isset($_POST['txtNombre']) && isset($_GET["id"])) {
 }
 
 
+
 if ($ok) {
-  $_SESSION['message'] = '<div class="alert alert-success">
-  Evento Editado Correctamente <a href="#">Haga clíck aquí para ver la lista de eventos</a> </div>';
+  $_SESSION['message'] = '<div class="alert alert-success">Editado correctamente</div>';
 } else {
-  $_SESSION['message'] = '<div class="alert alert-danger">
-  ' . $message . '</div>';
+  $_SESSION['message'] = '<div class="alert alert-danger">Error al editar</div>';
 }
+
+
 
 header("Location: EditarMarca.php?id=" . $id);

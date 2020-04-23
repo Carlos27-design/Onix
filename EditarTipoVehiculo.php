@@ -87,7 +87,7 @@ if (isset($_GET["id"])) {
                         <form class="quote-form" action="ActEditarTipoVehiculo.php?id=<?php echo $tipoVehiculo->id; ?>" method="post">
 
                             <p class=" width-full">
-                                <label for="txtNombre">Dirección Inicio</label>
+                                <label for="txtNombre">Nombre</label>
                                 <input required type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" maxlength="50" value="<?php echo $tipoVehiculo->nombre; ?>">
                             </p>
                             <button type="submit">Actualizar Datos</button>

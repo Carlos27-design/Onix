@@ -86,12 +86,12 @@ $tipoVehiculoLista  = $TipoVehiculoDB->listar();
                     <div class="quote-form-area wow fadeIn">
                         <div class="row">
                             <div class="col-md-9">
-                                <h3>Lista de rutas</h3>
+                                <h3>Lista de tipos de vehiculo</h3>
                             </div>
                             <div class="col-md-3">
                                 <div class="contact-area">
-                                    <form action="IngresarRuta.php">
-                                        <button class="btn" type="submit"><i class=" fas fa-plus-square"></i> Nueva ruta </button>
+                                    <form action="IngresarTipoVehiculo.php">
+                                        <button class="btn" type="submit"><i class=" fas fa-plus-square"></i> Agregar Tipo</button>
                                     </form>
 
                                 </div>
@@ -120,14 +120,13 @@ $tipoVehiculoLista  = $TipoVehiculoDB->listar();
                                 foreach ($tipoVehiculoLista as $tv) {
 
                                 ?>
-                                    <tr class=" text-center">
+                                    <tr>
                                         <!-- datos de la tabla sacada de la base de datos -->
                                         <td><?php echo $tv->id ?></td>
                                         <td><?php echo $tv->nombre ?></td>
                                         <td>
-                                            <a title="Ver" href="verRuta.php?id=<?php echo $tv->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
-                                            <a title="Editar" href="EditarRuta.php?id=<?php echo $tv->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
-                                            <a onclick="deleteRuta(<?php echo $tv->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
+                                            <a title="Editar" href="EditarTipoVehiculo.php?id=<?php echo $tv->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
+                                            <a onclick="deleteItem(<?php echo $tv->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
                                         </td>
 
 
@@ -149,10 +148,10 @@ $tipoVehiculoLista  = $TipoVehiculoDB->listar();
     <!--ABOUT AREA END-->
 
     <script>
-        function deleteRuta(id) {
+        function deleteItem(id) {
             var ask = window.confirm("¿Está seguro que desea eliminar esto?");
             if (ask) {
-                window.location.href = "ActEliminarRuta.php?id=" + id;
+                window.location.href = "ActEliminarTipoVehiculo.php?id=" + id;
 
             }
         }

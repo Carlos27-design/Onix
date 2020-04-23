@@ -9,11 +9,11 @@ $usuarioDB = new UsuarioDB();
 $message = "";
 
 if (
-    isset($_POST['txtContrasena']) && isset($_POST['txtContrasenaNueva'])
+    isset($_POST['txtContrasena']) && isset($_POST['txtContrasenaNueva']) && isset($_GET['id'])
 ) {
     $txtContrasena =  $_POST['txtContrasena'];
     $txtContrasenaNueva = $_POST['txtContrasenaNueva'];
-
+    $id =  $_GET['id'];
 
     if (($txtContrasena && $txtContrasenaNueva) != "") {
         $usuario = $usuarioDB->buscar($_GET['id']);
@@ -30,11 +30,11 @@ if (
 
 
 if ($ok) {
-    $_SESSION['message'] = '<div class="alert alert-success">
-  Contraseña Actualizada Correctamente <a href="#"></a> </div>';
+    $_SESSION['message'] = '<div class="alert alert-success">Contraseña actualizada correctamente</div>';
 } else {
-    $_SESSION['message'] = '<div class="alert alert-danger">
-  ' . $message . '</div>';
+    $_SESSION['message'] = '<div class="alert alert-danger">Error al actualizar</div>';
 }
 
-header("Location: EventoEditar.php?id=" . $_GET['id']);
+
+
+header("Location: EditarMiPerfil.php?id=" . $id);

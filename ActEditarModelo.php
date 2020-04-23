@@ -36,7 +36,7 @@ if (isset($_POST['txtNombre']) && isset($_GET["id"]) && isset($_POST['slcMarca']
 
 if ($ok) {
   $_SESSION['message'] = '<div class="alert alert-success">
-  Evento Editado Correctamente <a href="eventos.php">Haga clíck aquí para ver la lista de eventos</a> </div>';
+  Editado Correctamente</div>';
 } else {
   $_SESSION['message'] = '<div class="alert alert-danger">
   ' . $message . '</div>';

@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -54,6 +58,14 @@
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
                         <h3>Crear una cuenta nueva</h3>
+                        <div class="row">
+                            <?php
+                            if (isset($_SESSION['message']) && $_SESSION['message']) {
+                                echo $_SESSION['message'];
+                                unset($_SESSION['message']);
+                            }
+                            ?>
+                        </div>
                         <form class="quote-form" action="ActRegistrarUsuario.php" method="post">
                             <p class="width-full">
                                 <input required type="text" name="txtRut" id="txtRut" placeholder="RUT" maxlength="20">

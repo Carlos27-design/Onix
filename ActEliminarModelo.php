@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'DB/modeloDB.php';
 
 //session_start();
@@ -13,11 +14,11 @@ if (isset($_GET["id"])) {
 }
 
 $ok = $modeloDB->eliminar($id);
+
 if ($ok) {
-    echo "eliminado";
-    // header("Location: eventos.php");
+    $_SESSION['message'] = '<div class="alert alert-success">Eliminado correctamente</div>';
 } else {
-    echo "no eliminado";
-    // header("Location: ver.php?id=" . $idEvento . "&eliminado=no");
+    $_SESSION['message'] = '<div class="alert alert-danger">Error al eliminar</div>';
 }
-//}
+
+header("Location: listarModelo.php");

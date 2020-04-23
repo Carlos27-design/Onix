@@ -14,34 +14,29 @@ $ok = null;
 $message = null;
 
 
-if (isset($_POST['txtnombremarca']))
-{
-    $txtNombreMarca = $_POST['txtnombremarca'];
+if (isset($_POST['txtnombremarca'])) {
+  $txtNombreMarca = $_POST['txtnombremarca'];
 
-    if($txtNombreMarca != "")
-    {
-        $marca->id = 0;
-        $marca->nombre = $txtNombreMarca;
+  if ($txtNombreMarca != "") {
+    $marca->id = 0;
+    $marca->nombre = $txtNombreMarca;
 
-        $ok = $marcaDB->crear($marca);
-        header("Location:ListarMarca.php");
-    }
-    else
-    {
-        $message = "Ingrese algun dato";
-        $ok = false;
-        header("Location: index.php");
-    }
+    $ok = $marcaDB->crear($marca);
+  } else {
+    $message = "Ingrese algun dato";
+    $ok = false;
+  }
 }
 
 if ($ok) {
-    echo "creado";
-    $_SESSION['message'] = '<div class="alert alert-success">
+
+  echo "creado";
+  $_SESSION['message'] = '<div class="alert alert-success">
   Marca Registrado Correctamente
-  <a href="#">Bienvenido</a> 
+
   </div>';
 } else {
-    echo "no creado";
-    $_SESSION['message'] = '<div class="alert alert-danger">
-  ' . $message . '</div>';
+
+  $_SESSION['message'] = '<div class="alert alert-danger">No registrado</div>';
 }
+header("Location:ListarMarca.php");

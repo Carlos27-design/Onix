@@ -24,8 +24,7 @@ if (
     isset($_POST['txtpatente']) && isset($_POST['txtlargo']) && isset($_POST['txtancho']) &&
     isset($_POST['txtpeso']) && isset($_POST['txtprecio']) && isset($_POST['txttipovehiculo']) &&
     isset($_POST['txtmodelo']) && isset($_POST['txtusuario'])
-    )
-{
+) {
 
     $txtPatente = $_POST['txtpatente'];
     $txtLargo = $_POST['txtlargo'];
@@ -37,30 +36,25 @@ if (
     $txtUsuario = $_POST['txtusuario'];
 
     if (
-        $txtPatente && $txtLargo && $txtAncho && $txtPeso && $txtPrecio != "" && $txtTipoVehiculo && $txtModelo && $txtUsuario !=0
-        )
-        {
-            $vehiculo->id = 0;
-            $vehiculo->patente = $txtPatente;
-            $vehiculo->largo = $txtLargo;
-            $vehiculo->ancho = $txtAncho;
-            $vehiculo->peso = $txtPeso;
-            $vehiculo->precio = $txtPrecio;
-            $vehiculo->tipoVehiculo_id = $txtTipoVehiculo;
-            $vehiculo->modelo_id = $txtModelo;
-            $vehiculo->usuario_id = $txtUsuario;
+        $txtPatente && $txtLargo && $txtAncho && $txtPeso && $txtPrecio != "" && $txtTipoVehiculo && $txtModelo && $txtUsuario != 0
+    ) {
+        $vehiculo->id = 0;
+        $vehiculo->patente = $txtPatente;
+        $vehiculo->largo = $txtLargo;
+        $vehiculo->ancho = $txtAncho;
+        $vehiculo->peso = $txtPeso;
+        $vehiculo->precio = $txtPrecio;
+        $vehiculo->tipoVehiculo_id = $txtTipoVehiculo;
+        $vehiculo->modelo_id = $txtModelo;
+        $vehiculo->usuario_id = $txtUsuario;
 
-            $ok = $VehiculoDB->crear($vehiculo);
-            header("Location: ListarVehiculo.php");
-        }
-        else
-        {
-            $message = "Tiene que ingresar todos los datos";
-            $ok = false;
-            header("Location: index.php");
-        }
-
-
+        $ok = $VehiculoDB->crear($vehiculo);
+        header("Location: ListarVehiculo.php");
+    } else {
+        $message = "Tiene que ingresar todos los datos";
+        $ok = false;
+        header("Location: index.php");
+    }
 }
 
 if ($ok) {
@@ -71,6 +65,5 @@ if ($ok) {
   </div>';
 } else {
     echo "no creado";
-    $_SESSION['message'] = '<div class="alert alert-danger">
-  ' . $message . '</div>';
+    $_SESSION['message'] = '<div class="alert alert-danger">Ya existe</div>';
 }

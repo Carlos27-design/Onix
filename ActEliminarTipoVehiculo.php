@@ -1,10 +1,11 @@
 <?php
-include_once 'DB/TipoUsuarioDB.php';
+session_start();
+include_once 'DB/TipoVehiculoDB.php';
 
 //session_start();
 //if (!isset($_SESSION['admin'])) {
 
-$tipousuarioDB = new TipoUsuarioDB();
+$tipoVehiculoDB = new TipoVehiculoDB();
 
 $id = 0;
 
@@ -12,7 +13,7 @@ if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 
-$ok = $tipousuarioDB->eliminar($id);
+$ok = $tipoVehiculoDB->eliminar($id);
 
 if ($ok) {
     $_SESSION['message'] = '<div class="alert alert-success">Eliminado correctamente</div>';
@@ -20,4 +21,4 @@ if ($ok) {
     $_SESSION['message'] = '<div class="alert alert-danger">Error al eliminar</div>';
 }
 
-header("Location: listarTipoUsuario.php");
+header("Location: listarTipoVehiculo.php");

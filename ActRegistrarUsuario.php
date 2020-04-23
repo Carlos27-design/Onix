@@ -53,15 +53,13 @@ if (
 
 
 if ($ok) {
-    echo "creado";
+
     $_SESSION['message'] = '<div class="alert alert-success">
   Usuario Registrado Correctamente
-  <a href="#">Bienvenido</a> 
   </div>';
 } else {
-    echo "no creado";
-    $_SESSION['message'] = '<div class="alert alert-danger">
-  ' . $message . '</div>';
+
+    $_SESSION['message'] = '<div class="alert alert-danger">No creado</div>';
 }
 
-// header("Location: index.php");
+header("Location: IngresarNuevoUsuario.php");

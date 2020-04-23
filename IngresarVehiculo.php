@@ -38,7 +38,7 @@ $usuarioDB = new UsuarioDB();
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Carries HTML5 Business Template</title>
+    <title>Nuevo Vehiculo</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" type="image/ico" href="img/favicon.png" />
@@ -69,46 +69,60 @@ $usuarioDB = new UsuarioDB();
     <![endif]-->
     <?php include 'nav.php' ?>
     <!--ABOUT AREA-->
-    <section class="about-area gray-bg section-padding">
+    <section class="about-area colorful-bg section-padding">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
-                        <h3>Get A Quote</h3>
+                        <h3>Agregar nuevo vehiculo</h3>
                         <form method="POST" class="quote-form" action="ActIngresarVehiculo.php">
-                            <p class="width-half">
-                                <input type="text" name="txtpatente" id="txtpatente" placeholder="Ingrese Patente">
+                            <p class="width-full">
+                                <input required type="text" name="txtpatente" id="txtpatente" placeholder="Ingrese Patente">
                             </p>
-                            <p class="widht-half">
-                                <input type="text" name="txtlargo" id="txtlargo" placeholder="Largo">
-                                <input type="text" name="txtancho" id="txtancho" placeholder="Ancho">
-                                <input type="text" name="txtpeso" id="txtpeso" placeholder="Peso">
-                                <input type="text" name="txtprecio" id="txtprecio" placeholder="Precio">
+                            <p class="width-full">
+                                <input required type="number" name="txtlargo" id="txtlargo" placeholder="Largo">
+
                             </p>
-                            <p class="widht-half">
+                            <p class="width-full">
+                                <input required type="number" name="txtancho" id="txtancho" placeholder="Ancho">
+
+                            </p>
+                            <p class="width-full">
+                                <input required type="number" name="txtpeso" id="txtpeso" placeholder="Peso">
+
+                            </p>
+                            <p class="width-full">
+                                <input required type="number" name="txtprecio" id="txtprecio" placeholder="Precio">
+                            </p>
+
+                            <p class="widht-full">
                                 <?php
                                 $listaTV = $tipovehiculoDB->listar();
                                 $listaM = $modeloDB->listar();
                                 $listaU = $usuarioDB->listar();
                                 ?>
-                                <select name="txttipovehiculo">
-                                    <option value="0">Seleccione el tipo de vehiculo</option>
+                                <select name="txttipovehiculo" required>
+                                    <option value="">Seleccione el tipo de vehiculo</option>
                                     <?php
                                     foreach ($listaTV as $ltv) {
                                         echo '<option value="' . $ltv->id . '">' . $ltv->nombre . '</option>';
                                     }
                                     ?>
                                 </select>
-                                <select name="txtmodelo">
-                                    <option value="0">Seleccione modelo</option>
+                            </p>
+                            <p class="widht-full">
+                                <select name="txtmodelo" required>
+                                    <option value="">Seleccione modelo</option>
                                     <?php
                                     foreach ($listaM as $lm) {
                                         echo '<option value="' . $lm->id . '">' . $lm->nombre . '</option>';
                                     }
                                     ?>
                                 </select>
-                                <select name="txtusuario">
-                                    <option value="0">Seleccione usuario</option>
+                            </p>
+                            <p class="widht-full">
+                                <select name="txtusuario" required>
+                                    <option value="">Seleccione usuario</option>
                                     <?php
                                     foreach ($listaU as $lu) {
                                         echo '<option value="' . $lu->id . '">' . $lu->nombre . '</option>';
@@ -124,253 +138,6 @@ $usuarioDB = new UsuarioDB();
                     </div>
                 </div>
     </section>
-
-
-    <!--TESTMONIAL AREA -->
-    <section class="testmonial-area section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-sm-12 col-xs-12">
-                    <div class="area-title text-center wow fadeIn">
-                        <h2>what client’s say</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4 col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2">
-                    <div class="client-photo-list wow fadeIn">
-                        <div class="client_photo">
-                            <div class="item">
-                                <img src="img/testmonial/1.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="img/testmonial/2.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="img/testmonial/3.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="img/testmonial/1.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img src="img/testmonial/2.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="client_nav">
-                        <span class="fa fa-angle-left testi_prev"></span>
-                        <span class="fa fa-angle-right testi_next"></span>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-10 col-md-offset-1 text-center">
-                    <div class="client-details-content wow fadeIn">
-                        <div class="client_details">
-                            <div class="item">
-                                <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </q>
-                                <h3>JABIN KANE</h3>
-                                <p>CEO, TOPSMMPANEL.COM</p>
-                            </div>
-                            <div class="item">
-                                <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </q>
-                                <h3>JABIN KANE</h3>
-                                <p>CEO, TOPSMMPANEL.COM</p>
-                            </div>
-                            <div class="item">
-                                <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </q>
-                                <h3>JABIN KANE</h3>
-                                <p>CEO, TOPSMMPANEL.COM</p>
-                            </div>
-                            <div class="item">
-                                <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </q>
-                                <h3>JABIN KANE</h3>
-                                <p>CEO, TOPSMMPANEL.COM</p>
-                            </div>
-                            <div class="item">
-                                <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </q>
-                                <h3>JABIN KANE</h3>
-                                <p>CEO, TOPSMMPANEL.COM</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--TESTMONIAL AREA END -->
-
-    <!--CLIENTS AREA-->
-    <section class="clients-area section-padding gray-bg wow fadeIn">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                    <div class="client-list">
-                        <div class="single-client">
-                            <img src="img/client/1.jpg" alt="">
-                        </div>
-                        <div class="single-client">
-                            <img src="img/client/2.jpg" alt="">
-                        </div>
-                        <div class="single-client">
-                            <img src="img/client/3.jpg" alt="">
-                        </div>
-                        <div class="single-client">
-                            <img src="img/client/4.jpg" alt="">
-                        </div>
-                        <div class="single-client">
-                            <img src="img/client/5.jpg" alt="">
-                        </div>
-                        <div class="single-client">
-                            <img src="img/client/1.jpg" alt="">
-                        </div>
-                        <div class="single-client">
-                            <img src="img/client/2.jpg" alt="">
-                        </div>
-                        <div class="single-client">
-                            <img src="img/client/3.jpg" alt="">
-                        </div>
-                        <div class="single-client">
-                            <img src="img/client/4.jpg" alt="">
-                        </div>
-                        <div class="single-client">
-                            <img src="img/client/5.jpg" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--CLIENTS AREA END-->
-
-    <!--FOOER AREA-->
-    <div class="footer-area dark-bg">
-        <div class="footer-area-bg"></div>
-        <div class="footer-top-area wow fadeIn">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                        <div class="subscribe-content">
-                            <h2>Weekly Newsletter</h2>
-                            <p>There are many vaiations of passages of lorem ipsum available.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                        <div class="subscriber-form-area">
-                            <form action="#" class="subsriber-form">
-                                <label for="subscriber-mail"><i class="fa fa-envelope-o"></i></label>
-                                <input type="email" name="subscriber-mail" id="subscriber-mail" placeholder="Enter Your Mail">
-                                <button type="submit">subscribe</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="footer-border"> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom-area wow fadeIn">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
-                        <div class="single-footer-widget footer-about">
-                            <h3>About Us</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <ul>
-                                <li><i class="fa fa-phone"></i> <a href="callto:+8801911854378">+8801911854378</a></li>
-                                <li><i class="fa fa-map-marker"></i> <a href="mailto:backpiper.com@gmail.com">backpiper.com@gmail.com</a></li>
-                                <li><i class="fa fa-phone"></i> Gazipur, 1704, Bangladesh.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
-                        <div class="single-footer-widget twitter-widget">
-                            <h3>Latest Tweets</h3>
-                            <ul>
-                                <li>
-                                    <div class="twitter-icon"><i class="fa fa-phone"></i></div>
-                                    <div class="tweet-detail">
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem .</p>
-                                        <a href="#" class="tweet-meta">5 Miniutes Ago</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="twitter-icon"><i class="fa fa-phone"></i></div>
-                                    <div class="tweet-detail">
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem .</p>
-                                        <a href="#" class="tweet-meta">5 Miniutes Ago</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
-                        <div class="single-footer-widget list-widget">
-                            <h3>Customer Service</h3>
-                            <ul>
-                                <li><a href="#">Support Forums</a></li>
-                                <li><a href="#">Communication</a></li>
-                                <li><a href="#">FAQS</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Rules & Condition</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-sm-6 col-xs-12">
-                        <div class="single-footer-widget instafeed-widget">
-                            <h3>Customer Service</h3>
-                            <ul>
-                                <li><a href="#"><img src="img/instafeed/1.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="img/instafeed/2.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="img/instafeed/3.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="img/instafeed/4.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="img/instafeed/5.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="img/instafeed/6.jpg" alt=""></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="footer-border"> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                        <div class="footer-copyright wow fadeIn">
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            <p>Copyright &copy;<script>
-                                    document.write(new Date().getFullYear());
-                                </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                        <div class="footer-social-bookmark text-right wow fadeIn">
-                            <ul class="social-bookmark">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--FOOER AREA END-->
 
 
     <!--====== SCRIPTS JS ======-->
