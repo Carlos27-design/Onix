@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-include_once 'DB/Ruta.php';
-include_once 'DB/RutaDB.php';
+include_once 'DB/Entrega.php';
+include_once 'DB/EntregaDB.php';
 
-$rutaDB = new RutaDB();
-$ruta = new Ruta();
+$entregaDB = new EntregaDB();
+$entrega = new Entrega();
 
 
 ?>
@@ -27,7 +27,7 @@ $ruta = new Ruta();
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Ruta</title>
+    <title>Ingresar entrega</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" type="image/ico" href="img/favicon.png" />
@@ -66,7 +66,7 @@ $ruta = new Ruta();
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
-                        <h3>Agregar Ruta</h3>
+                        <h3>Agregar Entrega</h3>
                         <div class="row">
                             <?php
                             if (isset($_SESSION['message']) && $_SESSION['message']) {
@@ -75,30 +75,17 @@ $ruta = new Ruta();
                             }
                             ?>
                         </div>
-                        <form class="quote-form" action="ActIngresarRuta.php" method="post">
+                        <form class="quote-form" action="ActIngresarEntrega.php" method="post">
 
                             <p class=" width-full">
-                                <label for="txtDireccionInicio">Dirección Inicio</label>
-                                <input required type="text" name="txtDireccionInicio" id="txtDireccionInicio" placeholder="Direccion Inicio" maxlength="50">
+                                <label for="txtdireccionEntrega">Dirección de Entrega</label>
+                                <input required type="text" name="txtdireccionEntrega" id="txtdireccionEntrega" placeholder="Direccion de Entrega" maxlength="50">
                             </p>
                             <p class=" width-full">
-                                <label for="txtDireccionFinal">Dirección Final</label>
-                                <input required type="text" name="txtDireccionFinal" id="txtDireccionFinal" placeholder="Direccion Final" maxlength="50">
+                                <label for="txtIndicaciones">Indicaciones de entrega</label>
+                                <input type="text" name="txtIndicaciones" id="txtIndicaciones" placeholder="Indicaciones de su direccion">
                             </p>
-                            <p class=" width-full">
-                                <label for="txtDistancia">Distancia</label>
-                                <input required type="text" name="txtDistancia" id="txtDistancia" placeholder="Distancia a Recorrer">
-                            </p>
-                            <label for="txtFechaInicio">Fecha y Hora Inicio</label>
-                            <p class=" width-half">
-                                <input required type="date" name="txtFechaInicio" id="txtFechaInicio">
-                                <input required class="pull-right" type="time" name="txtHoraInicio" id="txtHoraInicio">
-                            </p>
-                            <label for="txtFechaFin">Fecha y Hora Fin</label>
-                            <p class=" width-half">
-                                <input required type="date" name="txtFechaFin" id="txtFechaFin" placeholder="Fecha Fin">
-                                <input required class="pull-right" type="time" name="txtHoraFin" id="txtHoraFin">
-                            </p>
+
 
 
                             <button type="submit">Crear Ruta</button>
