@@ -6,9 +6,9 @@ include_once 'DB/RutaDB.php';
 $rutaDB = new RutaDB();
 $ruta = new Ruta();
 
-$marcadores = $rutaDB->listar();
 
-$API_KEY = "AIzaSyCvOrdsS58FdhHIfxtrRaeWzMrxU-EY_lw";
+
+
 
 
 
@@ -81,18 +81,38 @@ $API_KEY = "AIzaSyCvOrdsS58FdhHIfxtrRaeWzMrxU-EY_lw";
 
         </div>
         </div>
-        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>	  
-<div id="map" class="map map-home" style="margin:12px 0 12px 0;height:400px;"></div>
-<script>
-	var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+        <div id="map" class="map map-home" style="margin:12px 0 12px 0;height:400px;"></div>
+        
+        <?php
+               
+                $marcadores = $rutaDB->listar();
+                foreach($marcadores as $m){
+                        $name = urlencode( $m->direccionInicio );
+                }
+                $baseUrl = 'http://nominatim.openstreetmap.org/search?format=json&q=Chile';
+                $data = file_get_contents( "{$baseUrl}{$name}&limit=110" );
+                $json = json_decode( $data );
+                $lat = $json[0]->lat;
+                $lon = $json[0]->lon;
+        ?>
+                
+                <?php var_dump( $json[0] ); ?>
+
+        <script>
+                
+                var lat=<?php printf( '%0.3f', $lat ); ?>
+                var lon=<?php printf( '%0.3f', $lon ); ?>
+	        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 		osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 		osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
-	var map = L.map('map').setView([23.140445, -82.351644], 17).addLayer(osm);
-	L.marker([23.141165, -82.351834])
+	        var map = L.map('map').setView([lat, lon], 17).addLayer(osm);
+	        L.marker([lat, lon])
 		.addTo(map)
 		.bindPopup('La Catedral de la Habana.')
 		.openPopup();
-</script>
+        </script>
+
         </div>
 
         </div>
