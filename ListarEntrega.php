@@ -1,24 +1,13 @@
 <?php
-
 session_start();
 
-include_once 'DB/Vehiculo.php';
-include_once 'DB/VehiculoDB.php';
+include_once 'DB/Entrega.php';
+include_once 'DB/EntregaDB.php';
 
-$vehiculo = new Vehiculo();
-$vehiculoDB = new VehiculoDB();
+$entregaDB = new EntregaDB();
+$entrega = new Entrega();
 
-include_once 'DB/TipoVehiculo.php';
-include_once 'DB/TipoVehiculoDB.php';
-
-$tipoVehiculo = new TipoVehiculo();
-$tipovehiculoDB = new TipoVehiculoDB();
-
-include_once 'DB/Modelo.php';
-include_once 'DB/ModeloDB.php';
-
-$modelo = new Modelo();
-$modeloDB = new ModeloDB();
+$entregaLista  = $entregaDB->listar();
 
 include_once 'DB/Usuario.php';
 include_once 'DB/UsuarioDB.php';
@@ -26,12 +15,27 @@ include_once 'DB/UsuarioDB.php';
 $usuario = new Usuario();
 $usuarioDB = new UsuarioDB();
 
+$listaUsuarios = $usuarioDB->listar();
 
+include_once 'DB/Estado.php';
+include_once 'DB/EstadoDB.php';
+
+$estado = new Estado();
+$estadoDB = new EstadoDB();
+
+$listaEstado = $estadoDB->listar();
 
 
 
 ?>
-<html>
+
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
 
 <head>
     <!--====== USEFULL META ======-->
@@ -42,7 +46,7 @@ $usuarioDB = new UsuarioDB();
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Vehiculos</title>
+    <title>Entregas</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
@@ -76,7 +80,6 @@ $usuarioDB = new UsuarioDB();
         <![endif]-->
 </head>
 
-
 <body class="home-two">
 
     <!--[if lt IE 8]>
@@ -99,12 +102,12 @@ $usuarioDB = new UsuarioDB();
                     <div class="quote-form-area wow fadeIn">
                         <div class="row">
                             <div class="col-md-9">
-                                <h3>Lista de vehiculos</h3>
+                                <h3>Lista de entregas</h3>
                             </div>
                             <div class="col-md-3">
                                 <div class="contact-area">
-                                    <form action="IngresarVehiculo.php">
-                                        <button class="btn" type="submit"><i class=" fas fa-plus-square"></i> Agregar</button>
+                                    <form action="IngresarEntrega.php">
+                                        <button class="btn" type="submit"><i class=" fas fa-plus-square"></i> Nueva Entrega </button>
                                     </form>
 
                                 </div>
@@ -120,87 +123,58 @@ $usuarioDB = new UsuarioDB();
                         </div>
 
                         <table id="tbl" class="table" style="width:100%">
-
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Patente</th>
-                                    <th>Largo (cm)</th>
-                                    <th>Ancho (cm)</th>
-                                    <th>Peso (kg)</th>
-                                    <th>Precio</th>
-                                    <th>Tipo Vehiculo</th>
-                                    <th>Modelo</th>
                                     <th>Usuario</th>
+                                    <th>Estado</th>
+                                    <th>Dirección <br> de Entrega</th>
+                                    <th>Fecha <br> Inicio</th>
+                                    <th>Fecha <br>Entregado</th>
                                     <th>Administrar</th>
-
-
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                $lista = $vehiculoDB->listar();
-                                $lista1 = $tipovehiculoDB->listar();
-                                $lista2 = $modeloDB->listar();
-                                $lista3 = $usuarioDB->listar();
-                                foreach ($lista as $l) {
 
+                                <?php
+                                foreach ($entregaLista as $e) {
 
                                 ?>
                                     <tr>
-                                        <!-- datos de la tabla sacada de la base de datos -->
+                                        <td><?php echo $e->id ?></td>
 
-                                        <td><?php echo $l->id ?></td>
-                                        <td><?php echo $l->patente ?></td>
-                                        <td><?php echo $l->largo ?></td>
-                                        <td><?php echo $l->ancho ?></td>
-                                        <td><?php echo $l->peso ?></td>
-                                        <td><?php echo $l->precio ?></td>
                                         <?php
-                                        foreach ($lista1 as $l1) {
-                                            if ($l->tipoVehiculo_id == $l1->id) {
-                                        ?>
-                                                <td><?php echo $l1->nombre ?></td>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                        <?php
-                                        foreach ($lista2 as $l2) {
-                                            if ($l->modelo_id == $l2->id) {
-                                        ?>
-                                                <td><?php echo $l2->nombre ?></td>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                        <?php
-                                        foreach ($lista3 as $l3) {
-                                            if ($l->usuario_id == $l3->id) {
-                                        ?>
-                                                <td><?php echo $l3->nombre ?></td>
-                                        <?php
+                                        foreach ($listaUsuarios as $lu) {
+                                            if ($e->usuario_id == $lu->id) {
+                                                echo "<td>" . $lu->nombre . "</td>";
                                             }
                                         }
                                         ?>
 
+                                        <?php
+                                        foreach ($listaEstado as $le) {
+                                            if ($e->estado_id == $le->id) {
+                                                echo "<td>" . $le->nombre . "</td>";
+                                            }
+                                        }
+                                        ?>
 
+                                        <td><?php echo $e->direccionEntrega ?></td>
+                                        <td><?php echo substr($e->fechaInicio, 0, 10) ?></td>
+                                        <td><?php echo substr($e->fechaEntregado, 0, 10) ?></td>
 
 
                                         <td>
-                                            <a title="Editar" href="EditarMiVehiculo.php?id=<?php echo $l->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
-                                            <a onclick="deleteItem(<?php echo $l->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
+                                            <a title="Ver" href="TestMapa.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
+                                            <a title="Editar" href="EditarRuta.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
+                                            <a onclick="deleteRuta(<?php echo $e->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
                                         </td>
 
-                                    </tr>
 
+                                    </tr>
                                 <?php
                                 }
-
-
                                 ?>
-
-
                             </tbody>
 
                         </table>
@@ -213,16 +187,25 @@ $usuarioDB = new UsuarioDB();
         </div>
     </section>
     <!--ABOUT AREA END-->
+    <style>
+        .fa-check {
+            color: green;
+        }
 
+        .fa-times {
+            color: red;
+        }
+    </style>
     <script>
-        function deleteItem(id) {
+        function deleteRuta(id) {
             var ask = window.confirm("¿Está seguro que desea eliminar esto?");
             if (ask) {
-                window.location.href = "ActEliminarVehiculo.php?id=" + id;
+                window.location.href = "ActEliminarEntrega.php?id=" + id;
 
             }
         }
     </script>
+
     <!--====== SCRIPTS JS ======-->
     <script src="js/vendor/jquery-1.12.4.min.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
@@ -240,18 +223,12 @@ $usuarioDB = new UsuarioDB();
 
     <!--===== ACTIVE JS=====-->
     <script src="js/main.js"></script>
-
-
     <!--===== DATA-TABLE=====-->
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
 
     <script>
-        $(window).on("ready", function() {
-            alert();
-            $("button").addClass("basicBTN");
-        });
         $(document).ready(function() {
             $('#tbl').DataTable({
                 "language": {

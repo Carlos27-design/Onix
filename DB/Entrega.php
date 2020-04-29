@@ -7,5 +7,8 @@ class Entrega
     public $ruta_id;
     public $estado_id;
     public $direccionEntrega;
+    public $indicaciones;
     public $nroDocumentoEntregado;
+    public $fechaInicio;
+    public $fechaEntregado;
 }
