@@ -5,7 +5,7 @@ class Conexion
 
     function conectar()
     {
-        $this->miConexion = new mysqli("localhost", "root", "password", "onix");
+        $this->miConexion = new mysqli("localhost", "root", "Desector123", "onix");
         if ($this->miConexion->connect_errno) {
             echo "Fallo al conectar a MySQL: (" . $this->miConexion->connect_errno . ") ";
         }

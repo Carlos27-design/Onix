@@ -43,11 +43,14 @@ $rutaLista  = $rutaDB->listar();
 
   <!--====== STYLESHEETS DATA-TABLE ======-->
   <script src="https://kit.fontawesome.com/d684b42b31.js" crossorigin="anonymous"></script>
-
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-map/3.0-rc1/jquery.ui.map.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	<script type="text/javascript" src="../js/map.js"></script> 
 
 
   <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYAESaIh0eGTc5vNgX-32O22ejjjlgbmc&callback=initMap">
+  
   </script>
   <!--[if lt IE 9]>
         <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -72,7 +75,7 @@ $rutaLista  = $rutaDB->listar();
           <div class="quote-form-area wow fadeIn">
             <h1 hidden>My Google Map</h1>
             <h1>Direcciones de inicio</h1>
-            <div id="map"></div>
+            <div id="googleMap" style="width:100%;height:500px"></div>
           </div>
 
         </div>
@@ -83,109 +86,56 @@ $rutaLista  = $rutaDB->listar();
 
 
 
-  <script>
-    function initMap() {
-      // Map options
-      var options = {
-        zoom: 15,
-        center: {
-          <?php
-          $r = $rutaDB->Buscar($_GET["id"]);
-          list($lat, $lng) = explode(",", $r->direccionInicio);
-
-          echo "lat:" . $lat . ",";
-          echo "lng:" . $lng;
-
-          ?>
-        }
-      }
-
-      // New map
-      var map = new google.maps.Map(document.getElementById('map'), options);
-
-      // Listen for click on map
-      google.maps.event.addListener(map, 'click', function(event) {
-        // Add marker
-        addMarker({
-          coords: event.latLng
-        });
-      });
-
-      /*
-      // Add marker
-      var marker = new google.maps.Marker({
-        position:{lat:42.4668,lng:-70.9495},
-        map:map,
-        icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
-      });
-
-      var infoWindow = new google.maps.InfoWindow({
-        content:'<h1>Lynn MA</h1>'
-      });
-
-      marker.addListener('click', function(){
-        infoWindow.open(map, marker);
-      });
-      */
-
-      // Array of markers
-      var markers = [
-
-        {
-          coords: {
-            lat: 42.8584,
-            lng: -70.9300
-          },
-          content: '<h1>Amesbury MA</h1>',
-          iconImage: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-        },
-        <?php
-        foreach ($rutaLista as $r) {
-          list($lat, $lng) = explode(",", $r->direccionInicio);
-          echo "{";
-          echo "coords: {";
-          echo "lat:" . $lat . ",";
-          echo "lng:" . $lng;
-          echo "}";
-          echo "},";
-        }
-        ?>
-
-      ];
-
-      // Loop through markers
-      for (var i = 0; i < markers.length; i++) {
-        // Add marker
-        addMarker(markers[i]);
-      }
-
-      // Add Marker Function
-      function addMarker(props) {
-        var marker = new google.maps.Marker({
-          position: props.coords,
-          map: map,
-          //icon:props.iconImage
-        });
-
-        // Check for customicon
-        if (props.iconImage) {
-          // Set icon image
-          marker.setIcon(props.iconImage);
-        }
-
-        // Check content
-        if (props.content) {
-          var infoWindow = new google.maps.InfoWindow({
-            content: props.content
-          });
-
-          marker.addListener('click', function() {
-            infoWindow.open(map, marker);
-          });
-        }
-      }
-    }
-  </script>
+ <script>
+  $(function() {
+	$("#googleMap").gmap({
+		'zoom':3
+	});
+	
+	var markers = [];
+	
+	$("#addMarkerBtnId").click(function() {
+		var marker = {
+			"lat":$("#lat").val(),
+			"lng":$("#lng").val(),
+			"title":$("#placeName").val()
+		};
+		markers.push(marker);
+		
+		$.each(markers, function(i, m) {
+			$("#googleMap").gmap("addMarker", {
+				"position":new google.maps.LatLng(m.lat, m.lng),
+				"title":m.title
+			}).click(function() {
+				var contentString = "<table border='1'>" +
+						"<tr><td>Place Name : </td><td>"+m.title+"</td></tr>" + 
+						"<tr><td>Latitude : </td><td>"+m.lat+"</td></tr>" +
+						"<tr><td>Longitude : </td><td>"+m.lng+"</td></tr>" +
+						"</table>";
+				$("#googleMap").gmap("openInfoWindow", {
+					content:contentString
+				}, this);
+			});
+		});
+		
+	});
+	
+	$("#findLatLngBtnId").click(function() {
+		var geocoder = new google.maps.Geocoder();
+		geocoder.geocode({
+			"address" : $("#placeName").val()
+		}, function(results, status) {
+			if(status == google.maps.GeocoderStatus.OK) {
+				$("#lat").val(results[0].geometry.location.lat().toFixed(6));
+				$("#lng").val(results[0].geometry.location.lng().toFixed(6));
+			} else {
+				alert("Please enter correct place name");
+			}
+		});
+		return false;
+	});
+});
+</script>
 
 </body>
 
