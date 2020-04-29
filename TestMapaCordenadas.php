@@ -1,138 +1,75 @@
 <?php
-include_once 'DB/Ruta.php';
-include_once 'DB/RutaDB.php';
+//DIBUJAR RUTA
+//https://www.youtube.com/watch?v=hRoiG4ZIzeM
+session_start();
+include_once 'DB/Entrega.php';
+include_once 'DB/EntregaDB.php';
 
-$rutaDB = new RutaDB();
-$ruta = new Ruta();
+$entregaDB = new EntregaDB();
+$entrega = new Entrega();
 
-$rutaLista  = $rutaDB->listar();
+$entregaLista  = $entregaDB->listar();
+
+include_once 'DB/Usuario.php';
+include_once 'DB/UsuarioDB.php';
+
+$usuarioDB = new UsuarioDB();
+$usuario = new Usuario();
+
+$usuarioLista  = $usuarioDB->listar();
 ?>
-<!doctype html>
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>Google Geocoder</title>
-  <script src="js/vendor/jquery-1.12.4.min.js"></script>
+  <title>Tutorial leaflet.js</title>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-  <script src="js/vendor/bootstrap.min.js"></script>
-
-  <style>
-    body,
-    body * {
-      margin: 0;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
-
-    .buscador {
-      text-align: center;
-      padding: 30px 0px;
-    }
-
-    .buscador #direccion {
-      margin: 10px auto;
-      width: 100%;
-      padding: 7px;
-      max-width: 250px;
-    }
-
-    .buscador #buscar {
-      margin: 0 auto;
-      max-width: 250px;
-      padding: 7px;
-      color: #FFFFFF;
-      background: #f2777a;
-      border: 2px solid #f2777a;
-      cursor: pointer;
-    }
-  </style>
 </head>
 
 <body>
+  <h1>Onix Demo Maps</h1>
+  <div id="map" style="height: 100%"></div>
+  <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 
-  <div class="buscador">
-    <h2>Ingrese una dirección</h2>
-    <input type="text" id="direccion">
-    <div id="buscar">Buscar</div>
-  </div>
-
-  <div id="mapa-geocoder" class="mapa" style="width:100%;display:block;position:absolute;background:#f2777a;"></div>
-
-  <script src="assets/js/jquery-2.1.0.min.js"></script>
+  <!-- INICIAR MAPA -->
   <script>
-    $(document).ready(function() {
+    var demoMap = L.map('map').setView([-40.574505, -73.131920], 9); // 10 PARA OSORNO
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+    var osm = new L.TileLayer(osmUrl, {
+      minZoom: 8,
+      maxZoom: 20,
+      attribution: osmAttrib
+    });
 
-      $(window).on("load resize", function() {
-        var alturaBuscador = $(".buscador").outerHeight(true),
-          alturaVentana = $(window).height(),
-          alturaMapa = alturaVentana - alturaBuscador;
 
-        $("#mapa-geocoder").css("height", alturaMapa + "px");
-      });
+    osm.addTo(demoMap);
+  </script>
+  <!-- AGREGAR MARCADORES -->
+  <script>
+    <?php
+    foreach ($entregaLista as $e) {
+      list($lat, $lng) = explode(",", $e->direccionEntrega);
+      // echo "L.marker([" . $lat . "," . $lng . "]).addTo(demoMap);"; VERSION BASICA
 
-      function localizar(elemento, direccion) {
-        var geocoder = new google.maps.Geocoder();
 
-        var map = new google.maps.Map(document.getElementById(elemento), {
-          zoom: 16,
-          scrollwheel: true,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        geocoder.geocode({
-          'address': direccion
-        }, function(results, status) {
-          if (status === 'OK') {
-            var resultados = results[0].geometry.location,
-              resultados_lat = resultados.lat(),
-              resultados_long = resultados.lng();
-
-            map.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location
-            });
-          } else {
-            var mensajeError = "";
-            if (status === "ZERO_RESULTS") {
-              mensajeError = "No hubo resultados para la dirección ingresada.";
-            } else if (status === "OVER_QUERY_LIMIT" || status === "REQUEST_DENIED" || status === "UNKNOWN_ERROR") {
-              mensajeError = "Error general del mapa.";
-            } else if (status === "INVALID_REQUEST") {
-              mensajeError = "Error de la web. Contacte con Name Agency.";
-            }
-            alert(mensajeError);
-          }
-        });
+      echo "var cords = [" . $lat . "," . $lng . "];";
+      echo "var marker = L.marker(cords);";
+      foreach ($usuarioLista as $lu) {
+        if ($e->usuario_id == $lu->id) {
+          echo "marker.bindPopup('Cliente: " . $lu->nombre . "<br>Dirección: ');";
+        }
       }
 
-      $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDYAESaIh0eGTc5vNgX-32O22ejjjlgbmc", function() {
-        $("#buscar").click(function() {
-          var direccion = $("#direccion").val();
-          if (direccion !== "") {
-            localizar("mapa-geocoder", direccion);
-          }
-        });
-      });
 
-    });
+      echo "marker.addTo(demoMap);";
+    }
+    ?>
   </script>
+
+
 </body>
-
-<!--====== SCRIPTS JS ======-->
-
-<!--====== PLUGINS JS ======-->
-<script src="js/vendor/jquery.easing.1.3.js"></script>
-<script src="js/vendor/jquery-migrate-1.2.1.min.js"></script>
-<script src="js/vendor/jquery.appear.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/stellar.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/stellarnav.min.js"></script>
-<script src="js/contact-form.js"></script>
-<script src="js/jquery.sticky.js"></script>
-
-<!--===== ACTIVE JS=====-->
-<script src="js/main.js"></script>
 
 </html>
