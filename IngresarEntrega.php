@@ -27,12 +27,6 @@
 	<link href="style.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
 
-	<!--====== STYLESHEETS DATA-TABLE ======-->
-	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.material.min.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet">
-
-	<!--====== STYLESHEETS DATA-TABLE ======-->
-	<script src="https://kit.fontawesome.com/d684b42b31.js" crossorigin="anonymous"></script>
 
 
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
@@ -66,8 +60,10 @@
 			width: 100%;
 		}
 
-		#txtdireccionEntrega {
+		#txtdireccionEntrega,
+		#txtdireccionEntregaNombre {
 			display: none;
+
 		}
 	</style>
 </head>
@@ -82,10 +78,17 @@
 					<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 						<div class="quote-form-area wow fadeIn">
 							<form class="quote-form" action="ActIngresarEntrega.php" method="post">
-								<h3>Escoja su dirección en el mapa, por favor.</h3>
+								<p class=" width-full">
+									<h3>Seleccione su dirección en el mapa para una mayor presición, por favor.</h3>
+								</p>
+
 								<p class=" width-full">
 									<!-- <label for="txtdireccionEntrega">Dirección de Entrega</label> -->
-									<input required type="text" name="txtdireccionEntrega" id="txtdireccionEntrega" placeholder="Direccion de Entrega" minlength="3" maxlength="50">
+									<input required type="text" name="txtdireccionEntrega" id="txtdireccionEntrega" placeholder="Direccion de Entrega Lat,Lng" minlength="3" maxlength="50">
+								</p>
+								<p class=" width-full">
+									<!-- <label for="txtdireccionEntregaNombre">Dirección de Entrega</label> -->
+									<input required type="text" name="txtdireccionEntregaNombre" id="txtdireccionEntregaNombre" placeholder="Direccion de Entrega Nombre" minlength="3" maxlength="50">
 								</p>
 								<p class=" width-full">
 									<label for="txtIndicaciones">Indicaciones de entrega</label>
@@ -115,7 +118,7 @@
 		var lat = "";
 		var lng = "";
 		var osmGeocoder = new L.Control.OSMGeocoder({
-			placeholder: 'Ingrese su dirección...',
+			placeholder: 'Escriba su dirección completa aquí...',
 			callback: function(results) {
 				var bbox = results[0].boundingbox,
 					first = new L.LatLng(bbox[0], bbox[2]),
@@ -126,17 +129,55 @@
 				lng = first.lng;
 			}
 		});
+
 		map.addControl(osmGeocoder);
-		$('#btnIngresar').on('click', function() {
-			if (lat && lng != "") {
-				$("#txtdireccionEntrega").val(lat + "," + lng);
-			} else {
-				return false;
-			}
-		});
+
+		var popup = L.popup();
+
+		function onMapClick(e) {
+			popup
+				.setLatLng(e.latlng)
+				.setContent("<h6>Haz seleccionado esto como tu dirección de entrega</h6>")
+				.openOn(map);
+			$("#txtdireccionEntrega").val(e.latlng.lat + "," + e.latlng.lng);
+
+		}
+
+		map.on('click', onMapClick);
 
 		// OBTENER LAT Y LNG
+		$('#btnBuscar').on('click', function() {
+			var direccion = $('#txtBuscar').val();
+			$("#txtdireccionEntregaNombre").val(direccion);
+			if (lat && lng != "") {
+				$("#txtdireccionEntrega").val(lat + "," + lng);
+			}
+
+		});
 	</script>
+	<style>
+		input {
+			border: 0 none;
+			padding: 10px;
+			width: 100%;
+		}
+
+		#btnBuscar {
+			background: #5d6b82 none repeat scroll 0 0;
+			border: 0 none;
+			color: #fff;
+			letter-spacing: 2px;
+			padding: 10px 20px;
+			text-transform: uppercase;
+			-webkit-transition: all 0.3s ease 0s;
+			transition: all 0.3s ease 0s;
+		}
+
+		#btnBuscar:hover {
+			background: #f39c12;
+			color: #fff;
+		}
+	</style>
 </body>
 
 <!--====== SCRIPTS JS ======-->

@@ -9,11 +9,11 @@ class RutaDB extends Conexion
     {
         $this->conectar();
 
-        $sql = "INSERT INTO ruta (id, direccionInicio, direccionFinal, distancia, fechaInicio, fechaFin) 
+        $sql = "INSERT INTO ruta (id, direccionInicio, direccionFinal, distancia, fechaInicio, fechaFin, direccionInicioNombre, direccionFinalNombre) 
                 VALUES(?,?,?,?,?,?)";
 
         $stmt = $this->miConexion->prepare($sql) or trigger_error($this->miConexion->error . "[$sql]");
-        $stmt->bind_param("isssss", $ruta->id, $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFin);
+        $stmt->bind_param("isssssss", $ruta->id, $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFin, $ruta->direccionInicioNombre, $ruta->direccionFinalNombre);
         $ok = $stmt->execute();
         $this->desconectar();
 
@@ -35,6 +35,8 @@ class RutaDB extends Conexion
             $ruta->distancia = $fila['distancia'];
             $ruta->fechaInicio = $fila['fechaInicio'];
             $ruta->fechaFin = $fila['fechaFin'];
+            $ruta->direccionInicioNombre = $fila['direccionInicioNombre'];
+            $ruta->direccionFinalNombre = $fila['direccionFinalNombre'];
 
             $arreglo[] = $ruta;
         }
@@ -62,6 +64,9 @@ class RutaDB extends Conexion
             $ruta->distancia = $fila['distancia'];
             $ruta->fechaInicio = $fila['fechaInicio'];
             $ruta->fechaFin = $fila['fechaFin'];
+            $ruta->direccionInicioNombre = $fila['direccionInicioNombre'];
+            $ruta->direccionFinalNombre = $fila['direccionFinalNombre'];
+
             $devolver = $ruta;
         }
         $this->desconectar();
@@ -73,9 +78,9 @@ class RutaDB extends Conexion
     {
         $this->conectar();
         $sql = "UPDATE ruta set 
-        direccionInicio=?, direccionFinal=?, distancia=?, fechaInicio=?, fechaFin=? where id=?";
+        direccionInicio=?, direccionFinal=?, distancia=?, fechaInicio=?, fechaFin=?, direccionInicioNombre = ?, direccionFinalNombre = ? where id=?";
         $stmt = $this->miConexion->prepare($sql);
-        $stmt->bind_param("sssssi", $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFin, $ruta->id);
+        $stmt->bind_param("sssssi", $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFin, $ruta->direccionInicioNombre, $ruta->direccionFinalNombre, $ruta->id);
         $ok = $stmt->execute();
         $this->desconectar();
 

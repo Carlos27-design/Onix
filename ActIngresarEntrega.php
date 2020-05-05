@@ -14,10 +14,11 @@ $ok = null;
 $message = "";
 
 if (
-    isset($_POST['txtdireccionEntrega']) && isset($_POST['txtIndicaciones'])
+    isset($_POST['txtdireccionEntrega']) && isset($_POST['txtIndicaciones']) && isset($_POST['txtdireccionEntregaNombre'])
 ) {
     $txtdireccionEntrega = $_POST['txtdireccionEntrega'];
     $txtIndicaciones = $_POST['txtIndicaciones'];
+    $txtdireccionEntregaNombre = $_POST['txtdireccionEntregaNombre'];
 
 
     if ($txtdireccionEntrega && $txtIndicaciones != "") {
@@ -27,10 +28,11 @@ if (
         $entrega->ruta_id = null; //VEHICULO ESCOGE
         $entrega->estado_id = 1; //1 = EN PROCESO
         $entrega->direccionEntrega = $txtdireccionEntrega;
+        $entrega->direccionEntregaNombre = $txtdireccionEntregaNombre;
         $entrega->indicaciones = $txtIndicaciones;
         $entrega->nroDocumentoEntregado = null;
         $entrega->fechaInicio = (date("Y-m-d H:i:00", time()));
-        $entrega->fechaEntregado = null;
+        $entrega->fechaEntregado = "0000-00-00";
 
 
 

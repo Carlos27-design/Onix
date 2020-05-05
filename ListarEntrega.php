@@ -159,14 +159,14 @@ $listaEstado = $estadoDB->listar();
                                         }
                                         ?>
 
-                                        <td><?php echo $e->direccionEntrega ?></td>
+                                        <td><?php echo $e->direccionEntregaNombre ?></td>
                                         <td><?php echo substr($e->fechaInicio, 0, 10) ?></td>
                                         <td><?php echo substr($e->fechaEntregado, 0, 10) ?></td>
 
 
                                         <td>
-                                            <a title="Ver" href="TestMapa.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
-                                            <a title="Editar" href="EditarRuta.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
+                                            <a title="Ver" href="EditarEntrega.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
+                                            <a title="Editar" href="EditarEntrega.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
                                             <a onclick="deleteRuta(<?php echo $e->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
                                         </td>
 

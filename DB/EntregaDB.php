@@ -11,11 +11,11 @@ class EntregaDB extends Conexion
 
         $this->conectar();
 
-        $sql = "INSERT INTO entrega (id, usuario_id, vehiculo_id, ruta_id, estado_id, direccionEntrega, nroDocumentoEntregado, fechaInicio, fechaEntregado, indicaciones)
-                VALUES (?,?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO entrega (id, usuario_id, vehiculo_id, ruta_id, estado_id, direccionEntrega, nroDocumentoEntregado, fechaInicio, fechaEntregado, indicaciones, direccionEntregaNombre)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         $stmt = $this->miConexion->prepare($sql) or trigger_error($this->miConexion->error . "[$sql]");
-        $stmt->bind_param("iiiiisssss", $entrega->id, $entrega->usuario_id, $entrega->vehiculo_id, $entrega->ruta_id, $entrega->estado_id, $entrega->direccionEntrega, $entrega->nroDocumentoEntregado, $entrega->fechaInicio, $entrega->fechaEntregado, $entrega->indicaciones);
+        $stmt->bind_param("iiiiissssss", $entrega->id, $entrega->usuario_id, $entrega->vehiculo_id, $entrega->ruta_id, $entrega->estado_id, $entrega->direccionEntrega, $entrega->nroDocumentoEntregado, $entrega->fechaInicio, $entrega->fechaEntregado, $entrega->indicaciones, $entrega->direccionEntregaNombre);
         $ok = $stmt->execute();
         $this->desconectar();
 
@@ -42,6 +42,7 @@ class EntregaDB extends Conexion
             $entrega->fechaInicio = $fila['fechaInicio'];
             $entrega->fechaEntregado = $fila['fechaEntregado'];
             $entrega->indicaciones = $fila['indicaciones'];
+            $entrega->direccionEntregaNombre = $fila['direccionEntregaNombre'];
 
             $arreglo[] = $entrega;
         }
@@ -74,6 +75,7 @@ class EntregaDB extends Conexion
             $entrega->fechaInicio = $fila['fechaInicio'];
             $entrega->fechaEntregado = $fila['fechaEntregado'];
             $entrega->indicaciones = $fila['indicaciones'];
+            $entrega->direccionEntregaNombre = $fila['direccionEntregaNombre'];
 
             $devolver = $entrega;
         }
@@ -87,9 +89,9 @@ class EntregaDB extends Conexion
     {
         $this->conectar();
         $sql = "UPDATE entrega set
-                usuario_id = ?, vehiculo_id = ?, ruta_id = ?, estado_id = ?, direccionEntrega = ?, nroDocumentoEntregado = ?, fechaInicio = ?, fechaEntregado = ?, indicaciones = ?  where id = ?";
+                usuario_id = ?, vehiculo_id = ?, ruta_id = ?, estado_id = ?, direccionEntrega = ?, nroDocumentoEntregado = ?, fechaInicio = ?, fechaEntregado = ?, indicaciones = ?, direccionEntregaNombre = ?  where id = ?";
         $stmt = $this->miConexion->prepare($sql);
-        $stmt->bind_param("iiiisssssi", $entrega->usuario_id, $entrega->vehiculo_id, $entrega->ruta_id, $entrega->estado_id, $entrega->direccionEntrega, $entrega->nroDocumentoEntregado,  $entrega->fechaInicio, $entrega->fechaEntregado, $entrega->indicaciones, $entrega->id);
+        $stmt->bind_param("iiiisssssssi", $entrega->usuario_id, $entrega->vehiculo_id, $entrega->ruta_id, $entrega->estado_id, $entrega->direccionEntrega, $entrega->nroDocumentoEntregado,  $entrega->fechaInicio, $entrega->fechaEntregado, $entrega->indicaciones, $entrega->direccionEntregaNombre, $entrega->id);
         $ok = $stmt->execute();
         $this->desconectar();
 
