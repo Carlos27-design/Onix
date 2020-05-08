@@ -166,7 +166,6 @@ $listaEstado = $estadoDB->listar();
 
                                         <td>
                                             <a title="Ver" href="EditarEntrega.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
-                                            <a title="Editar" href="EditarEntrega.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
                                             <a onclick="deleteRuta(<?php echo $e->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
                                         </td>
 

@@ -127,13 +127,13 @@ $rutaLista  = $rutaDB->listar();
                                     <tr class=" text-center">
                                         <!-- datos de la tabla sacada de la base de datos -->
                                         <td><?php echo $r->id ?></td>
-                                        <td><?php echo $r->direccionInicio ?></td>
-                                        <td><?php echo $r->direccionFinal ?></td>
+                                        <td><?php echo $r->direccionInicioNombre ?></td>
+                                        <td><?php echo $r->direccionFinalNombre ?></td>
                                         <td><?php echo $r->distancia ?></td>
                                         <td><?php echo $r->fechaInicio ?></td>
                                         <td><?php echo $r->fechaFin ?></td>
                                         <td>
-                                            <a title="Ver" href="TestMapa.php?id=<?php echo $r->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
+                                            <a title="Ver" href="verRuta.php?id=<?php echo $r->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
                                             <a title="Editar" href="EditarRuta.php?id=<?php echo $r->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
                                             <a onclick="deleteRuta(<?php echo $r->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
                                         </td>

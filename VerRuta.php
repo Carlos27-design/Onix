@@ -1,53 +1,47 @@
 <?php
 //DIBUJAR RUTA
 //https://www.youtube.com/watch?v=hRoiG4ZIzeM
+
 session_start();
+
+include_once 'DB/Usuario.php';
+include_once 'DB/UsuarioDB.php';
+
+$usuario = new Usuario();
+$usuarioDB = new UsuarioDB();
+
+$listaUsuarios = $usuarioDB->listar();
+
+include_once 'DB/Estado.php';
+include_once 'DB/EstadoDB.php';
+
+$estado = new Estado();
+$estadoDB = new EstadoDB();
+
+$listaEstado = $estadoDB->listar();
+
 include_once 'DB/Entrega.php';
 include_once 'DB/EntregaDB.php';
 
 $entregaDB = new EntregaDB();
 $entrega = new Entrega();
 
-include_once 'DB/Usuario.php';
-include_once 'DB/UsuarioDB.php';
-
-$usuarioDB = new UsuarioDB();
-$usuario = new Usuario();
-
-$usuarioLista  = $usuarioDB->listar();
-
-
-include_once 'DB/Vehiculo.php';
-include_once 'DB/VehiculoDB.php';
-
-$vehiculoDB = new VehiculoDB();
-$vehiculo = new Vehiculo();
-
-$vehiculoLista  = $vehiculoDB->listar();
-
-
-include_once 'DB/Estado.php';
-include_once 'DB/EstadoDB.php';
-
-$estadoDB = new EstadoDB();
-$estado = new Estado();
-
-$estadoLista  = $estadoDB->listar();
-
 include_once 'DB/Ruta.php';
 include_once 'DB/RutaDB.php';
+
+$entregaLista  = $entregaDB->listar();
 
 $rutaDB = new RutaDB();
 $ruta = new Ruta();
 
 $rutaLista  = $rutaDB->listar();
 
-$idEntrega = 0;
+$idRuta = 0;
 if (isset($_GET["id"])) {
-    $idEntrega = $_GET["id"];
-    $entrega = $entregaDB->buscar($idEntrega);
+    $idRuta = $_GET["id"];
+    $ruta = $rutaDB->buscar($idRuta);
 } else {
-    header("Location: listarEntrega.php");
+    header("Location: listarRuta.php");
 }
 
 ?>
@@ -133,7 +127,7 @@ if (isset($_GET["id"])) {
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <div class="quote-form-area wow fadeIn">
-                            <h3>Entrega N° <?= $entrega->id; ?> <a href="#map">Ver ubicación en mapa <i class="fas fa-map-marker-alt"></i></a></h3>
+                            <h3>Ruta N° <?= $ruta->id; ?> <a href="#map">Ver en mapa <i class="fas fa-map-marker-alt"></i></a></h3>
                             <div class="row">
                                 <?php
                                 if (isset($_SESSION['message']) && $_SESSION['message']) {
@@ -142,75 +136,16 @@ if (isset($_GET["id"])) {
                                 }
                                 ?>
                             </div>
-                            <form class="quote-form" action="ActEditarEntrega.php?id=<?= $entrega->id; ?>" method="post">
-                                <p class=" width-full">
-                                    <label for="slcUsuario">Usuario que pidió la entrega</label>
-                                    <br>
-                                    <select name="slcUsuario" id="slcUsuario" disabled>
+                            <form class="quote-form" action="ActEditarRuta.php?id=<?= $ruta->id; ?>" method="post">
 
-                                        <?php foreach ($usuarioLista as $u) { ?>
-                                            <option value="<?= $u->id; ?>" <?php if ($entrega->usuario_id == $u->id) {
-                                                                                echo ' selected="selected"';
-                                                                            } ?>>
-                                                <?= $u->nombre; ?></option>
-                                        <?php } ?>
-                                    </select>
+                                <p class=" width-full">
+                                    <label for="txtdireccionInicioNombre">Dirección de Inicio</label>
+                                    <input disabled required type="text" name="txtdireccionInicioNombre" id="txtdireccionInicioNombre" placeholder="Direccion de inicio" maxlength="45" value="<?php echo $ruta->direccionInicioNombre; ?>">
                                 </p>
 
                                 <p class=" width-full">
-                                    <label for="slcVehiculo">Vehiculo a cargo</label>
-                                    <br>
-                                    <select name="slcVehiculo" id="slcVehiculo" disabled>
-                                        <option value="0">Seleccione Vehiculo</option>
-                                        <?php foreach ($vehiculoLista as $v) { ?>
-                                            <option value="<?= $v->id; ?>" <?php if ($entrega->vehiculo_id == $v->id) {
-                                                                                echo ' selected="selected"';
-                                                                            } ?>>
-                                                <?= $v->patente; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </p>
-
-                                <p class=" width-full">
-                                    <label for="slcRuta">Ruta tomada</label>
-                                    <br>
-                                    <select name="slcRuta" id="slcRuta" disabled>
-                                        <option value="0">Seleccione Ruta</option>
-                                        <?php foreach ($rutaLista as $r) { ?>
-                                            <option value="<?= $r->id; ?>" <?php if ($entrega->ruta_id == $r->id) {
-                                                                                echo ' selected="selected"';
-                                                                            } ?>>
-                                                <?= $r->direccionInicioNombre . " -> " . $r->direccionFinalNombre; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </p>
-
-                                <p class=" width-full">
-                                    <label for="slcEstado">Estado</label>
-                                    <br>
-                                    <select name="slcEstado" id="slcEstado" disabled>
-                                        <?php foreach ($estadoLista as $e) { ?>
-                                            <option value="<?= $e->id; ?>" <?php if ($entrega->estado_id == $e->id) {
-                                                                                echo ' selected="selected"';
-                                                                            } ?>>
-                                                <?= $e->nombre ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </p>
-
-                                <p class=" width-full">
-                                    <label for="txtdireccionEntregaNombre">Dirección de Entrega</label>
-                                    <input disabled required type="text" name="txtdireccionEntregaNombre" id="txtdireccionEntregaNombre" placeholder="Nombre" maxlength="45" value="<?php echo $entrega->direccionEntregaNombre; ?>">
-                                </p>
-
-                                <p class=" width-full">
-                                    <label for="txtdireccionEntrega">Coordenadas de Entrega</label>
-                                    <input disabled required type="text" name="txtdireccionEntrega" id="txtdireccionEntrega" placeholder="Latitud y longitud" maxlength="45" value="<?php echo $entrega->direccionEntrega; ?>">
-                                </p>
-
-                                <p class=" width-full">
-                                    <label for="txtIndicaciones">Indicaciones</label>
-                                    <input disabled required type="text" name="txtIndicaciones" id="txtIndicaciones" placeholder="Indicaciones" maxlength="45" value="<?php echo $entrega->indicaciones; ?>">
+                                    <label for="txtdireccionFinalNombre">Direccion Final</label>
+                                    <input disabled required type="text" name="txtdireccionFinalNombre" id="txtdireccionFinalNombre" placeholder="Direccion Final" maxlength="45" value="<?php echo $ruta->direccionFinalNombre; ?>">
                                 </p>
 
                                 <p class=" width-full">
@@ -221,28 +156,76 @@ if (isset($_GET["id"])) {
                                 <label for="txtFechaInicio">Fecha de inicio</label>
                                 <p class=" width-half">
                                     <?php
-                                    list($fechaInicio, $horaInicio) = explode(" ", $entrega->fechaInicio);
+                                    list($fechaInicio, $horaInicio) = explode(" ", $ruta->fechaInicio);
                                     ?>
                                     <input disabled required type="date" name="txtFechaInicio" id="txtFechaInicio" placeholder="Fecha Inicio" value="<?= $fechaInicio; ?>">
                                     <input disabled required class="pull-right" type="time" name="txtHoraInicio" id="txtHoraInicio" value="<?= $horaInicio; ?>">
                                 </p>
 
-                                <label for="txtFechaEntrega">Fecha de Entrega</label>
+                                <label for="txtFechaEntrega">Fecha Final</label>
                                 <p class=" width-half">
                                     <?php
-                                    list($fechaEntregado, $horaEntregado) = explode(" ", $entrega->fechaEntregado);
+                                    list($fechaEntregado, $horaEntregado) = explode(" ", $ruta->fechaFin);
                                     ?>
                                     <input disabled type="date" name="txtFechaEntrega" id="txtFechaEntrega" placeholder="Fecha Entrega" value="<?= $fechaEntregado; ?>">
                                     <input disabled class="pull-right" type="time" name="txtHoraEntrega" id="txtHoraEntrega" value="<?= $horaEntregado; ?>">
                                 </p>
 
-
-
-
                                 <button id="btnHabilitar" type="button">Habilitar Edición</button>
                                 <button hidden type="submit">Actualizar Datos</button>
                             </form>
 
+                            <div class="row">
+                                <table id="tbl" class="table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Usuario</th>
+                                            <th>Estado</th>
+                                            <th>Fecha <br> Inicio</th>
+                                            <th>Administrar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <?php
+                                        foreach ($entregaLista as $e) {
+                                            if ($e->ruta_id == $ruta->id) {
+                                        ?>
+                                                <tr>
+                                                    <td><?php echo $e->id ?></td>
+
+                                                    <?php
+                                                    foreach ($listaUsuarios as $lu) {
+                                                        if ($e->usuario_id == $lu->id) {
+                                                            echo "<td>" . $lu->nombre . "</td>";
+                                                        }
+                                                    }
+                                                    ?>
+
+                                                    <?php
+                                                    foreach ($listaEstado as $le) {
+                                                        if ($e->estado_id == $le->id) {
+                                                            echo "<td>" . $le->nombre . "</td>";
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <td><?= $e->fechaInicio ?></td>
+                                                    <td>
+                                                        <a title="Ver" href="EditarEntrega.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
+                                                        <a onclick="deleteRuta(<?php echo $e->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
+                                                    </td>
+
+
+                                                </tr>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </tbody>
+
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -254,8 +237,8 @@ if (isset($_GET["id"])) {
     <!-- INICIAR MAPA -->
     <script>
         <?php
-        $e = $entregaDB->Buscar($_GET["id"]);
-        list($lat, $lng) = explode(",", $e->direccionEntrega);
+        $e = $rutaDB->Buscar($_GET["id"]);
+        list($lat, $lng) = explode(",", $e->direccionInicio);
 
         ?>
         var demoMap = L.map('map').setView([<?= $lat ?>, <?= $lng ?>], 14);
@@ -291,7 +274,6 @@ if (isset($_GET["id"])) {
         echo "marker.addTo(demoMap);";
         ?>
     </script>
-
     <script>
         $('#btnHabilitar').on('click', function() {
             // $("input").prop('disabled', true);
@@ -301,6 +283,15 @@ if (isset($_GET["id"])) {
             $("select").prop('disabled', false);
 
         });
+
+        function deleteRuta(id) {
+            var ask = window.confirm("¿Está seguro que desea eliminar esto?");
+            if (ask) {
+                window.location.href = "ActEliminarEntregadeRuta.php?idRuta="
+                <?= $ruta->id ?> + "&id=" + id;
+
+            }
+        }
     </script>
 
 
