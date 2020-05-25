@@ -10,7 +10,7 @@ class RutaDB extends Conexion
         $this->conectar();
 
         $sql = "INSERT INTO ruta (id, direccionInicio, direccionFinal, distancia, fechaInicio, fechaFin, direccionInicioNombre, direccionFinalNombre) 
-                VALUES(?,?,?,?,?,?)";
+                VALUES(?,?,?,?,?,?,?,?)";
 
         $stmt = $this->miConexion->prepare($sql) or trigger_error($this->miConexion->error . "[$sql]");
         $stmt->bind_param("isssssss", $ruta->id, $ruta->direccionInicio, $ruta->direccionFinal, $ruta->distancia, $ruta->fechaInicio, $ruta->fechaFin, $ruta->direccionInicioNombre, $ruta->direccionFinalNombre);

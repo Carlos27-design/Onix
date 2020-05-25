@@ -32,9 +32,9 @@
                         <ul id="nav" class="nav navbar-nav">
                             <li><a href="#">Administrar</a>
                                 <ul>
-                                    <li><a href="ListarComprobante.php">Comprobante</a></li>
-                                    <li><a href="ListarEntrega.php">Entrega</a></li>
+                                    <!-- <li><a href="ListarComprobante.php">Comprobante</a></li> -->
                                     <!-- <li><a href="ListarImagenVehiculo">ImagenVehiculo</a></li> -->
+                                    <li><a href="ListarEntrega.php">Entrega</a></li>
                                     <li><a href="ListarMarca.php">Marca</a></li>
                                     <li><a href="ListarModelo.php">Modelo</a></li>
                                     <li><a href="ListarRuta.php">Ruta</a></li>

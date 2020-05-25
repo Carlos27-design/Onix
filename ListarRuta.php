@@ -9,6 +9,15 @@ $ruta = new Ruta();
 
 $rutaLista  = $rutaDB->listar();
 
+include_once 'DB/Entrega.php';
+include_once 'DB/EntregaDB.php';
+
+$entregaDB = new EntregaDB();
+$entrega = new Entrega();
+
+$entregaLista  = $entregaDB->listar();
+
+
 
 
 ?>
@@ -111,10 +120,10 @@ $rutaLista  = $rutaDB->listar();
                                 <tr>
                                     <th>ID</th>
                                     <th>Dirección Inicio</th>
-                                    <th>Dirección Final</th>
-                                    <th>Distancia (KM)</th>
                                     <th>Fecha Inicio</th>
+                                    <th>Dirección Final</th>
                                     <th>Fecha Final</th>
+                                    <th>N° Entregas</th>
                                     <th>Administrar</th>
                                 </tr>
                             </thead>
@@ -128,10 +137,20 @@ $rutaLista  = $rutaDB->listar();
                                         <!-- datos de la tabla sacada de la base de datos -->
                                         <td><?php echo $r->id ?></td>
                                         <td><?php echo $r->direccionInicioNombre ?></td>
-                                        <td><?php echo $r->direccionFinalNombre ?></td>
-                                        <td><?php echo $r->distancia ?></td>
                                         <td><?php echo $r->fechaInicio ?></td>
+                                        <td><?php echo $r->direccionFinalNombre ?></td>
                                         <td><?php echo $r->fechaFin ?></td>
+                                        <td>
+                                            <?php
+                                            $nroEntregas = 0;
+                                            foreach ($entregaLista as $e) {
+                                                if ($e->ruta_id == $r->id) {
+                                                    $nroEntregas += 1;
+                                                }
+                                            }
+                                            echo $nroEntregas
+                                            ?>
+                                        </td>
                                         <td>
                                             <a title="Ver" href="verRuta.php?id=<?php echo $r->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
                                             <a title="Editar" href="EditarRuta.php?id=<?php echo $r->id; ?>" class="btn"><i class="fas fa-edit"></i></a>

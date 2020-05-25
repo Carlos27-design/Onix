@@ -26,10 +26,11 @@ include_once 'DB/EntregaDB.php';
 $entregaDB = new EntregaDB();
 $entrega = new Entrega();
 
+$entregaLista  = $entregaDB->listar();
+
 include_once 'DB/Ruta.php';
 include_once 'DB/RutaDB.php';
 
-$entregaLista  = $entregaDB->listar();
 
 $rutaDB = new RutaDB();
 $ruta = new Ruta();
@@ -42,6 +43,61 @@ if (isset($_GET["id"])) {
     $ruta = $rutaDB->buscar($idRuta);
 } else {
     header("Location: listarRuta.php");
+}
+
+// =============== ORDEN DE RUTA ==============
+
+$listaEntregasRuta = array();
+foreach ($entregaLista as $e) {
+    if ($e->ruta_id == $ruta->id) {
+
+        list($lat, $lng) = explode(",", $e->direccionEntrega);
+        list($latInicio, $lngInicio) = explode(",", $ruta->direccionInicio);
+        $kms =  distance($lat, $lng, $latInicio, $lngInicio, "K");
+
+        $e->distanciaKM = $kms;
+
+        $listaEntregasRuta[] = $e;
+    }
+}
+
+function distance($lat1, $lon1, $lat2, $lon2, $unit)
+{
+
+    $theta = $lon1 - $lon2;
+    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+    $dist = acos($dist);
+    $dist = rad2deg($dist);
+    $miles = $dist * 60 * 1.1515;
+    $unit = strtoupper($unit);
+
+    if ($unit == "K") {
+        return ($miles * 1.609344);
+    } else if ($unit == "N") {
+        return ($miles * 0.8684);
+    } else {
+        return $miles;
+    }
+}
+
+$listaEntregasRuta = json_decode(json_encode($listaEntregasRuta), true);
+
+uasort($listaEntregasRuta, function ($a, $b) {
+    if ($a['distanciaKM'] == $b['distanciaKM']) {
+        return 0;
+    }
+    return ($a['distanciaKM'] < $b['distanciaKM']) ? -1 : 1;
+});
+
+// =============== ORDEN DE RUTA ==============
+
+
+$listaLetras = array();
+$listaLetras[] = "Inicio";
+
+foreach (range('A', 'Z') as $elements) {
+
+    $listaLetras[] = $elements;
 }
 
 ?>
@@ -62,6 +118,7 @@ if (isset($_GET["id"])) {
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
     <!--====== STYLESHEETS ======-->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -75,17 +132,65 @@ if (isset($_GET["id"])) {
     <link href="style.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=Zmt3zLFCEahwQ7lnLsSF0U6j6AmmkGWP"></script>
+    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=Zmt3zLFCEahwQ7lnLsSF0U6j6AmmkGWP"></script>
+
+    <script type="text/javascript">
+        window.onload = function() {
+
+            var map,
+                dir;
+
+            map = L.map('map', {
+                layers: MQ.mapLayer(),
+                center: [<?= $listaEntregasRuta[0]['direccionEntrega'] ?>],
+                zoom: 9
+            });
+
+            dir = MQ.routing.directions();
+
+            dir.route({
+                locations: [
+                    <?php
+
+                    list($latInicio, $lngInicio) = explode(",", $ruta->direccionInicio);
+                    ?>, {
+                        latLng: {
+                            lat: <?= $latInicio ?>,
+                            lng: <?= $lngInicio ?>,
+                        }
+                    },
+                    <?php
+                    foreach ($listaEntregasRuta as $e) {
+                        if ($e["ruta_id"] == $ruta->id) {
+                            list($lat, $lng) = explode(",", $e["direccionEntrega"]);
+                    ?>, {
+                                latLng: {
+                                    lat: <?= $lat ?>,
+                                    lng: <?= $lng ?>,
+                                }
+                            },
 
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+                    <?php
+                        }
+                    }
+                    ?>
 
-    <script src="Control.OSMGeocoder.js"></script>
-    <link rel="stylesheet" href="Control.OSMGeocoder.css" />
 
+                ]
+            });
 
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYAESaIh0eGTc5vNgX-32O22ejjjlgbmc&callback=initMap">
+            map.addLayer(MQ.routing.routeLayer({
+                directions: dir,
+                fitBounds: true
+            }));
+        }
+    </script>
+
     </script>
     <!--[if lt IE 9]>
         <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -180,8 +285,11 @@ if (isset($_GET["id"])) {
                                     <thead>
                                         <tr>
                                             <th>ID</th>
+                                            <th>Letra</th>
                                             <th>Usuario</th>
+                                            <th>Dirección</th>
                                             <th>Estado</th>
+                                            <th></th>
                                             <th>Fecha <br> Inicio</th>
                                             <th>Administrar</th>
                                         </tr>
@@ -189,31 +297,45 @@ if (isset($_GET["id"])) {
                                     <tbody>
 
                                         <?php
-                                        foreach ($entregaLista as $e) {
-                                            if ($e->ruta_id == $ruta->id) {
+                                        $x = 1;
+                                        foreach ($listaEntregasRuta as $e) {
+                                            if ($e['ruta_id'] == $ruta->id) {
+                                                $x += 1;
                                         ?>
                                                 <tr>
-                                                    <td><?php echo $e->id ?></td>
+                                                    <td><?= $e['id'] ?></td>
 
+                                                    <td><?= $listaLetras[$x] ?></td>
                                                     <?php
                                                     foreach ($listaUsuarios as $lu) {
-                                                        if ($e->usuario_id == $lu->id) {
+                                                        if ($e['usuario_id'] == $lu->id) {
                                                             echo "<td>" . $lu->nombre . "</td>";
                                                         }
                                                     }
                                                     ?>
-
+                                                    <td><?= $e['direccionEntregaNombre'] ?></td>
                                                     <?php
                                                     foreach ($listaEstado as $le) {
-                                                        if ($e->estado_id == $le->id) {
+                                                        if ($e['estado_id'] == $le->id) {
                                                             echo "<td>" . $le->nombre . "</td>";
                                                         }
                                                     }
                                                     ?>
-                                                    <td><?= $e->fechaInicio ?></td>
+                                                    <?php
+                                                    switch ($e['estado_id']) {
+                                                        case 3:
+                                                            echo ' <td><i class="fas fa-check"></i></td>';
+                                                            break;
+                                                        default:
+                                                            echo ' <td><i class="fas fa-times"></i></td>';
+                                                            break;
+                                                    }
+                                                    ?>
+                                                    <td><?= $e['fechaInicio'] ?></td>
                                                     <td>
-                                                        <a title="Ver" href="EditarEntrega.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
-                                                        <a onclick="deleteRuta(<?php echo $e->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
+                                                        <a title="Actualizar Estado" href="ActActualizarEstado.php?idRuta=<?= $ruta->id; ?> &id=<?= $e['id']; ?>" class="btn"><i class="fas fa-clipboard-check"></i></a>
+                                                        <a title="Ver" href="EditarEntrega.php?id=<?= $e['id']; ?>" class="btn"><i class="fas fa-eye"></i></a>
+                                                        <a onclick="deleteRuta(<?= $e['id']; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
                                                     </td>
 
 
@@ -231,49 +353,22 @@ if (isset($_GET["id"])) {
                 </div>
         </section>
     </div>
-    <div id="map" style="height: 100%"></div>
-    <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 
-    <!-- INICIAR MAPA -->
-    <script>
-        <?php
-        $e = $rutaDB->Buscar($_GET["id"]);
-        list($lat, $lng) = explode(",", $e->direccionInicio);
+    <div id='map' style='width: 100%; height:100%;'></div>
 
-        ?>
-        var demoMap = L.map('map').setView([<?= $lat ?>, <?= $lng ?>], 14);
-        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-        var osm = new L.TileLayer(osmUrl, {
-            minZoom: 8,
-            maxZoom: 20,
-            attribution: osmAttrib
-        });
-
-
-        osm.addTo(demoMap);
-    </script>
-    <!-- AGREGAR MARCADORES -->
-    <script>
-        <?php
-
-
-        list($lat, $lng) = explode(",", $entrega->direccionEntrega);
-        // echo "L.marker([" . $lat . "," . $lng . "]).addTo(demoMap);"; VERSION BASICA
-
-
-        echo "var cords = [" . $lat . "," . $lng . "];";
-        echo "var marker = L.marker(cords);";
-        foreach ($usuarioLista as $lu) {
-            if ($entrega->usuario_id == $lu->id) {
-                echo "marker.bindPopup('Cliente: " . $lu->nombre . "<br>Dirección: " . $entrega->direccionEntregaNombre . "');";
-            }
+    <style>
+        .fa-check {
+            color: green;
         }
 
+        .fa-times {
+            color: red;
+        }
 
-        echo "marker.addTo(demoMap);";
-        ?>
-    </script>
+        a {
+            color: #ff4081;
+        }
+    </style>
     <script>
         $('#btnHabilitar').on('click', function() {
             // $("input").prop('disabled', true);
@@ -287,8 +382,7 @@ if (isset($_GET["id"])) {
         function deleteRuta(id) {
             var ask = window.confirm("¿Está seguro que desea eliminar esto?");
             if (ask) {
-                window.location.href = "ActEliminarEntregadeRuta.php?idRuta="
-                <?= $ruta->id ?> + "&id=" + id;
+                window.location.href = "ActEliminarEntregadeRuta.php?idRuta=" + <?= $ruta->id ?> + "&idEntrega=" + id;
 
             }
         }

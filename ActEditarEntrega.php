@@ -24,6 +24,7 @@ if (
 ) {
     $slcUsuario =  $_POST['slcUsuario'];
     $slcVehiculo =  $_POST['slcVehiculo'];
+    $slcEstado =  $_POST['slcEstado'];
     $slcRuta = $_POST['slcRuta'];
     $txtdireccionEntregaNombre =  $_POST['txtdireccionEntregaNombre'];
     $txtdireccionEntrega =  $_POST['txtdireccionEntrega'];
@@ -43,6 +44,7 @@ if (
         $entrega = $entregaDB->buscar($_GET['id']);
         $entrega->id = $_GET['id'];
         $entrega->usuario_id = $slcUsuario;
+        $entrega->estado_id = $slcEstado;
 
         if ($slcVehiculo == 0) {
             $entrega->vehiculo_id = null;
@@ -54,6 +56,9 @@ if (
             $entrega->ruta_id = null;
         } else {
             $entrega->ruta_id = $slcRuta;
+            if ($entrega->estado_id == 1) {
+                $entrega->estado_id = 2;
+            }
         }
 
 

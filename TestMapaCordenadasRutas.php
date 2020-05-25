@@ -1,102 +1,129 @@
-<!DOCTYPE html>
+<?php
+//https://developer.mapquest.com/documentation/leaflet-plugins/routing/
+//Rutas
+
+session_start();
+include_once 'DB/Entrega.php';
+include_once 'DB/EntregaDB.php';
+
+$entregaDB = new EntregaDB();
+$entrega = new Entrega();
+
+$entregaLista  = $entregaDB->listar();
+
+
+?>
 <html>
-<meta charset="utf-8" />
 
 <head>
-    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="<a href=https://unpkg.com/leaflet@1.0.2/dist/leaflet.css">https://unpkg.com/leaflet@1.0.2/dist/leaflet.css </a>"/> <script type="text/javascript" src="countries.js">
-    </script>
-    <script src="leaflet-search-master\src\leaflet-search.js"></script>
-    <link rel="stylesheet" href="leaflet-search-master\src\leaflet-search.css" />
+    <!--====== USEFULL META ======-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Transportation & Agency Template is a simple Smooth transportation and Agency Based Template" />
+    <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
-    <style>
-        #map {
-            width: 100%;
-            height: 600px;
-            box-shadow: 5px 5px 5px #888;
+    <!--====== TITLE TAG ======-->
+    <title>Entrega Mapa</title>
+
+    <!--====== FAVICON ICON =======-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+    <!--====== STYLESHEETS ======-->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/stellarnav.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d684b42b31.js" crossorigin="anonymous"></script>
+
+    <!--====== MAIN STYLESHEETS ======-->
+    <link href="style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=Zmt3zLFCEahwQ7lnLsSF0U6j6AmmkGWP"></script>
+    <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=Zmt3zLFCEahwQ7lnLsSF0U6j6AmmkGWP"></script>
+
+    <script type="text/javascript">
+        window.onload = function() {
+
+            var map,
+                dir;
+
+            map = L.map('map', {
+                layers: MQ.mapLayer(),
+                center: [<?= $entregaLista[0]->direccionEntrega ?>],
+                zoom: 9
+            });
+
+            dir = MQ.routing.directions();
+
+            dir.route({
+                locations: [
+
+                    <?php
+                    foreach ($entregaLista as $e) {
+                        list($lat, $lng) = explode(",", $e->direccionEntrega);
+                    ?>, {
+                            latLng: {
+                                lat: <?= $lat ?>,
+                                lng: <?= $lng ?>,
+                            }
+                        },
+
+
+                    <?php
+                    }
+                    ?>
+
+                ]
+            });
+
+            map.addLayer(MQ.routing.routeLayer({
+                directions: dir,
+                fitBounds: true
+            }));
         }
-    </style>
-
+    </script>
 </head>
 
 <body>
-    <div id="map"></div>
-    <script>
-        var map = L.map('map', {
-            center: [41.66, -4.72],
-            zoom: 4
-        });
 
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-                '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-            id: 'mapbox.light'
-        }).addTo(map);
+    <?php include 'nav.php' ?>
+
+    <h4>Agregar una tabla, con el significado de cada marcador</h4>
+    <h5>Ejemplo</h5>
+    <h5>A = Tomas Burgos</h5>
+    <h5>B = Santo Domingo</h5>
+
+    <div id='map' style='width: 100%; height:100%;'></div>
 
 
-        var countryStyle = {
-            'color': "#858585",
-            'weight': 2,
-            'opacity': 0.6
-        };
+    <!--====== SCRIPTS JS ======-->
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
 
-        function getColor(d) {
-            return d > 100000000 ? '#800026' :
-                d > 50000000 ? '#BD0026' :
-                d > 20000000 ? '#E31A1C' :
-                d > 10000000 ? '#FC4E2A' :
-                d > 5000000 ? '#FD8D3C' :
-                d > 2000000 ? '#FEB24C' :
-                d > 1000000 ? '#FED976' :
-                '#FFEDA0';
-        }
-        for (var i in countries.features)
-            countries.features[i].properties.color = getColor(countries.features[i].properties.pop_est);
+    <!--====== PLUGINS JS ======-->
+    <script src="js/vendor/jquery.easing.1.3.js"></script>
+    <script src="js/vendor/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/vendor/jquery.appear.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/stellar.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/stellarnav.min.js"></script>
+    <script src="js/contact-form.js"></script>
+    <script src="js/jquery.sticky.js"></script>
 
-        function popup(feature, layer) {
-            if (feature.properties && feature.properties.name) {
-                layer.bindPopup(feature.properties.name);
-            }
-        }
-
-        function style(feature) {
-            return {
-                fillColor: getColor(feature.properties.pop_est),
-                weight: 2,
-                opacity: 1,
-                color: 'white',
-                dashArray: '3',
-                fillOpacity: 0.7
-            };
-        }
-
-        var countriesJS = L.geoJson(countries, {
-            onEachFeature: popup,
-            style: style
-        }).addTo(map);
-
-        var searchControl = new L.Control.Search({
-            layer: countriesJS,
-            propertyName: 'name',
-            circleLocation: false
-        });
-
-        searchControl.on('search_locationfound', function(e) {
-                e.layer.setStyle({
-                    fillColor: '#3f0',
-                    color: '#0f0'
-                });
-            })
-            .on('search_collapsed', function(e) {
-                countriesJS.eachLayer(function(layer) { //restauramos el color del elemento
-                    countriesJS.resetStyle(layer);
-                });
-            });
-
-        map.addControl(searchControl);
-    </script>
+    <!--===== ACTIVE JS=====-->
+    <script src="js/main.js"></script>
 </body>
+
+
 
 </html>
