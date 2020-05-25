@@ -44,6 +44,12 @@ $usuarioLista  = $usuarioDB->listar();
   <link href="style.css" rel="stylesheet">
   <link href="css/responsive.css" rel="stylesheet">
 
+  <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=Zmt3zLFCEahwQ7lnLsSF0U6j6AmmkGWP
+"></script>
+  <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=Zmt3zLFCEahwQ7lnLsSF0U6j6AmmkGWP
+"></script>
+
+
 </head>
 
 <body>

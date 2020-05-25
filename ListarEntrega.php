@@ -46,7 +46,7 @@ $listaEstado = $estadoDB->listar();
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Entregas</title>
+    <title>Lista de Entregas</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
@@ -128,6 +128,7 @@ $listaEstado = $estadoDB->listar();
                                     <th>ID</th>
                                     <th>Usuario</th>
                                     <th>Estado</th>
+                                    <th>Con <br> fletero</th>
                                     <th>Dirección <br> de Entrega</th>
                                     <th>Fecha <br> Inicio</th>
                                     <th>Fecha <br>Entregado</th>
@@ -158,15 +159,23 @@ $listaEstado = $estadoDB->listar();
                                             }
                                         }
                                         ?>
+                                        <?php
+                                        switch ($e->ruta_id) {
+                                            case null:
+                                                echo ' <td><span>N</span><i class="fas fa-times"></i></td>';
+                                                break;
+                                            default:
+                                                echo ' <td><span>S</span><i class="fas fa-check"></i></td>';
+                                                break;
+                                        }
+                                        ?>
 
-                                        <td><?php echo $e->direccionEntregaNombre ?></td>
-                                        <td><?php echo substr($e->fechaInicio, 0, 10) ?></td>
-                                        <td><?php echo substr($e->fechaEntregado, 0, 10) ?></td>
-
+                                        <td><?= $e->direccionEntregaNombre ?></td>
+                                        <td><?= substr($e->fechaInicio, 0, 10) ?></td>
+                                        <td><?= substr($e->fechaEntregado, 0, 10) ?></td>
 
                                         <td>
                                             <a title="Ver" href="EditarEntrega.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
-                                            <a title="Editar" href="EditarEntrega.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-edit"></i></a>
                                             <a onclick="deleteRuta(<?php echo $e->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
                                         </td>
 
@@ -194,6 +203,10 @@ $listaEstado = $estadoDB->listar();
 
         .fa-times {
             color: red;
+        }
+
+        table span {
+            display: none;
         }
     </style>
     <script>

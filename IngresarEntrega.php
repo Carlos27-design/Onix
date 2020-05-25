@@ -37,7 +37,7 @@
 
 
 	<script src="js/vendor/modernizr-2.8.3.min.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYAESaIh0eGTc5vNgX-32O22ejjjlgbmc&callback=initMap">
+
 	</script>
 	<!--[if lt IE 9]>
         <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -60,8 +60,7 @@
 			width: 100%;
 		}
 
-		#txtdireccionEntrega,
-		#txtdireccionEntregaNombre {
+		#txtdireccionEntrega {
 			display: none;
 
 		}
@@ -87,7 +86,7 @@
 									<input required type="text" name="txtdireccionEntrega" id="txtdireccionEntrega" placeholder="Direccion de Entrega Lat,Lng" minlength="3" maxlength="50">
 								</p>
 								<p class=" width-full">
-									<!-- <label for="txtdireccionEntregaNombre">Dirección de Entrega</label> -->
+									<label for="txtdireccionEntregaNombre">Dirección de Entrega</label>
 									<input required type="text" name="txtdireccionEntregaNombre" id="txtdireccionEntregaNombre" placeholder="Direccion de Entrega Nombre" minlength="3" maxlength="50">
 								</p>
 								<p class=" width-full">
@@ -148,7 +147,6 @@
 		// OBTENER LAT Y LNG
 		$('#btnBuscar').on('click', function() {
 			var direccion = $('#txtBuscar').val();
-			$("#txtdireccionEntregaNombre").val(direccion);
 			if (lat && lng != "") {
 				$("#txtdireccionEntrega").val(lat + "," + lng);
 			}

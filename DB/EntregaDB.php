@@ -91,7 +91,7 @@ class EntregaDB extends Conexion
         $sql = "UPDATE entrega set
                 usuario_id = ?, vehiculo_id = ?, ruta_id = ?, estado_id = ?, direccionEntrega = ?, nroDocumentoEntregado = ?, fechaInicio = ?, fechaEntregado = ?, indicaciones = ?, direccionEntregaNombre = ?  where id = ?";
         $stmt = $this->miConexion->prepare($sql);
-        $stmt->bind_param("iiiisssssssi", $entrega->usuario_id, $entrega->vehiculo_id, $entrega->ruta_id, $entrega->estado_id, $entrega->direccionEntrega, $entrega->nroDocumentoEntregado,  $entrega->fechaInicio, $entrega->fechaEntregado, $entrega->indicaciones, $entrega->direccionEntregaNombre, $entrega->id);
+        $stmt->bind_param("iiiissssssi", $entrega->usuario_id, $entrega->vehiculo_id, $entrega->ruta_id, $entrega->estado_id, $entrega->direccionEntrega, $entrega->nroDocumentoEntregado,  $entrega->fechaInicio, $entrega->fechaEntregado, $entrega->indicaciones, $entrega->direccionEntregaNombre, $entrega->id);
         $ok = $stmt->execute();
         $this->desconectar();
 

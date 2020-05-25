@@ -81,10 +81,10 @@ if (isset($_GET["id"])) {
     <link href="style.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
     <script src="Control.OSMGeocoder.js"></script>
     <link rel="stylesheet" href="Control.OSMGeocoder.css" />
@@ -146,7 +146,7 @@ if (isset($_GET["id"])) {
                                 <p class=" width-full">
                                     <label for="slcUsuario">Usuario que pidió la entrega</label>
                                     <br>
-                                    <select name="slcUsuario" id="slcUsuario">
+                                    <select name="slcUsuario" id="slcUsuario" disabled>
 
                                         <?php foreach ($usuarioLista as $u) { ?>
                                             <option value="<?= $u->id; ?>" <?php if ($entrega->usuario_id == $u->id) {
@@ -160,7 +160,7 @@ if (isset($_GET["id"])) {
                                 <p class=" width-full">
                                     <label for="slcVehiculo">Vehiculo a cargo</label>
                                     <br>
-                                    <select name="slcVehiculo" id="slcVehiculo">
+                                    <select name="slcVehiculo" id="slcVehiculo" disabled>
                                         <option value="0">Seleccione Vehiculo</option>
                                         <?php foreach ($vehiculoLista as $v) { ?>
                                             <option value="<?= $v->id; ?>" <?php if ($entrega->vehiculo_id == $v->id) {
@@ -174,7 +174,7 @@ if (isset($_GET["id"])) {
                                 <p class=" width-full">
                                     <label for="slcRuta">Ruta tomada</label>
                                     <br>
-                                    <select name="slcRuta" id="slcRuta">
+                                    <select name="slcRuta" id="slcRuta" disabled>
                                         <option value="0">Seleccione Ruta</option>
                                         <?php foreach ($rutaLista as $r) { ?>
                                             <option value="<?= $r->id; ?>" <?php if ($entrega->ruta_id == $r->id) {
@@ -188,7 +188,7 @@ if (isset($_GET["id"])) {
                                 <p class=" width-full">
                                     <label for="slcEstado">Estado</label>
                                     <br>
-                                    <select name="slcEstado" id="slcEstado">
+                                    <select name="slcEstado" id="slcEstado" disabled>
                                         <?php foreach ($estadoLista as $e) { ?>
                                             <option value="<?= $e->id; ?>" <?php if ($entrega->estado_id == $e->id) {
                                                                                 echo ' selected="selected"';
@@ -200,22 +200,22 @@ if (isset($_GET["id"])) {
 
                                 <p class=" width-full">
                                     <label for="txtdireccionEntregaNombre">Dirección de Entrega</label>
-                                    <input required type="text" name="txtdireccionEntregaNombre" id="txtdireccionEntregaNombre" placeholder="Nombre" maxlength="45" value="<?php echo $entrega->direccionEntregaNombre; ?>">
+                                    <input disabled required type="text" name="txtdireccionEntregaNombre" id="txtdireccionEntregaNombre" placeholder="Nombre" maxlength="45" value="<?php echo $entrega->direccionEntregaNombre; ?>">
                                 </p>
 
                                 <p class=" width-full">
                                     <label for="txtdireccionEntrega">Coordenadas de Entrega</label>
-                                    <input required type="text" name="txtdireccionEntrega" id="txtdireccionEntrega" placeholder="Latitud y longitud" maxlength="45" value="<?php echo $entrega->direccionEntrega; ?>">
+                                    <input disabled required type="text" name="txtdireccionEntrega" id="txtdireccionEntrega" placeholder="Latitud y longitud" maxlength="45" value="<?php echo $entrega->direccionEntrega; ?>">
                                 </p>
 
                                 <p class=" width-full">
                                     <label for="txtIndicaciones">Indicaciones</label>
-                                    <input required type="text" name="txtIndicaciones" id="txtIndicaciones" placeholder="Indicaciones" maxlength="45" value="<?php echo $entrega->indicaciones; ?>">
+                                    <input disabled required type="text" name="txtIndicaciones" id="txtIndicaciones" placeholder="Indicaciones" maxlength="45" value="<?php echo $entrega->indicaciones; ?>">
                                 </p>
 
                                 <p class=" width-full">
                                     <label for="txtNroDocumentoEntregado">N° Documento entregado (opcional)</label>
-                                    <input type="text" name="txtNroDocumentoEntregado" id="txtNroDocumentoEntregado" placeholder="N° 00000" maxlength="45" value="<?php echo $entrega->nroDocumentoEntregado; ?>">
+                                    <input disabled type="text" name="txtNroDocumentoEntregado" id="txtNroDocumentoEntregado" placeholder="N° 00000" maxlength="45" value="<?php echo $entrega->nroDocumentoEntregado; ?>">
                                 </p>
 
                                 <label for="txtFechaInicio">Fecha de inicio</label>
@@ -223,8 +223,8 @@ if (isset($_GET["id"])) {
                                     <?php
                                     list($fechaInicio, $horaInicio) = explode(" ", $entrega->fechaInicio);
                                     ?>
-                                    <input required type="date" name="txtFechaInicio" id="txtFechaInicio" placeholder="Fecha Inicio" value="<?= $fechaInicio; ?>">
-                                    <input required class="pull-right" type="time" name="txtHoraInicio" id="txtHoraInicio" value="<?= $horaInicio; ?>">
+                                    <input disabled required type="date" name="txtFechaInicio" id="txtFechaInicio" placeholder="Fecha Inicio" value="<?= $fechaInicio; ?>">
+                                    <input disabled required class="pull-right" type="time" name="txtHoraInicio" id="txtHoraInicio" value="<?= $horaInicio; ?>">
                                 </p>
 
                                 <label for="txtFechaEntrega">Fecha de Entrega</label>
@@ -232,14 +232,15 @@ if (isset($_GET["id"])) {
                                     <?php
                                     list($fechaEntregado, $horaEntregado) = explode(" ", $entrega->fechaEntregado);
                                     ?>
-                                    <input type="date" name="txtFechaEntrega" id="txtFechaEntrega" placeholder="Fecha Inicio" value="<?= $fechaEntregado; ?>">
-                                    <input class="pull-right" type="time" name="txtFechaEntrega" id="txtFechaEntrega" value="<?= $horaEntregado; ?>">
+                                    <input disabled type="date" name="txtFechaEntrega" id="txtFechaEntrega" placeholder="Fecha Entrega" value="<?= $fechaEntregado; ?>">
+                                    <input disabled class="pull-right" type="time" name="txtHoraEntrega" id="txtHoraEntrega" value="<?= $horaEntregado; ?>">
                                 </p>
 
 
 
 
-                                <button type="submit">Actualizar Datos</button>
+                                <button id="btnHabilitar" type="button">Habilitar Edición</button>
+                                <button hidden type="submit">Actualizar Datos</button>
                             </form>
 
                         </div>
@@ -289,6 +290,17 @@ if (isset($_GET["id"])) {
 
         echo "marker.addTo(demoMap);";
         ?>
+    </script>
+
+    <script>
+        $('#btnHabilitar').on('click', function() {
+            // $("input").prop('disabled', true);
+
+            $("button").prop('hidden', false);
+            $("input").prop('disabled', false);
+            $("select").prop('disabled', false);
+
+        });
     </script>
 
 
