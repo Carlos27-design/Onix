@@ -21,7 +21,7 @@ session_start();
     <meta name="keywords" content="Portfolio, Agency, Onepage, Html, Business, Blog, Parallax" />
 
     <!--====== TITLE TAG ======-->
-    <title>Marca</title>
+    <title>Bienvenido</title>
 
     <!--====== FAVICON ICON =======-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
