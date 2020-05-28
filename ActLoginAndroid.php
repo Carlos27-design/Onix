@@ -4,29 +4,25 @@ include_once 'DB/UsuarioDB.php';
 
 $json = file_get_contents('php://input');
 $obj = json_decode($json);
+
+$usuario = new Usuario();
+$usuarioDB = new UsuarioDB();
+
 $usuario = $obj->{'usuario'};
 
 list($rut, $password) = explode("-", $usuario);
-if(($rut && $password) !=null)
-{
-    $usuario = new Usuario();
-    $usuarioDB = new UsuarioDB();
-    try
-    {
-        
+if (($rut && $password) != null) {
+
+    try {
+
         $usua = $usuarioDB->login($rut, $password);
 
-        if($usua != null)
-        {
+        if ($usua != null) {
             $json = "Iniciado";
-        }
-        else
-        {
+        } else {
             $json = "Error en rut/password";
         }
-    }catch(Exception $ex)
-    {
-
+    } catch (Exception $ex) {
+        $json = $ex->getMessage();
     }
-    
 }

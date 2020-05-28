@@ -110,7 +110,7 @@ class UsuarioDB extends Conexion
         $this->conectar();
 
         $sql = "SELECT * from usuario where rut = ? AND contrasena = ?";
-        $stmt = $this->miConexion->prepare($sql);
+        $stmt = $this->miConexion->prepare($sql) or trigger_error($this->miConexion->error . "[$sql]");
         $stmt->bind_param("ss", $rut, $password);
         $stmt->execute();
         $resultados = $stmt->get_result();
