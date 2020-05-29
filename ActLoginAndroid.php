@@ -26,3 +26,4 @@ if (($rut && $password) != null) {
         $json = $ex->getMessage();
     }
 }
+$json = "vacio";
