@@ -1,8 +1,8 @@
 <?php
 $hostname_localhost = "localhost";
-$database_localhost = "id";
+$database_localhost = "onix";
 $username_localhost = "root";
-$password_localhost = "12345";
+$password_localhost = "password";
 
 $datos = array();
 
