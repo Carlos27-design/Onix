@@ -13,5 +13,5 @@ $resultado = mysqli_query($conexion, $consulta);
 while ($row = mysqli_fetch_row($resultado)) {
     $json[] = $row;
 }
-mysqli_close($conexion);
 echo json_encode($json);
+mysqli_close($conexion);
