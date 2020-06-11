@@ -45,6 +45,36 @@ class RutaDB extends Conexion
 
         return $arreglo;
     }
+    function reporte($fechaInicio, $fechaFin)
+    {
+
+        $devolver = array();
+        $this->conectar();
+
+        $sql = "select * from ruta where fechaInicio > ? AND fechaInicio < ?";
+        $stmt = $this->miConexion->prepare($sql) or trigger_error($this->miConexion->error . "[$sql]");
+        $stmt->bind_param("ss", $fechaInicio, $fechaFin);
+        $stmt->execute();
+        $resultados = $stmt->get_result();
+        while ($fila = $resultados->fetch_assoc()) {
+            $ruta = new Ruta();
+            $ruta->id = $fila['id'];
+            $ruta->direccionInicio = $fila['direccionInicio'];
+            $ruta->direccionFinal = $fila['direccionFinal'];
+            $ruta->distancia = $fila['distancia'];
+            $ruta->fechaInicio = $fila['fechaInicio'];
+            $ruta->fechaFin = $fila['fechaFin'];
+            $ruta->direccionInicioNombre = $fila['direccionInicioNombre'];
+            $ruta->direccionFinalNombre = $fila['direccionFinalNombre'];
+
+
+            $devolver[] = $ruta;
+        }
+
+        $this->desconectar();
+
+        return $devolver;
+    }
 
     function Buscar($id)
     {

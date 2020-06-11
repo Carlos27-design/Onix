@@ -1,3 +1,10 @@
+<?php
+session_start();
+$mensaje = "Crear cuenta nueva";
+$link = "IngresarNuevoUsuario.php";
+// IF SESSION IS ON USE NAV otherwise USE NAVBASIC
+
+?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -46,27 +53,27 @@
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <?php include 'nav.php' ?>
+    <?php include 'navBasic.php' ?>
 
-    <section class="about-area colorful-bg section-padding">
+    <section class="about-area section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
+                        <h1>Bienvenido a Onix</h1>
                         <h3>Iniciar Sesión</h3>
                         <form method="POST" class="quote-form" action="ActIniciarSesion.php">
                             <p class="width-full">
                                 <input type="text" name="txtRut" id="txtRut" placeholder="Ingrese su rut">
                             </p>
                             <p class="width-full">
-                                <input type="text" name="txtContrasena" id="txtContrasena" placeholder="Ingrese su contrasena">
+                                <input type="password" name="txtContrasena" id="txtContrasena" placeholder="Ingrese su contrasena">
                             </p>
                             <button type="submit" class="btn btn-success">Iniciar Sesion</button>
                         </form>
                     </div>
                 </div>
     </section>
-
 
 
 

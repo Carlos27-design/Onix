@@ -1,5 +1,11 @@
 <?php
 session_start();
+$mensaje = "Iniciar Sesión";
+$link = "index.php";
+// IF SESSION IS ON USE NAV otherwise USE NAVBASIC
+if ((isset($_SESSION['usuario']) && $_SESSION['usuario'])) {
+    header('Location: index.php');
+}
 
 ?>
 <!doctype html>
@@ -50,10 +56,10 @@ session_start();
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <?php include 'nav.php' ?>
+    <?php include "navBasic.php" ?>
 
     <!--ABOUT AREA-->
-    <section class="about-area colorful-bg section-padding">
+    <section class="about-area section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
@@ -90,6 +96,7 @@ session_start();
             </div>
         </div>
     </section>
+
 
     <!--ABOUT AREA END-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

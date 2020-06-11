@@ -50,6 +50,27 @@ class VehiculoDB extends Conexion
         return $arreglo;
     }
 
+    function promedioPrecios()
+    {
+
+        $devolver = null;
+        $this->conectar();
+
+        $sql = "select avg(precio) from vehiculo";
+        $stmt = $this->miConexion->prepare($sql);
+        $stmt->execute();
+        $resultados = $stmt->get_result();
+        while ($fila = $resultados->fetch_assoc()) {
+            $precio = $fila['avg(precio)'];
+
+
+            $devolver = $precio;
+        }
+
+        $this->desconectar();
+
+        return $devolver;
+    }
     function buscar($id)
     {
 

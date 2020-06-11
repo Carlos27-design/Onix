@@ -41,6 +41,7 @@ Version: 1.0
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,500i,700');
 
+
 .alignleft {
     float: left;
     margin-right: 15px;
@@ -108,6 +109,12 @@ body {
 }
 
 body {
+    background: url(img/slider/slide_3.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     line-height: 1.7em;
@@ -314,9 +321,6 @@ input:-webkit-autofill:focus {
     background: #f7f9fc;
 }
 
-.colorful-bg {
-    background: rgba(0, 0, 0, 0) url("img/slider/slide_3.jpg") no-repeat scroll center center / cover;
-}
 
 .deep-gray-bg {
     background: #eff1ff;
@@ -834,7 +838,8 @@ ul#nav li ul a,
     padding: 30px 20px;
 }
 
-.quote-form input {
+.quote-form input,
+select {
     margin-bottom: 10px;
 }
 

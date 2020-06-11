@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 include_once 'DB/Entrega.php';
 include_once 'DB/EntregaDB.php';
@@ -7,15 +7,6 @@ include_once 'DB/EntregaDB.php';
 $entregaDB = new EntregaDB();
 $entrega = new Entrega();
 
-$entregaLista  = $entregaDB->listar();
-
-include_once 'DB/Usuario.php';
-include_once 'DB/UsuarioDB.php';
-
-$usuario = new Usuario();
-$usuarioDB = new UsuarioDB();
-
-$listaUsuarios = $usuarioDB->listar();
 
 include_once 'DB/Estado.php';
 include_once 'DB/EstadoDB.php';
@@ -23,9 +14,22 @@ include_once 'DB/EstadoDB.php';
 $estado = new Estado();
 $estadoDB = new EstadoDB();
 
+include_once 'DB/Usuario.php';
+include_once 'DB/UsuarioDB.php';
+
+$usuario = new Usuario();
+$usuarioDB = new UsuarioDB();
+
+session_start();
+if (!(isset($_SESSION['usu']) && $_SESSION['usu'])) {
+    header('Location: IniciarSesion.php');
+} else {
+    $usuario = $_SESSION['usu'];
+    $entregaLista  = $entregaDB->listarMisEntregas($usuario->id);
+}
+
+
 $listaEstado = $estadoDB->listar();
-
-
 
 ?>
 
@@ -126,10 +130,8 @@ $listaEstado = $estadoDB->listar();
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Usuario</th>
                                     <th>Estado</th>
-                                    <th>Con <br> fletero</th>
-                                    <th>Dirección <br> de Entrega</th>
+                                    <th>Dirección de Entrega</th>
                                     <th>Fecha <br> Inicio</th>
                                     <th>Fecha <br>Entregado</th>
                                     <th>Administrar</th>
@@ -144,13 +146,6 @@ $listaEstado = $estadoDB->listar();
                                     <tr>
                                         <td><?php echo $e->id ?></td>
 
-                                        <?php
-                                        foreach ($listaUsuarios as $lu) {
-                                            if ($e->usuario_id == $lu->id) {
-                                                echo "<td>" . $lu->nombre . "</td>";
-                                            }
-                                        }
-                                        ?>
 
                                         <?php
                                         foreach ($listaEstado as $le) {
@@ -159,16 +154,7 @@ $listaEstado = $estadoDB->listar();
                                             }
                                         }
                                         ?>
-                                        <?php
-                                        switch ($e->vehiculo_id) {
-                                            case null:
-                                                echo ' <td><span>N</span><i class="fas fa-times"></i></td>';
-                                                break;
-                                            default:
-                                                echo ' <td><span>S</span><i class="fas fa-check"></i></td>';
-                                                break;
-                                        }
-                                        ?>
+
 
                                         <td><?= $e->direccionEntregaNombre ?></td>
                                         <td><?= substr($e->fechaInicio, 0, 10) ?></td>
@@ -176,7 +162,7 @@ $listaEstado = $estadoDB->listar();
 
                                         <td>
                                             <a title="Ver" href="EditarEntrega.php?id=<?php echo $e->id; ?>" class="btn"><i class="fas fa-eye"></i></a>
-                                            <a onclick="deleteRuta(<?php echo $e->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a>
+                                            <!-- <a onclick="deleteRuta(<?php echo $e->id; ?>)" title="Eliminar" class="btn"><i class="fas fa-trash-alt"></i></a> -->
                                         </td>
 
 

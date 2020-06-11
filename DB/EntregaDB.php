@@ -51,6 +51,36 @@ class EntregaDB extends Conexion
 
         return $arreglo;
     }
+    function listarMisEntregas($id)
+    {
+
+        $arreglo = array();
+        $this->conectar();
+
+        $sql = "SELECT * from entrega where usuario_id=" . $id;
+        $resultados = $this->miConexion->query($sql);
+        while ($fila = $resultados->fetch_assoc()) {
+            $entrega = new Entrega();
+            $entrega->id = $fila['id'];
+            $entrega->usuario_id = $fila['usuario_id'];
+            $entrega->vehiculo_id = $fila['vehiculo_id'];
+            $entrega->ruta_id = $fila['ruta_id'];
+            $entrega->estado_id = $fila['estado_id'];
+            $entrega->direccionEntrega = $fila['direccionEntrega'];
+            $entrega->nroDocumentoEntregado = $fila['nroDocumentoEntregado'];
+            $entrega->fechaInicio = $fila['fechaInicio'];
+            $entrega->fechaEntregado = $fila['fechaEntregado'];
+            $entrega->indicaciones = $fila['indicaciones'];
+            $entrega->direccionEntregaNombre = $fila['direccionEntregaNombre'];
+
+            $arreglo[] = $entrega;
+        }
+
+        $this->desconectar();
+
+        return $arreglo;
+    }
+
 
     function buscar($id)
     {
@@ -78,6 +108,70 @@ class EntregaDB extends Conexion
             $entrega->direccionEntregaNombre = $fila['direccionEntregaNombre'];
 
             $devolver = $entrega;
+        }
+
+        $this->desconectar();
+
+        return $devolver;
+    }
+    function reportePorVehiculo($id, $fechaInicio, $fechaFin)
+    {
+
+        $devolver = array();
+        $this->conectar();
+
+        $sql = "select * from entrega where vehiculo_id=? AND fechaInicio > ? AND fechaInicio < ?";
+        $stmt = $this->miConexion->prepare($sql) or trigger_error($this->miConexion->error . "[$sql]");
+        $stmt->bind_param("iss", $id, $fechaInicio, $fechaFin);
+        $stmt->execute();
+        $resultados = $stmt->get_result();
+        while ($fila = $resultados->fetch_assoc()) {
+            $entrega = new Entrega();
+            $entrega->id = $fila['id'];
+            $entrega->usuario_id = $fila['usuario_id'];
+            $entrega->vehiculo_id = $fila['vehiculo_id'];
+            $entrega->ruta_id = $fila['ruta_id'];
+            $entrega->estado_id = $fila['estado_id'];
+            $entrega->direccionEntrega = $fila['direccionEntrega'];
+            $entrega->nroDocumentoEntregado = $fila['nroDocumentoEntregado'];
+            $entrega->fechaInicio = $fila['fechaInicio'];
+            $entrega->fechaEntregado = $fila['fechaEntregado'];
+            $entrega->indicaciones = $fila['indicaciones'];
+            $entrega->direccionEntregaNombre = $fila['direccionEntregaNombre'];
+
+            $devolver[] = $entrega;
+        }
+
+        $this->desconectar();
+
+        return $devolver;
+    }
+    function reporteTodosVehiculos($fechaInicio, $fechaFin)
+    {
+
+        $devolver = array();
+        $this->conectar();
+
+        $sql = "select * from entrega where fechaInicio > ? AND fechaInicio < ?";
+        $stmt = $this->miConexion->prepare($sql) or trigger_error($this->miConexion->error . "[$sql]");
+        $stmt->bind_param("ss", $fechaInicio, $fechaFin);
+        $stmt->execute();
+        $resultados = $stmt->get_result();
+        while ($fila = $resultados->fetch_assoc()) {
+            $entrega = new Entrega();
+            $entrega->id = $fila['id'];
+            $entrega->usuario_id = $fila['usuario_id'];
+            $entrega->vehiculo_id = $fila['vehiculo_id'];
+            $entrega->ruta_id = $fila['ruta_id'];
+            $entrega->estado_id = $fila['estado_id'];
+            $entrega->direccionEntrega = $fila['direccionEntrega'];
+            $entrega->nroDocumentoEntregado = $fila['nroDocumentoEntregado'];
+            $entrega->fechaInicio = $fila['fechaInicio'];
+            $entrega->fechaEntregado = $fila['fechaEntregado'];
+            $entrega->indicaciones = $fila['indicaciones'];
+            $entrega->direccionEntregaNombre = $fila['direccionEntregaNombre'];
+
+            $devolver[] = $entrega;
         }
 
         $this->desconectar();

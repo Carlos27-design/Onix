@@ -93,7 +93,7 @@ $usuarioDB = new UsuarioDB();
 
                             </p>
                             <p class="width-full">
-                                <input required type="number" name="txtprecio" id="txtprecio" placeholder="Precio">
+                                <input required type="number" name="txtprecio" id="txtprecio" placeholder="Precio por viaje">
                             </p>
 
                             <p class="widht-full">

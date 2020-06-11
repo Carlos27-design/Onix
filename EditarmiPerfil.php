@@ -1,16 +1,18 @@
 <?php
-session_start();
 include_once 'DB/Usuario.php';
 include_once 'DB/UsuarioDB.php';
+session_start();
 
 $usuarioDB = new UsuarioDB();
 $usuario = new Usuario();
 
-$idUsuario = 0;
-if (isset($_GET["id"])) {
-    $idUsuario = $_GET["id"];
-    $usuario = $usuarioDB->buscar($idUsuario);
+
+if (!(isset($_SESSION['usu']) && $_SESSION['usu'])) {
+    header('Location: IniciarSesion.php');
+} else {
+    $usuario = $_SESSION['usu'];
 }
+
 
 ?>
 

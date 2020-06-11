@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-
+if (!(isset($_SESSION['usu']) && $_SESSION['usu'])) {
+    header('Location: IniciarSesion.php');
+}
 ?>
 
 <!doctype html>
@@ -55,46 +57,25 @@ session_start();
     <?php include 'nav.php' ?>
 
     <!--ABOUT AREA-->
-    <section class="about-area colorful-bg section-padding">
+    <section class="about-area  section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                     <div class="quote-form-area wow fadeIn">
                         <h1>Bienvenido a Onix</h1>
-                        <div class="row ">
-                            <a href="IniciarSesion.php" class="btnIr center-block">Haga clíck aquí para Iniciar Sesión</a>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <a href="IngresarNuevoUsuario.php" class="btnIr center-block">Haga clíck aquí para Registrarse</a>
-                        </div>
+
 
                     </div>
                 </div>
 
+            </div>
+            <div class="row">
             </div>
 
         </div>
     </section>
     <!--ABOUT AREA END-->
 
-    <style>
-        .btnIr {
-            background: #5d6b82 none repeat scroll 0 0;
-            border: 0 none;
-            color: #fff;
-            letter-spacing: 2px;
-            padding: 10px 20px;
-            text-transform: uppercase;
-            -webkit-transition: all 0.3s ease 0s;
-            transition: all 0.3s ease 0s;
-        }
-
-        .btnIr:hover {
-            background: #f39c12;
-            color: #fff;
-        }
-    </style>
 
     <!--====== SCRIPTS JS ======-->
     <script src="js/vendor/jquery-1.12.4.min.js"></script>

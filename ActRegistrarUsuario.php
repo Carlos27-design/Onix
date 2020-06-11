@@ -42,7 +42,7 @@ if (
         $usuario->contrasena = $txtContrasena;
         $usuario->correo = $txtCorreo;
         $usuario->nroTelefonico = $txtNroTelefonico;
-        $usuario->tipoUsuario_id = 1;
+        $usuario->tipoUsuario_id = 7; //Cliente normal
 
         $ok = $usuarioDB->crear($usuario);
     } else {

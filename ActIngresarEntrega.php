@@ -1,5 +1,9 @@
 <?php
-session_start();
+include_once 'DB/Usuario.php';
+include_once 'DB/UsuarioDB.php';
+
+$usuario = new Usuario();
+$usuarioDB = new UsuarioDB();
 
 include_once 'DB/Entrega.php';
 include_once 'DB/EntregaDB.php';
@@ -9,6 +13,16 @@ $entregaDB = new EntregaDB();
 
 $txtdireccionEntrega = null;
 $txtIndicaciones = null;
+
+
+session_start();
+
+if (!(isset($_SESSION['usu']) && $_SESSION['usu'])) {
+    header('Location: IniciarSesion.php');
+} else {
+    $usuario = $_SESSION['usu'];
+}
+
 
 $ok = null;
 $message = "";
@@ -23,8 +37,8 @@ if (
 
     if ($txtdireccionEntrega && $txtIndicaciones != "") {
         $entrega->id = 0;
-        $entrega->usuario_id = 1; //SACAR DE SESSION
-        $entrega->vehiculo_id = null;
+        $entrega->usuario_id = $usuario->id;
+        $entrega->vehiculo_id = null; //VEHICULO ESCOGE
         $entrega->ruta_id = null; //VEHICULO ESCOGE
         $entrega->estado_id = 1; //1 = EN PROCESO
         $entrega->direccionEntrega = $txtdireccionEntrega;

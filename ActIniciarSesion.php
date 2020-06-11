@@ -1,37 +1,29 @@
 <?php
 
-session_start();
-
 include_once 'DB/Usuario.php';
 include_once 'DB/UsuarioDB.php';
 
+session_start();
 $rut = null;
 $contrasena = null;
 
-if(isset($_POST['txtRut']) && isset($_POST['txtContrasena']))
-{
+if (isset($_POST['txtRut']) && isset($_POST['txtContrasena'])) {
     $rut = $_POST['txtRut'];
     $contrasena = $_POST['txtContrasena'];
 
-    if($rut && $contrasena != null)
-    {
+    if ($rut && $contrasena != null) {
         $usuario = new Usuario();
         $UsuarioDB = new UsuarioDB();
-        $usu = $UsuarioDB->login($rut, $contrasena);
-        
-        if($usu != null)
-        {
-            $_SESSION['usu'] = $usu;
+        $usuario = $UsuarioDB->login($rut, $contrasena);
+
+        if ($usuario != null) {
+            $_SESSION['usu'] = $usuario;
             header("Location: index.php");
-        }else
-        {
+        } else {
             $_SESSION['message'] = '<div class="alert alert-danger">Usuario no encontrado</div>';
             header("Location: index.php");
         }
-    }
-    else
-    {
+    } else {
         header("Location: index.php");
     }
-    
 }

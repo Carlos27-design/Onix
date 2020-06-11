@@ -116,9 +116,14 @@ class UsuarioDB extends Conexion
         $resultados = $stmt->get_result();
         while ($fila = $resultados->fetch_assoc()) {
             $usuario = new Usuario();
+            $usuario->id = $fila['id'];
             $usuario->rut = $fila['rut'];
+            $usuario->nombre = $fila['nombre'];
+            $usuario->apellido = $fila['apellido'];
             $usuario->contrasena = $fila['contrasena'];
-
+            $usuario->correo = $fila['correo'];
+            $usuario->nroTelefonico = $fila['nroTelefonico'];
+            $usuario->tipoUsuario_id = $fila['tipoUsuario_id'];
             $devolver = $usuario;
         }
 

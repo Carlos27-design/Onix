@@ -1,7 +1,7 @@
 <?php
 //DIBUJAR RUTA
 //https://www.youtube.com/watch?v=hRoiG4ZIzeM
-session_start();
+
 include_once 'DB/Entrega.php';
 include_once 'DB/EntregaDB.php';
 
@@ -43,12 +43,26 @@ $ruta = new Ruta();
 $rutaLista  = $rutaDB->listar();
 
 $idEntrega = 0;
-if (isset($_GET["id"])) {
-    $idEntrega = $_GET["id"];
-    $entrega = $entregaDB->buscar($idEntrega);
+
+
+session_start();
+if (!(isset($_SESSION['usu']) && $_SESSION['usu'])) {
+    header('Location: IniciarSesion.php');
 } else {
-    header("Location: listarEntrega.php");
+    $usuario = $_SESSION['usu'];
+    $entregaLista  = $entregaDB->listarMisEntregas($usuario->id);
+    if (isset($_GET["id"])) {
+        $idEntrega = $_GET["id"];
+        $entrega = $entregaDB->buscar($idEntrega);
+        if ($entrega->usuario_id != $usuario->id) {
+            header("Location: listarEntrega.php");
+        }
+    } else {
+        header("Location: listarEntrega.php");
+    }
 }
+
+
 
 ?>
 <html>
@@ -238,8 +252,10 @@ if (isset($_GET["id"])) {
 
 
 
+                                <?php if ($usuario->tipoUsuario_id != 7) : ?>
+                                    <button id="btnHabilitar" type="button">Habilitar Edición</button>
+                                <?php endif; ?>
 
-                                <button id="btnHabilitar" type="button">Habilitar Edición</button>
                                 <button hidden type="submit">Actualizar Datos</button>
                             </form>
 

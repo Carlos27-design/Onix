@@ -1,3 +1,26 @@
+<?php
+include_once 'DB/Vehiculo.php';
+include_once 'DB/VehiculoDB.php';
+
+$vehiculo = new Vehiculo();
+$vehiculoDB = new VehiculoDB();
+
+include_once 'DB/Usuario.php';
+include_once 'DB/UsuarioDB.php';
+
+$usuarioDB = new UsuarioDB();
+$usuario = new Usuario();
+
+session_start();
+if (!(isset($_SESSION['usu']) && $_SESSION['usu'])) {
+	header('Location: IniciarSesion.php');
+} else {
+	$usuario = $_SESSION['usu'];
+}
+$avg = ceil($vehiculoDB->promedioPrecios());
+
+
+?>
 <!DOCTYPE html>
 
 <head>
@@ -92,6 +115,9 @@
 								<p class=" width-full">
 									<label for="txtIndicaciones">Indicaciones de entrega</label>
 									<input required type="text" name="txtIndicaciones" id="txtIndicaciones" placeholder="Indicaciones de su direccion">
+								</p>
+								<p class=" width-full">
+									El promedio del precio de entrega es: $<?= $avg ?>
 								</p>
 								<button id="btnIngresar" type="submit">Ingresar Entrega</button>
 							</form>
